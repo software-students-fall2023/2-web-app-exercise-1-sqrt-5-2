@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from dotenv import load_dotenv
-from utils import register_user, login_user
+from utils import register_user, login_user, show_listings
 
 load_dotenv()
 
@@ -36,3 +36,8 @@ def login():
             return response
         except Exception as e:
             return render_template('auth/login.html', error=e)
+
+@app.route('/listings', methods = ['GET', 'POST'])
+def listings():
+    if request.method == 'GET':
+        return render_template('listings.html', listings_array = show_listings({}))

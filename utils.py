@@ -1,6 +1,5 @@
-from db import insert, find
+from db import insert, find, find_all
 from flask_bcrypt import Bcrypt
-
 
 def register_user(form_data):
     first_name = form_data.get('first_name')
@@ -28,7 +27,6 @@ def register_user(form_data):
         }
     )
 
-
 def login_user(form_data):
     result = find('users', {'email': form_data.get('email')})
     if not result:
@@ -38,3 +36,7 @@ def login_user(form_data):
         raise Exception('Incorrect password!')
 
     return result.get('_id')
+
+def show_listings(query):
+    return find_all('listings', query)
+
