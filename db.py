@@ -1,15 +1,15 @@
 import pymongo
 import datetime
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-MONGO_DB_HOST = os.getenv('MONGO_DB_HOST')
-MONGO_DB_PORT = int(os.getenv('MONGO_DB_PORT'))
-MONGO_DB_USERNAME = os.getenv('MONGO_DB_USERNAME')
-MONGO_DB_PASSWORD = os.getenv('MONGO_DB_PASSWORD')
-DATABASE_NAME = os.getenv('DATABASE_NAME')
+from flask import request
+from defaults import (
+    MONGO_DB_HOST,
+    MONGO_DB_PORT,
+    MONGO_DB_USERNAME,
+    MONGO_DB_PASSWORD,
+    DATABASE_NAME,
+    USER_COLLECTION_NAME,
+    LOGIN_COOKIE_NAME
+)
 
 # make a connection to the database server
 connection = pymongo.MongoClient(
@@ -36,3 +36,9 @@ def find(collection, query):
 
 def find_all(collection, query):
     return db[collection].find(query)
+
+def get_user_data(user_id):
+    return find(USER_COLLECTION_NAME, {'_id': user_id})
+
+def get_current_user_data():
+    return get_user_data(request.cookies.get(LOGIN_COOKIE_NAME))

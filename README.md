@@ -1,4 +1,4 @@
-# InfiLingo
+# FoodForward
 
 ## Team Members
 

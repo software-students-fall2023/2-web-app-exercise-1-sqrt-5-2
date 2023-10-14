@@ -1,32 +1,36 @@
-<html>
-    <head>
-        <title>InfiLingo | Listings</title>
-    </head>
-    <body>
-        {% include "components/navbar.html"%}
+{% extends 'layouts/layout.html' %}
 
-        {% if listings_array %}
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Distance</th>
-                    <th>Tags</th>
-                </tr>
+{% block title %}Listings{% endblock %}
+
+{% block content %}
+
+<div class="page-content">
+  <h1>Listings</h1>
+
+    {% if listings_array %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Distance</th>
+                <th>Tags</th>
+            </tr>
+
             {% for item in listings_array %}
             <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.location.coordinates}}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.location.coordinates }}</td>
                 <td>
                     {% for tag in item.tags %}
-                    <button>{{tag}}</button>
+                    <button>{{ tag }}</button>
                     {% endfor %}
                 </td>
             </tr>
             {% endfor %}
-            </table>
+        </table>
+    {% endif %}
+</div>
 
-        {% endif %}
-    </body>
-</html>
+{% endblock %}
+

@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html>
+{% extends 'layouts/layout.html' %}
 
-<head>
-  <title>InfiLingo</title>
-</head>
+{% block title %}Login{% endblock %}
 
-<body>
-  <h1>Welcome to InfiLingo</h1>
+{% block content %}
 
-  {% include "components/navbar.html" %}
-
-  <h2>Login</h2>
+<div class="page-content">
+  <h1>Login</h1>
 
   {% if error %}
-    <p style="color: red;">{{ error }}</p>
+  <p class="error">{{ error }}</p>
   {% endif %}
 
-  <form method="post" action="/login">
-    <input type="text" placeholder="Email" name="email" /><br>
-    <input type="password" placeholder="Password" name="password" /><br>
-    <input type="submit" value="Login" />
-  </form>
+</div>
 
-</body>
+<form method="post" action="{{ url_for('login') }}">
+  <input type="email" placeholder="Email" name="email" /><br>
+  <input type="password" placeholder="Password" name="password" /><br>
+  <input type="submit" value="Login" />
+</form>
 
-</html>
+{% endblock %}
