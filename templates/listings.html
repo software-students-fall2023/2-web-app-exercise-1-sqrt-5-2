@@ -20,13 +20,6 @@
             {% for item in listings_array %}
             <tr>
                 <td>{{ item.name }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.location.coordinates }}</td>
-                <td>
-                    {% for tag in item.tags %}
-                    <button>{{ tag }}</button>
-                    {% endfor %}
-                </td>
             </tr>
             {% endfor %}
         </table>

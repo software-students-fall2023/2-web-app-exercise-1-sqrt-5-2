@@ -2,7 +2,7 @@ from db import insert, find, find_all
 from flask_bcrypt import Bcrypt
 from flask import request, redirect, url_for
 from functools import wraps
-from defaults import LOGIN_COOKIE_NAME, USER_COLLECTION_NAME
+from defaults import LOGIN_COOKIE_NAME, USER_COLLECTION_NAME, LISTING_COLLECTION_NAME
 
 
 def requires_login(func):
@@ -54,3 +54,17 @@ def login_user(form_data):
 
 def show_listings(query):
     return find_all('listings', query)
+
+def add_listing(form_data):
+    
+    insert(
+        LISTING_COLLECTION_NAME,
+        {
+            'name': form_data.get('food-name'),
+            'quantity': form_data.get('quantity'),
+            'category': form_data.get('food-category'),
+            'expiry': form_data.get('expiration-date'),
+            'photo': form_data.get('food-photo'),
+            'comments' : form_data.get('food-comments')
+        }
+    )

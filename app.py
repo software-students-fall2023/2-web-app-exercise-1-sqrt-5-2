@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
-from utils import register_user, login_user, show_listings, requires_login
+from utils import register_user, login_user, show_listings, requires_login, add_listing
 from db import get_current_user_data
 from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME
 
@@ -49,6 +49,9 @@ def logout():
 def listings():
     if request.method == 'GET':
         return render_template('listings.html', listings_array=show_listings({}))
+    elif request.method == 'POST':
+        add_listing(request.form)
+        return redirect(url_for('listings'))
 
 @app.route('/additems', methods = ['GET'])
 @requires_login

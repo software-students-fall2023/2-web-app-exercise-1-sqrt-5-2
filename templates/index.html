@@ -5,17 +5,24 @@
 {% block content %}
 
 <div class="page-content">
-    <h1>Why Choose Us?</h1>
-    <p>FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe every
-        meal matters, and even the smallest actions can have a
-        significant impact when we all do our part. Join us on our journey towards zero food waste today!</p>
 
-    <h1>Get Started</h1>
-    <p>Join the FoodForward community by signing up or logging in, then start listing or purchasing available food
-        items.
-        It's that simple!</p>
-    <a href="{{ url_for('register') }}" class='button'>Register</a>
-    <a href="{{ url_for('login') }}" class='button'>Login</a>
+    {% if user %}
+        <h1>Recommended for You</h1>
+        <h1>Near You</h1>
+        <h1>Your Recent Pickups</h1>
+    {% else %}
+        <h1>Why Choose Us?</h1>
+        <p>FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe every
+            meal matters, and even the smallest actions can have a
+            significant impact when we all do our part. Join us on our journey towards zero food waste today!</p>
+
+        <h1>Get Started</h1>
+        <p>Join the FoodForward community by signing up or logging in, then start listing or purchasing available food
+            items.
+            It's that simple!</p>
+        <a href="{{ url_for('register') }}" class='button'>Register</a>
+        <a href="{{ url_for('login') }}" class='button'>Login</a>
+    {% endif %}
 
 </div>
 

@@ -1,6 +1,7 @@
 import pymongo
 import datetime
 from flask import request
+from bson.objectid import ObjectId
 from defaults import (
     MONGO_DB_HOST,
     MONGO_DB_PORT,
@@ -41,4 +42,5 @@ def get_user_data(user_id):
     return find(USER_COLLECTION_NAME, {'_id': user_id})
 
 def get_current_user_data():
-    return get_user_data(request.cookies.get(LOGIN_COOKIE_NAME))
+    return get_user_data(ObjectId(request.cookies.get(LOGIN_COOKIE_NAME)))
+    
