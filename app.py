@@ -49,3 +49,8 @@ def logout():
 def listings():
     if request.method == 'GET':
         return render_template('listings.html', listings_array=show_listings({}))
+
+@app.route('/additems', methods = ['GET'])
+@requires_login
+def additems():
+    return render_template('additems.html')
