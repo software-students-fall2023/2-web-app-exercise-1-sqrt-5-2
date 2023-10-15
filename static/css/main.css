@@ -61,6 +61,8 @@ nav .active {
 
 .page-content h1{
     margin: 1rem 0;
+    display: inline-block;
+    padding-right : 40px;
 }
 
 .error {
@@ -123,4 +125,104 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #ddd;
+}
+/* For the form element in the add items.css file */
+
+* Style the form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style form headings */
+.additem h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Style labels for input fields */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Style text input fields, email fields, and custom fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style radio buttons and checkboxes */
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style the select dropdown */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* Style the textarea */
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Apply some styling to focused form elements */
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #007BFF;
+}
+
+/* Style for error messages (optional) */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+#custom-category {
+    display: none; /* Initially hidden */
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
