@@ -9,9 +9,13 @@ body {
     font-size: 14px;
     line-height: 1.5;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-nav, footer {
+nav,
+footer {
     border: 1px solid #e7e7e7;
     background-color: #f3f3f3;
 }
@@ -32,11 +36,12 @@ nav ul {
     display: flex;
 }
 
-nav li, .logo {
+nav li,
+.logo {
     padding: 10px;
 }
 
-.logo{
+.logo {
     font-size: 20px;
     font-weight: bold;
 }
@@ -54,19 +59,25 @@ nav .active {
     text-decoration: underline;
 }
 
-.page-content{
+.page-content {
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.page-content h1{
+.page-content h1 {
     margin: 1rem 0;
     display: inline-block;
-    padding-right : 40px;
+    padding-right: 40px;
 }
 
 .error {
     background-color: #b20202;
+    color: white;
+    padding: 1rem;
+}
+
+.success{
+    background-color: #04AA6D;
     color: white;
     padding: 1rem;
 }
@@ -78,7 +89,9 @@ form {
     border-radius: 4px;
 }
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text],
+input[type=password],
+input[type=email] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -87,9 +100,10 @@ input[type=text], input[type=password], input[type=email] {
 }
 
 input[type=submit] {
-    background-color: #04AA6D;
+    background-color: #007BFF;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
@@ -97,15 +111,24 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    opacity:1;
+    opacity: 1;
+}
+
+label[required]:after {
+    content: " *";
+    color: red;
 }
 
 footer {
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    margin-top: auto;
+}
+
+hr {
+    border: 1px solid #e7e7e7;
+    margin: 1rem 0;
 }
 
 
@@ -114,7 +137,8 @@ table {
     width: 100%;
 }
 
-th, td {
+th,
+td {
     text-align: left;
     padding: 8px;
 }
@@ -126,103 +150,11 @@ tr:nth-child(even) {
 tr:hover {
     background-color: #ddd;
 }
-/* For the form element in the add items.css file */
 
-* Style the form container */
-.form-container {
-    max-width: 400px;
-    margin: 0 auto;
-    margin-bottom: 50px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Style form headings */
-.additem h1 {
-    text-align: center;
-    color: #333;
-}
-
-/* Style labels for input fields */
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333;
-}
-
-/* Style text input fields, email fields, and custom fields */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
 textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Style radio buttons and checkboxes */
-input[type="radio"],
-input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-/* Style the submit button */
-input[type="submit"] {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-/* Style the select dropdown */
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-/* Style the textarea */
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Apply some styling to focused form elements */
-input:focus, select:focus, textarea:focus {
-    border: 1px solid #007BFF;
-}
-
-/* Style for error messages (optional) */
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-#custom-category {
-    display: none; /* Initially hidden */
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }

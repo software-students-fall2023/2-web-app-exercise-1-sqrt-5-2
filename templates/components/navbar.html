@@ -5,7 +5,7 @@
 
   <ul>
     {% if request.cookies.get('session') %}
-      {% for ni in ['home', 'listings', 'logout'] %}
+      {% for ni in ['home', 'listings', 'profile', 'logout'] %}
         <li {%- if request.path == url_for(ni) %} class="active"{% endif %}><a href="{{ url_for(ni) }}">{{ ni | capitalize }}</a></li>
       {% endfor %}
     {% else %}

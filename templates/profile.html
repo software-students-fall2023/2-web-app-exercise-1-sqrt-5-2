@@ -1,0 +1,79 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/multiSelectTag.css">
+<script src="static/js/multiSelectTag.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-content">
+    <h1>Edit Profile</h1>
+
+    {% if message %}
+    <p class="success">{{ message }}</p>
+    {% endif %}
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('profile') }}" method="POST">
+        <label for="first_name" required="">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+
+        <label for="lastname" required="">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+
+        <label for="email" required="">Email</label>
+        <input type="text" id="email" name="email" value="{{ user.email }}" required>
+
+        <label for="phone_number" required="">Phone Number</label>
+        <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}" required>
+        
+        <label for="preferences">Preferences</label>
+        <select id="preferences" name="preferences" multiple>
+            {% for tag in tags %}
+                <option value="{{ tag.name }}" {% if tag.selected %}selected{% endif %}>{{ tag.name }}</option>
+            {% endfor %}
+        </select>
+
+        <h3 style="margin-top:1.5em;">Address</h3>
+
+        <label for="street" required="">Street</label>
+        <input type="text" id="street" name="street" value="{{ user.address.street }}" required>
+
+        <label for="city" required="">City</label>
+        <input type="text" id="city" name="city" value="{{ user.address.city }}" required>
+
+        <label for="state" required="">State</label>
+        <input type="text" id="state" name="state" value="{{ user.address.state }}" required>
+
+        <label for="zipcode" required="">Zipcode</label>
+        <input type="text" id="zipcode" name="zipcode" value="{{ user.address.zipcode }}" required>
+
+        <input type="submit" name="update_user_data" value="Save Changes">
+
+        <hr />
+        <h3>Change Password</h3>
+
+        <label for="password">Old Password</label>
+        <input type="password" id="old_password" name="old_password">
+
+        <label for="password">New Password</label>
+        <input type="password" id="password" name="password" minlength="8">
+
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" minlength="8">
+
+        <input type="submit" name="change_password" value="Submit">
+    </form>
+
+</div>
+
+<script>
+    new MultiSelectTag('preferences');
+</script>
+{% endblock %}

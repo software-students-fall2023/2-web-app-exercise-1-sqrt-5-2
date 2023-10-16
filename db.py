@@ -38,6 +38,9 @@ def find(collection, query):
 def find_all(collection, query):
     return db[collection].find(query)
 
+def update(collection, query, update):
+    return db[collection].update_one(query, update)
+
 def get_user_data(user_id):
     return find(USER_COLLECTION_NAME, {'_id': user_id})
 
