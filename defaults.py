@@ -8,6 +8,7 @@ ROOT_DIR = Path(__file__).parent
 TEMPLATES_DIR = ROOT_DIR / 'templates'
 STATIC_DIR = ROOT_DIR / 'static'
 DATA_DIR = STATIC_DIR / 'data'
+IMAGE_DIR = STATIC_DIR / 'images'
 
 MONGO_DB_HOST = os.getenv('MONGO_DB_HOST')
 MONGO_DB_PORT = int(os.getenv('MONGO_DB_PORT'))
@@ -19,5 +20,5 @@ LISTING_COLLECTION_NAME = 'listings'
 
 LOGIN_COOKIE_NAME = 'session'
 
-
-
+# food allergens
+ALLERGENS = ["Milk", "Eggs", "Fish", "Crustacean shellfish", "Tree nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]

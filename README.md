@@ -59,5 +59,5 @@ flask run --reload
 Run the following in the root directory to add filler data to the database:
 
 ```sh
-python -m srcipts.fill
+python -m scripts.fill
 ```

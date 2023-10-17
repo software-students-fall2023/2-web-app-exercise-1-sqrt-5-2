@@ -1,16 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from utils import (
+    requires_login,
+    redirect_if_logged_in,
     register_user,
     login_user,
     show_listings,
-    requires_login,
     add_listing,
     edit_profile,
     update_user_data,
     change_password,
-    get_user_preferences,
-    redirect_if_logged_in
+    get_tags,
+    get_allergens,
+    handle_post
 )
+from datetime import datetime
 from db import get_current_user_data
 from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME
 
@@ -58,6 +61,18 @@ def logout():
     return response
 
 
+@app.route('/profile', methods=['GET', 'POST'])
+@requires_login
+def profile():
+    if request.method == 'GET':
+        return render_template('profile.html', user=get_current_user_data(), tags=get_tags(user_preference=True))
+    elif request.method == 'POST':
+        if request.form.get('update_user_data'):
+            return edit_profile(request.form, update_user_data)
+        elif request.form.get('change_password'):
+            return edit_profile(request.form, change_password)
+
+
 @app.route('/listings', methods=['GET', 'POST'])
 @requires_login
 def listings():
@@ -68,19 +83,18 @@ def listings():
         return redirect(url_for('listings'))
 
 
-@app.route('/additems', methods=['GET'])
+@app.route('/add', methods=['GET', 'POST'])
 @requires_login
-def additems():
-    return render_template('additems.html')
-
-
-@app.route('/profile', methods=['GET', 'POST'])
-@requires_login
-def profile():
+def add():
     if request.method == 'GET':
-        return render_template('profile.html', user=get_current_user_data(), tags=get_user_preferences())
+        return render_template(
+            'add.html',
+            item={
+                'quantity': 1,
+                'expiry': datetime.now().strftime('%Y-%m-%d'),
+                'tags': get_tags(),
+                'allergens': get_allergens(),
+            }
+        )
     elif request.method == 'POST':
-        if request.form.get('update_user_data'):
-            return edit_profile(request.form, update_user_data)
-        elif request.form.get('change_password'):
-            return edit_profile(request.form, change_password)
+        return handle_post(request.form)

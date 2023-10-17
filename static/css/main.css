@@ -91,7 +91,10 @@ form {
 
 input[type=text],
 input[type=password],
-input[type=email] {
+input[type=email],
+input[type=file],
+input[type=number],
+input[type=date] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -157,4 +160,20 @@ textarea {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.price-input {
+    position: relative;
+}
+
+.dollar-sign {
+    font-size: medium;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-45%);
+}
+
+#price {
+    padding-left: 25px;
 }

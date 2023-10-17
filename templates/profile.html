@@ -35,12 +35,19 @@
         
         <label for="preferences">Preferences</label>
         <select id="preferences" name="preferences" multiple>
-            {% for tag in tags %}
-                <option value="{{ tag.name }}" {% if tag.selected %}selected{% endif %}>{{ tag.name }}</option>
+            {% for tag, selected in tags.items() %}
+                <option value="{{ tag }}" {% if selected %}selected{% endif %}>{{ tag }}</option>
             {% endfor %}
         </select>
 
-        <h3 style="margin-top:1.5em;">Address</h3>
+        <label for="allergens">Allergens</label>
+        <select id="allergens" name="allergens" multiple>
+            {% for allergen, selected in user.allergens.items() %}
+                <option value="{{ allergen }}" {% if selected %}selected{% endif %}>{{ allergen }}</option>
+            {% endfor %}
+        </select>   
+
+        <h3>Address</h3>
 
         <label for="street" required="">Street</label>
         <input type="text" id="street" name="street" value="{{ user.address.street }}" required>
@@ -75,5 +82,6 @@
 
 <script>
     new MultiSelectTag('preferences');
+    new MultiSelectTag('allergens');
 </script>
 {% endblock %}

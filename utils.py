@@ -2,7 +2,9 @@ from db import insert, find, find_all, get_current_user_data, update
 from flask_bcrypt import Bcrypt
 from flask import request, redirect, url_for, render_template
 from functools import wraps
-from defaults import LOGIN_COOKIE_NAME, USER_COLLECTION_NAME, LISTING_COLLECTION_NAME
+from defaults import LOGIN_COOKIE_NAME, USER_COLLECTION_NAME, LISTING_COLLECTION_NAME, ALLERGENS, IMAGE_DIR
+from datetime import datetime
+from werkzeug.utils import secure_filename
 
 
 def requires_login(func):
@@ -81,6 +83,7 @@ def register_user(form):
                 'zipcode': ""
             },
             'preferences': [],
+            'allergens': {allergen: False for allergen in ALLERGENS},
             'setup_complete': False
         }
     )
@@ -99,6 +102,10 @@ def login_user(form):
 @validate_unique('email')
 @validate_unique('phone_number')
 def update_user_data(form):
+    allergens = {allergen: False for allergen in ALLERGENS}
+    for allergen in form.getlist('allergens'):
+        allergens[allergen] = True
+
     update(
         USER_COLLECTION_NAME,
         {'_id': get_current_user_data().get('_id')},
@@ -115,11 +122,12 @@ def update_user_data(form):
                     'zipcode': form.get('zipcode')
                 },
                 'preferences': form.getlist('preferences'),
+                'allergens': allergens,
                 'setup_complete': all(form.values())
             }
         }
     )
-    return render_template('profile.html', user=get_current_user_data(), tags=get_user_preferences(), message='Profile updated successfully!')
+    return render_template('profile.html', user=get_current_user_data(), tags=get_tags(user_preference=True), message='Profile updated successfully!')
 
 
 @check_confirm_password
@@ -136,40 +144,100 @@ def change_password(form):
             }
         }
     )
-    return render_template('profile.html', user=get_current_user_data(), tags=get_user_preferences(), message='Password changed successfully!')
+    return render_template('profile.html', user=get_current_user_data(), tags=get_tags(user_preference=True), message='Password changed successfully!')
+
+
+def current_tags_and_allergens(tag_form_key='tags', allergen_form_key='allergens'):
+    tags = get_tags()
+    for tag in request.form.getlist(tag_form_key):
+        tags[tag] = True
+
+    allergens = get_allergens()
+    for allergen in request.form.getlist(allergen_form_key):
+        allergens[allergen] = True
+
+    return tags, allergens
 
 
 def edit_profile(form, func):
     try:
         return func(form)
     except Exception as e:
-        return render_template('profile.html', user=get_current_user_data(), tags=get_user_preferences(), error=e)
+        tags, allergens = current_tags_and_allergens(tag_form_key='preferences')
+
+        current_data = {
+            'first_name': form.get('first_name'),
+            'last_name': form.get('last_name'),
+            'email': form.get('email'),
+            'phone_number': form.get('phone_number'),
+            'address': {
+                'street': form.get('street'),
+                'city': form.get('city'),
+                'state': form.get('state'),
+                'zipcode': form.get('zipcode')
+            },
+            'allergens': allergens,
+        }
+        return render_template('profile.html', user=current_data, tags=tags, error=e)
 
 
-def get_user_preferences():
+def get_tags(user_preference=False):
     result = {tag: False for listing in find_all(
         LISTING_COLLECTION_NAME, {}) for tag in listing.get('tags', [])}
-    for tag in get_current_user_data().get('preferences'):
-        result[tag] = True
-    result = [{'name': tag, 'selected': selected}
-              for tag, selected in result.items()]
 
-    return sorted(result, key=lambda x: x.get('name'))
+    if user_preference:
+        for tag in get_current_user_data().get('preferences'):
+            result[tag] = True
+
+    return result
+
+
+def get_allergens():
+    return {allergen: False for allergen in ALLERGENS}
 
 
 def show_listings(query):
     return find_all('listings', query)
 
 
-def add_listing(form):
+def add_listing(form, allergens, image_path):
     insert(
         LISTING_COLLECTION_NAME,
         {
-            'name': form.get('food-name'),
-            'quantity': form.get('quantity'),
-            'category': form.get('food-category'),
-            'expiry': form.get('expiration-date'),
-            'photo': form.get('food-photo'),
-            'comments': form.get('food-comments')
+            'name': form.get('name'),
+            'quantity': int(form.get('quantity')),
+            'price': int(form.get('price')),
+            'expiry': form.get('expiry'),
+            'tags': form.getlist('tags'),
+            'allergens': allergens,
+            'photo': str(image_path),
+            'comments': form.get('comments').strip(),
+            'user_id': get_current_user_data().get('_id')
         }
     )
+
+
+def handle_post(form):
+    tags, allergens = current_tags_and_allergens()
+    try:
+        image = request.files['photo']
+        timestamp = datetime.now().strftime('%Y_%m_%d_%H-%M-%S.%f')
+        img_path = IMAGE_DIR / f'{timestamp}_{secure_filename(image.filename)}'
+        add_listing(form, allergens=allergens, image_path=img_path)
+        image.save(img_path)
+        return redirect(url_for('listings'))
+    except Exception as e:
+        return render_template(
+            'add.html',
+            item={
+                'name': form.get('name'),
+                'price': form.get('price'),
+                'quantity': form.get('quantity'),
+                'expiry': form.get('expiry'),
+                'tags': tags,
+                'photo': form.get('photo'),
+                'allergens': allergens,
+                'comments': form.get('comments').strip()
+            },
+            error=e
+        )
