@@ -64,10 +64,10 @@ nav .active {
     padding: 0 20px;
 }
 
-.page-content h1 {
+.page-content h1, a {
     margin: 1rem 0;
     display: inline-block;
-    padding-right: 40px;
+    padding-right: 20px;
 }
 
 .error {

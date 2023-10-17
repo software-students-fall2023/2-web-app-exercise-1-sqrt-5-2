@@ -98,3 +98,22 @@ def add():
         )
     elif request.method == 'POST':
         return handle_post(request.form)
+
+
+@app.route('/search', methods=['GET'])
+@requires_login
+def search():
+    query = request.args.get('query')
+    tag  = request.args.get('filterby')
+
+    if not (query and tag):
+        listings = {}
+    elif (tag == 'all' or tag == None) and query: 
+        listings = show_listings({ "$or": [ 
+            { 'name': { '$regex': query, '$options': 'i'} },
+            { 'tags': {'$regex': query, '$options': 'i'} } 
+            ]   })
+    else :
+        listings = show_listings({ tag : { '$regex': query, '$options': 'i'} })
+
+    return render_template('search.html', listings_array = listings)
