@@ -217,7 +217,6 @@ def add_listing(form, allergens, image_name):
         }
     )
 
-
 def handle_post(form):
     tags, allergens = current_tags_and_allergens()
     try:

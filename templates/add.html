@@ -53,6 +53,18 @@
             <textarea id="comments" name="comments" rows="4" cols="50">
                 {{ item.comments }}
             </textarea>
+
+            <label for="street" required="">Street</label>
+            <input type="text" id="street" name="street" value="{{ item.address.street }}" required>
+
+            <label for="city" required="">City</label>
+            <input type="text" id="city" name="city" value="{{ item.address.city }}" required>
+
+            <label for="state" required="">State</label>
+            <input type="text" id="state" name="state" value="{{ item.address.state }}" required>
+
+            <label for="zipcode" required="">Zipcode</label>
+            <input type="text" id="zipcode" name="zipcode" value="{{ item.address.zipcode }}" required>
             
             <input type="submit" value="Submit">
     </form>

@@ -23,7 +23,11 @@ app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 
 @app.route('/')
 def home():
-    return render_template('index.html', user=get_current_user_data())
+    user_data = get_current_user_data()
+    return render_template('index.html', item = {
+            'user' : user_data,
+            'listings': show_listings({'user_id': user_data['_id']})
+            })
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -95,6 +99,7 @@ def add():
                 'expiry': datetime.now().strftime('%Y-%m-%d'),
                 'tags': get_tags(),
                 'allergens': get_allergens(),
+                'address': get_current_user_data()['address']
             }
         )
     elif request.method == 'POST':

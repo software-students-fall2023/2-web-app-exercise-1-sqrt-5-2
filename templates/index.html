@@ -6,11 +6,30 @@
 
 <div class="page-content">
 
-    {% if user %}
+    {% if item.user %}
+
+        {% if item.listings %}
+
+        <h1> Your Listings </h1>  
+            <div class="card-grid">
+                {% for food in item.listings %}
+                    <div class="card">
+                        <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                        <h2>{{ food.name }}</h2>
+                        <p>$ {{ food.price }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <h1>Recommended for You</h1>
+        
         <h1>Near You</h1>
+
         <h1>Your Recent Pickups</h1>
+
     {% else %}
+
         <h1>Why Choose Us?</h1>
         <p>FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe every
             meal matters, and even the smallest actions can have a
