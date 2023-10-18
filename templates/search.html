@@ -1,0 +1,42 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}Search Food{% endblock %}
+
+{% block content %}
+
+
+<div class="searchBar">
+    <form action="/search" method="get">
+        <input type="text" name="query" placeholder="Search...">
+        <label for="filter">Filter by:</label>
+            <select name="filterby" id="filterby">
+                <option value="all">All</option>
+                <option value="name">Name</option>
+                <option value="tags">Tags</option>
+            </select>
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+{% if listings_array %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Distance</th>
+                <th>Tags</th>
+            </tr>
+
+            {% for item in listings_array %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td> {{ NONE }}</td>
+                {% for tag in item.tags %}
+                    <td> {{ tag }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
