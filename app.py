@@ -24,10 +24,13 @@ app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 @app.route('/')
 def home():
     user_data = get_current_user_data()
-    return render_template('index.html', item = {
-            'user' : user_data,
-            'listings': show_listings({'user_id': user_data['_id']})
-            })
+
+    if not user_data:
+        return render_template('index.html')
+    else:
+        return render_template(
+            'index.html', user=user_data, listings=list(show_listings({'user_id': user_data['_id']}))
+        )
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -127,10 +130,10 @@ def search():
 
     if query:
         q.update({"$or": [
-                {'name': {'$regex': query, '$options': 'i'}},
-                {'tags': {'$regex': query, '$options': 'i'}}
-            ]})
-        
+            {'name': {'$regex': query, '$options': 'i'}},
+            {'tags': {'$regex': query, '$options': 'i'}}
+        ]})
+
     listings = show_listings(q)
 
     if sort:

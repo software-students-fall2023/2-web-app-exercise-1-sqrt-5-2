@@ -6,13 +6,13 @@
 
 <div class="page-content">
 
-    {% if item.user %}
+    {% if user %}
 
-        {% if item.listings %}
+        {% if listings %}
 
         <h1> Your Listings </h1>  
             <div class="card-grid">
-                {% for food in item.listings %}
+                {% for food in listings %}
                     <div class="card">
                         <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
                         <h2>{{ food.name }}</h2>
