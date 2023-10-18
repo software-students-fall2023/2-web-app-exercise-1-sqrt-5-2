@@ -29,6 +29,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:00:02.565Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -65,6 +80,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:18:27.778Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -100,6 +130,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:20:01.823Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -135,6 +180,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:21:30.239Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -170,6 +230,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:23:06.329Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -204,6 +279,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:36:28.032Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -237,6 +327,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:38:34.633Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -270,6 +375,21 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:41:31.118Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 },
 {
@@ -302,5 +422,20 @@
   },
   "created_at": {
     "$date": "2023-10-18T01:43:26.393Z"
+  },
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 }]

@@ -1,4 +1,3 @@
-import json
 from db import drop_collection, db
 from bson.json_util import loads
 from defaults import DATA_DIR

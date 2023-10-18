@@ -13,7 +13,9 @@
     "state": "NY",
     "zipcode": "10003"
   },
-  "preferences": [],
+  "preferences": [
+    "Italian"
+  ],
   "allergens": {
     "Milk": false,
     "Eggs": false,
@@ -28,5 +30,14 @@
   "setup_complete": false,
   "created_at": {
     "$date": "2023-10-18T00:54:42.699Z"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      [
+        40.7334796,
+        -73.9880302
+      ]
+    ]
   }
 }]

@@ -5,6 +5,7 @@ from functools import wraps
 from defaults import LOGIN_COOKIE_NAME, USER_COLLECTION_NAME, LISTING_COLLECTION_NAME, ALLERGENS, IMAGE_DIR
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from geopy.geocoders import Nominatim
 
 
 def requires_login(func):
@@ -61,6 +62,19 @@ def check_password(hash, password):
         raise Exception('Incorrect password!')
 
 
+def get_longitude_latitude(street, city, state, zipcode):
+    try:
+        geolocator = Nominatim(user_agent="foodshare")
+        location = geolocator.geocode(f'{street}, {city}, {state} {zipcode}', timeout=200)
+        coordinates = [location.longitude, location.latitude]
+    except Exception as e:
+        coordinates = [0, 0]
+
+    return {
+        "type": "Point",
+        "coordinates": coordinates
+    }
+
 @validate_unique('email')
 @check_confirm_password
 def register_user(form):
@@ -81,6 +95,10 @@ def register_user(form):
                 'city': "",
                 'state': "",
                 'zipcode': ""
+            },
+            "location": {
+                "type": "Point",
+                "coordinates": [0, 0]
             },
             'preferences': [],
             'allergens': {allergen: False for allergen in ALLERGENS},
@@ -106,26 +124,27 @@ def update_user_data(form):
     for allergen in form.getlist('allergens'):
         allergens[allergen] = True
 
+    data = {
+        'first_name': form.get('first_name'),
+        'last_name': form.get('last_name'),
+        'email': form.get('email'),
+        'phone_number': form.get('phone_number'),
+        'address': {
+            'street': form.get('street'),
+            'city': form.get('city'),
+            'state': form.get('state'),
+            'zipcode': form.get('zipcode'),
+        },
+        'preferences': form.getlist('preferences'),
+        'allergens': allergens,
+        'setup_complete': all(form.values())
+    }
+    data['location'] = get_longitude_latitude(**data['address'])
+
     update(
         USER_COLLECTION_NAME,
         {'_id': get_current_user_data().get('_id')},
-        {
-            '$set': {
-                'first_name': form.get('first_name'),
-                'last_name': form.get('last_name'),
-                'email': form.get('email'),
-                'phone_number': form.get('phone_number'),
-                'address': {
-                    'street': form.get('street'),
-                    'city': form.get('city'),
-                    'state': form.get('state'),
-                    'zipcode': form.get('zipcode')
-                },
-                'preferences': form.getlist('preferences'),
-                'allergens': allergens,
-                'setup_complete': all(form.values())
-            }
-        }
+        {'$set': data}
     )
     return render_template('profile.html', user=get_current_user_data(), tags=get_tags(user_preference=True), message='Profile updated successfully!')
 
@@ -163,7 +182,8 @@ def edit_profile(form, func):
     try:
         return func(form)
     except Exception as e:
-        tags, allergens = current_tags_and_allergens(tag_form_key='preferences')
+        tags, allergens = current_tags_and_allergens(
+            tag_form_key='preferences')
 
         current_data = {
             'first_name': form.get('first_name'),
@@ -195,27 +215,36 @@ def get_tags(user_preference=False):
 def get_allergens():
     return {allergen: False for allergen in ALLERGENS}
 
+
 def show_listings(query):
     return find_all('listings', query)
 
-def show_sorted_listings(field, query, order = 1):
+
+def show_sorted_listings(field, query, order=1):
     return sort(LISTING_COLLECTION_NAME, field, query, order)
 
+
 def add_listing(form, allergens, image_name):
-    insert(
-        LISTING_COLLECTION_NAME,
-        {
-            'name': form.get('name'),
-            'quantity': int(form.get('quantity')),
-            'price': int(form.get('price')),
-            'expiry': form.get('expiry'),
-            'tags': form.getlist('tags'),
-            'allergens': allergens,
-            'photo': str(image_name),
-            'comments': form.get('comments').strip(),
-            'user_id': get_current_user_data().get('_id')
-        }
-    )
+    data = {
+        'name': form.get('name'),
+        'quantity': int(form.get('quantity')),
+        'price': int(form.get('price')),
+        'expiry': form.get('expiry'),
+        'tags': form.getlist('tags'),
+        'allergens': allergens,
+        'photo': str(image_name),
+        'comments': form.get('comments').strip(),
+        'user_id': get_current_user_data().get('_id'),
+        'address': {
+            'street': form.get('street'),
+            'city': form.get('city'),
+            'state': form.get('state'),
+            'zipcode': form.get('zipcode')
+        },
+    }
+    data['location'] = get_longitude_latitude(**data['address'])
+
+    insert(LISTING_COLLECTION_NAME, data)
 
 def handle_post(form):
     tags, allergens = current_tags_and_allergens()
@@ -236,7 +265,13 @@ def handle_post(form):
                 'expiry': form.get('expiry'),
                 'tags': tags,
                 'allergens': allergens,
-                'comments': form.get('comments').strip()
+                'comments': form.get('comments').strip(),
+                'address': {
+                    'street': form.get('street'),
+                    'city': form.get('city'),
+                    'state': form.get('state'),
+                    'zipcode': form.get('zipcode')
+                }
             },
             error=e
         )
