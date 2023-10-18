@@ -174,7 +174,7 @@ textarea {
     transform: translateY(-45%);
 }
 
-#price {
+.price-input #price {
     padding-left: 25px;
 }
 

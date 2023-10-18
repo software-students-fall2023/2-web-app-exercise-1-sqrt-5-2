@@ -46,6 +46,8 @@ def find(collection, query):
 def find_all(collection, query):
     return db[collection].find(query)
 
+def sort(collection, field, query, order = 1):
+    return db[collection].find(query).sort(field, order)
 
 def update(collection, query, update):
     return db[collection].update_one(query, update)

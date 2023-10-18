@@ -1,4 +1,4 @@
-from db import insert, find, find_all, get_current_user_data, update
+from db import insert, find, find_all, get_current_user_data, update, sort
 from flask_bcrypt import Bcrypt
 from flask import request, redirect, url_for, render_template
 from functools import wraps
@@ -195,10 +195,11 @@ def get_tags(user_preference=False):
 def get_allergens():
     return {allergen: False for allergen in ALLERGENS}
 
-
 def show_listings(query):
     return find_all('listings', query)
 
+def show_sorted_listings(field, query, order = 1):
+    return sort(LISTING_COLLECTION_NAME, field, query, order)
 
 def add_listing(form, allergens, image_name):
     insert(

@@ -22,3 +22,26 @@ LOGIN_COOKIE_NAME = 'session'
 
 # food allergens
 ALLERGENS = ["Milk", "Eggs", "Fish", "Crustacean shellfish", "Tree nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]
+
+SORT_FUNCTION_FIELDS = {
+    'newest' : 'date',
+    'priceLH' : 'price',
+    'priceHL' : 'price'
+}
+
+SORT_FUNCTION_ORDER = {
+    'newest' : 1,
+    'priceLH' : 1,
+    'priceHL' : -1
+}
+
+FILTER_FUNCTION_FIELDS = {
+    '_5' : {'$lt' : 5},
+    '5_10': {'$gte' : 5,
+             '$lt' : 10},
+    '10_15': {'$gte' : 10,
+             '$lt' : 15},
+    '15_20': {'$gte' : 15,
+             '$lt' : 20},
+    '20_' : {'$gte' : 5},
+}

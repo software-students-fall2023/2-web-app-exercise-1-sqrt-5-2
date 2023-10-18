@@ -11,11 +11,12 @@ from utils import (
     change_password,
     get_tags,
     get_allergens,
-    handle_post
+    handle_post,
+    show_sorted_listings
 )
 from datetime import datetime
 from db import get_current_user_data
-from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR
+from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS
 
 app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 
@@ -109,16 +110,25 @@ def serve_images(img_name):
 @requires_login
 def search():
     query = request.args.get('query')
-    tag = request.args.get('filterby')
+    price = request.args.get('price')
+    sort = request.args.get('sortby')
 
-    if not (query and tag):
-        listings = {}
-    elif (tag == 'all' or tag == None) and query:
-        listings = show_listings({"$or": [
-            {'name': {'$regex': query, '$options': 'i'}},
-            {'tags': {'$regex': query, '$options': 'i'}}
-        ]})
-    else:
-        listings = show_listings({tag: {'$regex': query, '$options': 'i'}})
+    q = {}
 
-    return render_template('search.html', listings_array=listings)
+    price_search_query = FILTER_FUNCTION_FIELDS.get(price, None)
+
+    if price_search_query:
+        q.update({'price': price_search_query})
+
+    if query:
+        q.update({"$or": [
+                {'name': {'$regex': query, '$options': 'i'}},
+                {'tags': {'$regex': query, '$options': 'i'}}
+            ]})
+        
+    listings = show_listings(q)
+
+    if sort:
+        listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
+
+    return render_template('search.html', listings=listings)
