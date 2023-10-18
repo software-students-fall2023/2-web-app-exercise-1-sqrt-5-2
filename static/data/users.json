@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "first_name": "Furry",
+  "last_name": "Pig",
+  "email": "furrypig@nyu.edu",
+  "password": "$2b$12$TWsqeyO2AXyPKDOVDR6LpOpkIF.ROPGJFiAGZNSbBq3xzBBKL8PGG",
+  "phone_number": "+1 (929) 407-8972",
+  "address": {
+    "street": "140 E 14th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "preferences": [],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": true,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": false,
+  "created_at": {
+    "$date": "2023-10-18T00:54:42.699Z"
+  }
+}]

@@ -42,7 +42,7 @@ nav li,
 }
 
 .logo {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -64,10 +64,10 @@ nav .active {
     padding: 0 20px;
 }
 
-.page-content h1, a {
+.page-content h1 {
     margin: 1rem 0;
     display: inline-block;
-    padding-right: 20px;
+    padding-right: 40px;
 }
 
 .error {
@@ -76,7 +76,7 @@ nav .active {
     padding: 1rem;
 }
 
-.success{
+.success {
     background-color: #04AA6D;
     color: white;
     padding: 1rem;
@@ -176,4 +176,21 @@ textarea {
 
 #price {
     padding-left: 25px;
+}
+
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card-grid .card {
+    flex: 0 0 calc(50% - 10px);
+    margin-bottom: 20px;
+}
+
+.card-grid .card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }

@@ -200,7 +200,7 @@ def show_listings(query):
     return find_all('listings', query)
 
 
-def add_listing(form, allergens, image_path):
+def add_listing(form, allergens, image_name):
     insert(
         LISTING_COLLECTION_NAME,
         {
@@ -210,7 +210,7 @@ def add_listing(form, allergens, image_path):
             'expiry': form.get('expiry'),
             'tags': form.getlist('tags'),
             'allergens': allergens,
-            'photo': str(image_path),
+            'photo': str(image_name),
             'comments': form.get('comments').strip(),
             'user_id': get_current_user_data().get('_id')
         }
@@ -222,9 +222,9 @@ def handle_post(form):
     try:
         image = request.files['photo']
         timestamp = datetime.now().strftime('%Y_%m_%d_%H-%M-%S.%f')
-        img_path = IMAGE_DIR / f'{timestamp}_{secure_filename(image.filename)}'
-        add_listing(form, allergens=allergens, image_path=img_path)
-        image.save(img_path)
+        image_name = f'{timestamp}_{secure_filename(image.filename)}'
+        add_listing(form, allergens=allergens, image_name=image_name)
+        image.save(IMAGE_DIR / image_name)
         return redirect(url_for('listings'))
     except Exception as e:
         return render_template(
@@ -235,7 +235,6 @@ def handle_post(form):
                 'quantity': form.get('quantity'),
                 'expiry': form.get('expiry'),
                 'tags': tags,
-                'photo': form.get('photo'),
                 'allergens': allergens,
                 'comments': form.get('comments').strip()
             },

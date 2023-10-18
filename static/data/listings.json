@@ -1,202 +1,306 @@
-[
-    {
-      "name": "Margherita Pizza",
-      "quantity": 3,
-      "tags": ["pizza", "Italian", "vegetarian"],
-      "price": 12.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [40.7128, -74.0060]
-      }
-    },
-    {
-      "name": "Sushi Platter",
-      "quantity": 1,
-      "tags": ["sushi", "Japanese", "seafood"],
-      "price": 19.95,
-      "location": {
-        "type": "Point",
-        "coordinates": [37.7749, -122.4194]
-      }
-    },
-    {
-      "name": "Chicken Tikka Masala",
-      "quantity": 2,
-      "tags": ["Indian", "chicken", "curry"],
-      "price": 11.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [45.5122, -122.6587]
-      }
-    },
-    {
-      "name": "Caesar Salad",
-      "quantity": 6,
-      "tags": ["salad", "vegetarian", "healthy"],
-      "price": 5.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [33.7175, -117.8311]
-      }
-    },
-    {
-      "name": "BBQ Ribs",
-      "quantity": 2,
-      "tags": ["ribs", "barbecue", "meat"],
-      "price": 15.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [41.8781, -87.6298]
-      }
-    },
-    {
-      "name": "Shrimp Scampi",
-      "quantity": 3,
-      "tags": ["shrimp", "pasta", "Italian"],
-      "price": 14.49,
-      "location": {
-        "type": "Point",
-        "coordinates": [34.0522, -118.2437]
-      }
-    },
-    {
-      "name": "Vegetable Curry",
-      "quantity": 4,
-      "tags": ["vegetarian", "curry", "spicy"],
-      "price": 10.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [37.7749, -122.4194]
-      }
-    },
-    {
-      "name": "Fish and Chips",
-      "quantity": 2,
-      "tags": ["fish", "chips", "British"],
-      "price": 9.95,
-      "location": {
-        "type": "Point",
-        "coordinates": [40.7128, -74.0060]
-      }
-    },
-    {
-      "name": "Bacon Cheeseburger",
-      "quantity": 5,
-      "tags": ["burger", "bacon", "fast food"],
-      "price": 7.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [34.0522, -118.2437]
-      }
-    },
-    {
-      "name": "Mushroom Risotto",
-      "quantity": 2,
-      "tags": ["risotto", "vegetarian", "Italian"],
-      "price": 10.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [45.5122, -122.6587]
-      }
-    },
-    {
-      "name": "Pad Thai",
-      "quantity": 3,
-      "tags": ["noodles", "Thai", "spicy"],
-      "price": 11.95,
-      "location": {
-        "type": "Point",
-        "coordinates": [33.7175, -117.8311]
-      }
-    },
-    {
-      "name": "Chicken Alfredo",
-      "quantity": 4,
-      "tags": ["pasta", "chicken", "creamy"],
-      "price": 13.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [34.0522, -118.2437]
-      }
-    },
-    {
-      "name": "Tandoori Chicken",
-      "quantity": 2,
-      "tags": ["Indian", "tandoori", "spicy"],
-      "price": 12.49,
-      "location": {
-        "type": "Point",
-        "coordinates": [40.7128, -74.0060]
-      }
-    },
-    {
-      "name": "Gourmet Mac and Cheese",
-      "quantity": 3,
-      "tags": ["mac and cheese", "comfort food", "cheesy"],
-      "price": 8.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [41.8781, -87.6298]
-      }
-    },
-    {
-      "name": "Tiramisu",
-      "quantity": 2,
-      "tags": ["dessert", "Italian", "coffee"],
-      "price": 6.49,
-      "location": {
-        "type": "Point",
-        "coordinates": [37.7749, -122.4194]
-      }
-    },
-    {
-      "name": "Pho Noodle Soup",
-      "quantity": 3,
-      "tags": ["Vietnamese", "noodles", "soup"],
-      "price": 9.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [45.5122, -122.6587]
-      }
-    },
-    {
-      "name": "Gyros Platter",
-      "quantity": 2,
-      "tags": ["Greek", "gyros", "Mediterranean"],
-      "price": 12.95,
-      "location": {
-        "type": "Point",
-        "coordinates": [33.7175, -117.8311]
-      }
-    },
-    {
-      "name": "Lobster Bisque",
-      "quantity": 1,
-      "tags": ["soup", "seafood", "creamy"],
-      "price": 16.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [34.0522, -118.2437]
-      }
-    },
-    {
-      "name": "Tuna Poke Bowl",
-      "quantity": 2,
-      "tags": ["poke", "seafood", "Hawaiian"],
-      "price": 14.95,
-      "location": {
-        "type": "Point",
-        "coordinates": [40.7128, -74.0060]
-      }
-    },
-    {
-      "name": "Beef and Broccoli Stir-Fry",
-      "quantity": 3,
-      "tags": ["stir-fry", "beef", "Asian"],
-      "price": 10.99,
-      "location": {
-        "type": "Point",
-        "coordinates": [41.8781, -87.6298]
-      }
-    }
-]
+[{
+  "_id": {
+    "$oid": "652f6652ab3d72a7f7c46ddf"
+  },
+  "name": "Margherita Pizza",
+  "quantity": 1,
+  "price": 10,
+  "expiry": "2023-10-18",
+  "tags": [
+    "pizza",
+    "Italian",
+    "vegetarian"
+  ],
+  "allergens": {
+    "Milk": true,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": true,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-00-02.563315_margherita-pizza.jpg",
+  "comments": "Freshly baked. Traditional Italian recipe.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:00:02.565Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f6aa3881aca2ee610ae6d"
+  },
+  "name": "Sushi Platter",
+  "quantity": 2,
+  "price": 19.99,
+  "expiry": "2023-10-18",
+  "tags": [
+    "sushi",
+    "Japanese",
+    "seafood",
+    "Rice",
+    "Avocado", 
+    "Wasabi"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": true,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": true,
+    "Sesame": true
+  },
+  "photo": "2023_10_18_01-18-27.777710_sushi.jpg",
+  "comments": "Comes with soy sauce, pickled ginger and wasabi.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:18:27.778Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f6b01881aca2ee610ae6e"
+  },
+  "name": "Chicken Tikka Masala",
+  "quantity": 4,
+  "price": 12,
+  "expiry": "2023-10-18",
+  "tags": [
+    "Indian",
+    "chicken",
+    "curry",
+    "spicy",
+    "grill"
+  ],
+  "allergens": {
+    "Milk": true,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-20-01.822965_chicken_tikka_masala.jpg",
+  "comments": "Accompanied with basmati rice and courtesy garlic naan.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:20:01.823Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f6b5a881aca2ee610ae6f"
+  },
+  "name": "Caesar Salad",
+  "quantity": 5,
+  "price": 8.5,
+  "expiry": "2023-10-18",
+  "tags": [
+    "vegetarian",
+    "salad",
+    "healthy",
+    "cheese",
+    "lettuce"
+  ],
+  "allergens": {
+    "Milk": true,
+    "Eggs": true,
+    "Fish": true,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-21-30.238355_caesar_salad.jpg",
+  "comments": "Dressing is packed separately.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:21:30.239Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f6bba881aca2ee610ae70"
+  },
+  "name": "Fish and Chips",
+  "quantity": 1,
+  "price": 12.50,
+  "expiry": "2023-10-18",
+  "tags": [
+    "fish",
+    "chips",
+    "British",
+    "Cod",
+    "Fried"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": true,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": true,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-23-06.328393_fish_and_chips.jpg",
+  "comments": " Includes tartare sauce and mushy peas.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:23:06.329Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f6edc881aca2ee610ae71"
+  },
+  "name": "Organic Soy Milk",
+  "quantity": 7,
+  "price": 5,
+  "expiry": "2023-10-18",
+  "tags": [
+    "Beverage",
+    "organic",
+    "dairy",
+    "vegetarian"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": true,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-36-28.031153_soy_milk.webp",
+  "comments": "Long shelf life.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:36:28.032Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f6f5a881aca2ee610ae72"
+  },
+  "name": "Traditional French Baguettes",
+  "quantity": 4,
+  "price": 10,
+  "expiry": "2023-10-18",
+  "tags": [
+    "bread",
+    "French",
+    "baked"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": true,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-38-34.632787_Classic-Crusty-French-Baguettes-3.jpg",
+  "comments": "Crispy crust with a soft inside. Baked today.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:38:34.633Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f700b881aca2ee610ae73"
+  },
+  "name": "Homemade Seafood Paella",
+  "quantity": 3,
+  "price": 15,
+  "expiry": "2023-10-18",
+  "tags": [
+    "seafood",
+    "Spanish",
+    "rice"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": true,
+    "Crustacean shellfish": true,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-41-31.117572_seafood_paella.jpg",
+  "comments": "Freshly cooked, contains shellfish.",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:41:31.118Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "652f707e881aca2ee610ae74"
+  },
+  "name": "Betty's Extra Chilli Sauce",
+  "quantity": 2,
+  "price": 5,
+  "expiry": "2023-10-18",
+  "tags": [
+    "Vegan",
+    "spicy"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "photo": "2023_10_18_01-43-26.392757_Sweet-Chilli-Sauce.jpg",
+  "comments": "Vegan-friendly",
+  "user_id": {
+    "$oid": "652f65129263681f604a211c"
+  },
+  "created_at": {
+    "$date": "2023-10-18T01:43:26.393Z"
+  }
+}]

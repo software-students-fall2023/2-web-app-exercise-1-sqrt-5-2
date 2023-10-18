@@ -24,9 +24,9 @@
             <input type="number" id="quantity" name="quantity" value="{{ item.quantity }}" required min="1">
 
             <div class="price-input">
-                <label for="price" required="">Price (per unit)</label>
+                <label for="price" required="">Price</label>
                 <span class="dollar-sign">$</span>
-                <input type="number" id="price" name="price" value="{{ item.price }}" required min="0">
+                <input type="number" id="price" name="price" value="{{ item.price }}" required min="0" step=".01">
             </div>
 
             <label for="expiry" required="">Expiration Date</label>

@@ -5,27 +5,20 @@
 {% block content %}
 
 <div class="page-content">
-  <h1>Listings</h1>
-  <a href="{{url_for('add')}}">Add Listing</a>
-  <a href="{{url_for('search')}}">Search Food</a>
+    <h1>Listings</h1>
+    <a href="{{url_for('add')}}">Add Listing</a>
+    <a href="{{url_for('search')}}">Search Food</a>
 
-    {% if listings_array %}
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Distance</th>
-                <th>Tags</th>
-            </tr>
+    <div class="card-grid">
+        {% for food in listings %}
+            <div class="card">
+                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                <h2>{{ food.name }}</h2>
+                <p>$ {{ food.price }}</p>
+            </div>
+        {% endfor %}
+    </div>
 
-            {% for item in listings_array %}
-            <tr>
-                <td>{{ item.name }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
 </div>
 
 {% endblock %}
-

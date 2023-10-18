@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, send_from_directory
 from utils import (
     requires_login,
     redirect_if_logged_in,
@@ -15,7 +15,7 @@ from utils import (
 )
 from datetime import datetime
 from db import get_current_user_data
-from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME
+from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR
 
 app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 
@@ -77,7 +77,7 @@ def profile():
 @requires_login
 def listings():
     if request.method == 'GET':
-        return render_template('listings.html', listings_array=show_listings({}))
+        return render_template('listings.html', listings=show_listings({}))
     elif request.method == 'POST':
         add_listing(request.form)
         return redirect(url_for('listings'))
@@ -100,20 +100,25 @@ def add():
         return handle_post(request.form)
 
 
+@app.route('/images/<img_name>')
+def serve_images(img_name):
+    return send_from_directory(IMAGE_DIR, img_name)
+
+
 @app.route('/search', methods=['GET'])
 @requires_login
 def search():
     query = request.args.get('query')
-    tag  = request.args.get('filterby')
+    tag = request.args.get('filterby')
 
     if not (query and tag):
         listings = {}
-    elif (tag == 'all' or tag == None) and query: 
-        listings = show_listings({ "$or": [ 
-            { 'name': { '$regex': query, '$options': 'i'} },
-            { 'tags': {'$regex': query, '$options': 'i'} } 
-            ]   })
-    else :
-        listings = show_listings({ tag : { '$regex': query, '$options': 'i'} })
+    elif (tag == 'all' or tag == None) and query:
+        listings = show_listings({"$or": [
+            {'name': {'$regex': query, '$options': 'i'}},
+            {'tags': {'$regex': query, '$options': 'i'}}
+        ]})
+    else:
+        listings = show_listings({tag: {'$regex': query, '$options': 'i'}})
 
-    return render_template('search.html', listings_array = listings)
+    return render_template('search.html', listings_array=listings)
