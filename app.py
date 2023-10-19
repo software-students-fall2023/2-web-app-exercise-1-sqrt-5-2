@@ -15,8 +15,9 @@ from utils import (
     show_sorted_listings
 )
 from datetime import datetime
-from db import get_current_user_data
+from db import get_current_user_data, find
 from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS
+from bson.objectid import ObjectId
 
 app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 
@@ -90,6 +91,21 @@ def listings():
         add_listing(request.form)
         return redirect(url_for('listings'))
 
+@app.route('/listings/<listing_id>', methods=['GET'])
+@requires_login
+def foodDisplay(listing_id):
+    food = find('listings', {'_id': ObjectId(listing_id)})
+    tags = food['tags']
+    print(tags)
+
+    # For now, just show all listings with the same tags to recommend similar food.
+    # TODO: remove the original from the other tag that
+    # Work on the CSS and HTML to make it look better
+    other = show_listings({
+        'tags': { '$in': tags }
+        })
+    
+    return render_template('eachFood.html', food = food, other = other )
 
 @app.route('/add', methods=['GET', 'POST'])
 @requires_login
