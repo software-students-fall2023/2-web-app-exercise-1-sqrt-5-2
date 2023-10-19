@@ -12,9 +12,7 @@ from utils import (
     get_tags,
     get_allergens,
     handle_post,
-    handle_edit,
-    get_nearest_locations,
-    get_current_location
+    handle_edit
 )
 
 from bson.objectid import ObjectId
@@ -114,11 +112,17 @@ def listings():
 @app.route('/listings/<listing_id>')
 def display_details(listing_id):
     user_data = get_current_user_data()
+
+    # get food that have the same tags as the current food.
+    tags = list(show_listings({'_id' : ObjectId(listing_id)}))[0]['tags']
+    similar_food = [food for food in show_listings({'tags' : {'$in' : tags}}) if food['_id'] != ObjectId(listing_id)]
+
     return render_template(
         'details.html',
         item=list(show_listings({'_id': ObjectId(listing_id)}))[0],
         user_id=user_data['_id'],
-        reservation=find(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)})
+        reservation=find(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)}),
+        similar_food = similar_food
     )
 
 
