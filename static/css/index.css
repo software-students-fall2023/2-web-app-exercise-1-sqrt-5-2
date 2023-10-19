@@ -1,15 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat');
 
-
-body {
-   background-image: url("sharing-tomato.jpg");
-   background-repeat: no-repeat;
-   background-size: contain;
-   background-color: #FDFDFD;
-}
-
-
 h1 {
    font-family: "Josefin Sans", sans-serif;
    font-style: normal;
@@ -17,14 +8,10 @@ h1 {
    color: #748CAB;
 }
 
-
 p {
    font-family: "Montserrat", sans-serif;
    font-weight: bold;
    font-size: 14px;
-   text-align: left;
    line-height: 1.4;
    color: #333;
-
-
 }

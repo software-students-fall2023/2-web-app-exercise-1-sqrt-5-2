@@ -54,10 +54,9 @@ nav li,
 
 
 .logo {
-   font-style: italic;
    letter-spacing: 1.2px;
-   font-size: 24px;
-   font-weight: lighter;
+   font-size: 22px;
+   font-weight: bold;
 }
 
 
@@ -217,22 +216,116 @@ textarea {
    padding-left: 25px;
 }
 
-
 .card-grid {
    display: flex;
    flex-wrap: wrap;
    justify-content: space-between;
 }
 
-
 .card-grid .card {
    flex: 0 0 calc(50% - 10px);
    margin-bottom: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   transition: 0.3s;
+   border-radius: 5px;
 }
 
+.card-grid .card:hover {
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-grid .card h2, 
+.card-grid .card p{
+   padding: 10px;
+   text-align: center;
+}
 
 .card-grid .card img {
-   max-width: 100%;
-   height: auto;
+   width: 100%;
+   height: 200px;
+   object-fit: cover;
    display: block;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.card-grid .card p {
+   font-weight: bold; 
+   color: green; 
+   font-size: 18px;
+   margin: 10px 0;
+}
+
+.food-item{
+   border: 1px solid #dddddd;
+   border-radius: 10px;
+   padding: 20px;
+   background: #ffffff;
+   margin-bottom: 20px;
+}
+
+h2.food-name {
+   margin-top: 0;
+   font-size: 24px;
+   color: #333333;
+}
+
+.food-item a {
+   display: inline-block;
+   margin-bottom: 10px;
+   color: #ffffff;
+   background-color: #333333;
+   padding: 10px;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.food-photo {
+   width: 100%;
+   height: auto;
+}
+
+.food-price, .food-comments, .food-expiry, .food-posted-at {
+   font-size: 16px;
+   color: #666666;
+   margin-bottom: 10px;
+}
+
+.food-allergens, .food-tags {
+   font-size: 16px;
+   color: #666666;
+   margin-bottom: 10px;
+}
+
+.food-allergens button, .food-tags button {
+   margin-right: 5px;
+   padding: 5px 10px;
+   background: #eeeeee;
+   border: 1px solid #dddddd;
+   border-radius: 5px;
+   font-size: 14px;
+   color: #666666;
+}
+
+.btn-container {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.btn {
+   display: inline-block;
+   padding: 10px 20px;
+   text-decoration: none;
+   background-color: #f44336; /* change as needed */
+   color: #fff; /* white color */
+   border-radius: 4px;
+   transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+   background-color: #ff5722; /* Darker shade for hover */
 }
