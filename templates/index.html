@@ -19,19 +19,19 @@
 
     {% if user %}
 
-    {% if listings %}
+        {% if listings %}
 
-    <h1> Your Listings </h1>
-    <div class="card-grid">
-        {% for food in listings %}
-        <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-            <h2>{{ food.name }}</h2>
-            <p>$ {{ food.price }}</p>
+        <h1> Your Listings </h1>
+        <div class="card-grid">
+            {% for food in listings %}
+            <div class="card" onclick="location.href='/listings/{{ food._id }}';">
+                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                <h2>{{ food.name }}</h2>
+                <p>$ {{ food.price }}</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+        {% endif %}
 
     <h1>Recommended for You</h1>
 

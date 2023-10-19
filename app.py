@@ -107,7 +107,14 @@ def listings():
 @app.route('/listings/<listing_id>')
 def display_details(listing_id):
     user_data = get_current_user_data()
-    return render_template('details.html', item = list(show_listings({'_id' : ObjectId(listing_id)}))[0], user_id = user_data['_id'])
+    tags = list(show_listings({'_id' : ObjectId(listing_id)}))[0]['tags']
+    # get food that have the same tags as the current food.
+    similar_food = [ food for food in show_listings({'tags' : {'$in' : tags}}) if food['_id'] != ObjectId(listing_id)]
+
+    return render_template('details.html', 
+                item = list(show_listings({'_id' : ObjectId(listing_id)}))[0], 
+                user_id = user_data['_id'],
+                similar_food = similar_food)
 
 @app.route('/listings/<listing_id>/edit', methods = ['GET', 'POST'])
 @requires_login
