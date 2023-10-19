@@ -1,10 +1,17 @@
 {% extends 'layouts/layout.html' %}
 
 {% block head %}
-   <link rel="stylesheet" href="/static/css/index.css">
+<link rel="stylesheet" href="/static/css/index.css">
 {% endblock %}
 
 {% block title %}Home{% endblock %}
+
+{% block banner %}
+    {% if not user %}
+        <img src="/images/sharing-tomato.jpg" alt="Banner" />
+    {% endif %}
+{% endblock %}
+
 
 {% block content %}
 
@@ -12,39 +19,40 @@
 
     {% if user %}
 
-        {% if listings %}
+    {% if listings %}
 
-        <h1> Your Listings </h1>  
-            <div class="card-grid">
-                {% for food in listings %}
-                    <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-                        <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-                        <h2>{{ food.name }}</h2>
-                        <p>$ {{ food.price }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
+    <h1> Your Listings </h1>
+    <div class="card-grid">
+        {% for food in listings %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}';">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <p>$ {{ food.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-        <h1>Recommended for You</h1>
-        
-        <h1>Near You</h1>
+    <h1>Recommended for You</h1>
 
-        <h1>Your Recent Pickups</h1>
+    <h1>Near You</h1>
+
+    <h1>Your Recent Pickups</h1>
 
     {% else %}
 
-        <h1>Why Choose Us?</h1>
-        <p>FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe every
-            meal matters, and even the smallest actions can have a
-            significant impact when we all do our part. Join us on our journey towards zero food waste today!</p>
+    <h1>Why Choose Us?</h1>
+    <p>FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe every
+        meal matters, and even the smallest actions can have a
+        significant impact when we all do our part. Join us on our journey towards zero food waste today!</p>
 
-        <h1>Get Started</h1>
-        <p>Join the FoodForward community by signing up or logging in, then start listing or purchasing available food
-            items.
-            It's that simple!</p>
-        <a href="{{ url_for('register') }}" class='button'>Register</a>
-        <a href="{{ url_for('login') }}" class='button'>Login</a>
+    <h1>Get Started</h1>
+    <p>Join the FoodForward community by signing up or logging in, then start listing or purchasing available food
+        items.
+        It's that simple!</p>
+    <a href="{{ url_for('register') }}" class='button'>Register</a>
+    <a href="{{ url_for('login') }}" class='button'>Login</a>
+
     {% endif %}
 
 </div>

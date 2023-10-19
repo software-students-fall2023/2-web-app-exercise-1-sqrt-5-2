@@ -6,17 +6,18 @@
 
 <div class="page-content">
     <h1>Listings</h1>
-    <a href="{{url_for('add')}}">Add Listing</a>
-    <a href="{{url_for('search')}}">Search Food</a>
+    <div class="btn-container">
+        <a href="{{url_for('add')}}" class="btn">Add Listing</a>
+        <a href="{{url_for('search')}}" class="btn">Search Food</a>
+    </div>
 
     <div class="card-grid">
         {% for food in listings %}
-
-            <div class="card">
-                <a href="{{ '/listings/%s'%food._id }}"><img src="/images/{{ food.photo }}" alt="{{ food.name }}"></a>
-                <h2>{{ food.name }}</h2>
-                <p>$ {{ food.price }}</p>
-            </div>
+        <div class="card">
+            <a href="{{ '/listings/%s'%food._id }}"><img src="/images/{{ food.photo }}" alt="{{ food.name }}"></a>
+            <h2>{{ food.name }}</h2>
+            <p>$ {{ food.price }}</p>
+        </div>
         {% endfor %}
     </div>
 
