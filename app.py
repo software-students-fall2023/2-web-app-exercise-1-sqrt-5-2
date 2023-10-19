@@ -12,8 +12,10 @@ from utils import (
     get_tags,
     get_allergens,
     handle_post,
-    handle_edit
+    handle_edit,
+    add_distance
 )
+
 
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -21,7 +23,6 @@ from db import get_current_user_data, find_all, create_index, db, insert, show_r
 from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS, LISTING_COLLECTION_NAME, TRANSACTION_COLLECTION_NAME
 from bson.objectid import ObjectId
 from scripts.fill import fill
-
 
 def init_app():
     app = Flask(__name__, template_folder=TEMPLATES_DIR,
@@ -103,7 +104,10 @@ def profile():
 @requires_login
 def listings():
     if request.method == 'GET':
-        return render_template('listings.html', listings=show_listings({}))
+        return render_template('listings.html', 
+                listings= add_distance(list(show_listings({}))),
+                user_id = get_current_user_data()['_id'])
+    
     elif request.method == 'POST':
         add_listing(request.form)
         return redirect(url_for('listings'))
@@ -214,7 +218,7 @@ def search():
     if sort:
         listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
 
-    return render_template('search.html', listings=listings)
+    return render_template('search.html', listings=add_distance(listings))
 
 
 if __name__ == '__main__':
