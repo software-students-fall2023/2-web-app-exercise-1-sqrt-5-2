@@ -11,8 +11,9 @@
 
     <div class="card-grid">
         {% for food in listings %}
-            <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+
+            <div class="card">
+                <a href="{{ '/listings/%s'%food._id }}"><img src="/images/{{ food.photo }}" alt="{{ food.name }}"></a>
                 <h2>{{ food.name }}</h2>
                 <p>$ {{ food.price }}</p>
             </div>
