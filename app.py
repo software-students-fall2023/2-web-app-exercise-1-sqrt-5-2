@@ -12,6 +12,7 @@ from utils import (
     get_tags,
     get_allergens,
     handle_post,
+    handle_edit,
     get_nearest_locations,
     get_current_location
 )
@@ -103,23 +104,20 @@ def listings():
         add_listing(request.form)
         return redirect(url_for('listings'))
 
+@app.route('/listings/<listing_id>')
+def display_details(listing_id):
+    user_data = get_current_user_data()
+    return render_template('details.html', item = list(show_listings({'_id' : ObjectId(listing_id)}))[0], user_id = user_data['_id'])
 
-@app.route('/listings/<listing_id>', methods=['GET'])
+@app.route('/listings/<listing_id>/edit', methods = ['GET', 'POST'])
 @requires_login
-def foodDisplay(listing_id):
-    food = find('listings', {'_id': ObjectId(listing_id)})
-    tags = food['tags']
-    print(tags)
-
-    # For now, just show all listings with the same tags to recommend similar food.
-    # TODO: remove the original from the other tag that
-    # Work on the CSS and HTML to make it look better
-    other = show_listings({
-        'tags': {'$in': tags}
-    })
-
-    return render_template('eachFood.html', food=food, other=other)
-
+def edit_details(listing_id):
+    if (request.method == 'GET'):
+        item = list(show_listings({'_id' : ObjectId(listing_id)}))[0]
+        item['tags'] = get_tags(item['tags'])
+        return render_template('edit.html', item=item)
+    if (request.method == 'POST'):
+        return handle_edit(request.form, ObjectId(listing_id))
 
 @app.route('/add', methods=['GET', 'POST'])
 @requires_login
@@ -173,4 +171,4 @@ def search():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8001)

@@ -208,12 +208,15 @@ def edit_profile(form, func):
         return render_template('profile.html', user=current_data, tags=tags, error=e)
 
 
-def get_tags(user_preference=False):
+def get_tags(user_preference=False, tag_list=None):
     result = {tag: False for listing in find_all(
         LISTING_COLLECTION_NAME, {}) for tag in listing.get('tags', [])}
 
     if user_preference:
         for tag in get_current_user_data().get('preferences'):
+            result[tag] = True
+    elif tag_list:
+        for tag in tag_list:
             result[tag] = True
 
     return result
@@ -260,6 +263,66 @@ def handle_post(form):
     except Exception as e:
         return render_template(
             'add.html',
+            item={
+                'name': form.get('name'),
+                'price': form.get('price'),
+                'quantity': form.get('quantity'),
+                'expiry': form.get('expiry'),
+                'tags': tags,
+                'allergens': allergens,
+                'comments': form.get('comments').strip(),
+                'address': {
+                    'street': form.get('street'),
+                    'city': form.get('city'),
+                    'state': form.get('state'),
+                    'zipcode': form.get('zipcode')
+                }
+            },
+            error=e
+        )
+    
+def edit_listing(form, allergens, image_name, listing_id):
+    
+    data = {
+        'name': form.get('name'),
+        'quantity': int(form.get('quantity')),
+        'price': int(form.get('price')),
+        'expiry': form.get('expiry'),
+        'tags': form.getlist('tags'),
+        'allergens': allergens,
+        'photo': str(image_name),
+        'comments': form.get('comments').strip(),
+        'user_id': get_current_user_data().get('_id'),
+        'address': {
+            'street': form.get('street'),
+            'city': form.get('city'),
+            'state': form.get('state'),
+            'zipcode': form.get('zipcode')
+        },
+    }
+    data['location'] = get_longitude_latitude(**data['address'])
+
+    update(LISTING_COLLECTION_NAME, {'_id' : listing_id}, {'$set': data})
+
+
+def handle_edit(form, listing_id):
+    tags, allergens = current_tags_and_allergens()
+    try:
+
+        if request.files['photo']:
+            image = request.files['photo']
+            timestamp = datetime.now().strftime('%Y_%m_%d_%H-%M-%S.%f')
+            image_name = f'{timestamp}_{secure_filename(image.filename)}'
+            image.save(IMAGE_DIR / image_name)
+        else:
+            image_name = list(show_listings({'_id' : listing_id}))[0]['photo']
+
+        edit_listing(form, allergens, image_name, listing_id)
+        return redirect(url_for('listings'))
+    
+    except Exception as e:
+        return render_template(
+            'edit.html',
             item={
                 'name': form.get('name'),
                 'price': form.get('price'),

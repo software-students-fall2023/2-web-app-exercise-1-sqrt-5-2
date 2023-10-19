@@ -1,0 +1,66 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}Edit {{item.name}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/multiSelectTag.css">
+<script src="static/js/multiSelectTag.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-content">
+    <h1>Edit Item</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('edit_details', listing_id = item._id)}}" method="post" enctype="multipart/form-data">
+
+        <label for="name" required="">Name</label>
+        <input type="text" id="name" name="name" required value="{{ item.name }}">
+
+        <label for="quantity" required="">Quantity</label>
+        <input type="number" id="quantity" name="quantity" value="{{ item.quantity }}" required min="1">
+
+        <div class="price-input">
+            <label for="price" required="">Price</label>
+            <span class="dollar-sign">$</span>
+            <input type="number" id="price" name="price" value="{{ item.price }}" required min="0" step=".01">
+        </div>
+
+        <label for="expiry" required="">Expiration Date</label>
+        <input type="date" id="expiry" name="expiry" value="{{ item.expiry }}" required>
+
+        <label for="tags" required="">Tags</label>
+        <select id="tags" name="tags" multiple required>
+            {% for tag, selected in item.tags.items() %}
+                <option value="{{ tag }}" {% if selected %}selected{% endif %}>{{ tag }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="allergens">Allergens</label>
+        <select id="allergens" name="allergens" multiple>
+            {% for allergen, selected in item.allergens.items() %}
+                <option value="{{ allergen }}" {% if selected %}selected{% endif %}>{{ allergen }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="photo">Photo</label>
+        <input type="file" id="photo" name="photo" value="{{ item.photo }}">
+        <img src = "/images/{{item.photo}}">
+
+        <label for="comments">Additional Comments</label>
+        <textarea id="comments" name="comments" rows="4" cols="50">{{ item.comments }}</textarea>
+
+        <input type="submit" value="Edit!">
+    </form>
+
+</div>
+<script>
+    new MultiSelectTag('tags');
+    new MultiSelectTag('allergens');
+</script>
+
+{% endblock %}

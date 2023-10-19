@@ -39,11 +39,9 @@ def drop_collection(collection):
 def insert(collection, item):
     return db[collection].insert_one({**item, 'created_at': datetime.datetime.now()})
 
-
 def insert_all(collection, item_array):
     for item in item_array:
         insert(collection, item)
-
 
 def find(collection, query):
     return db[collection].find_one(query)

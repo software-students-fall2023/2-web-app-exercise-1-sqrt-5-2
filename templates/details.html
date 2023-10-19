@@ -1,15 +1,44 @@
-<h1>{{item.name}}</h1>
-<img src="/images/{{ item.photo }}" alt="{{ item.name }}">
-<h3> ${{item.price}}</h3>
-<h5>Expires on {{item.expiry}}</h5>
-<h5>Tags : </h5>
-    {% for tag in item.tags %}
-        <button> {{tag}} </button>
-    {% endfor %}
-<h5>Allergens : </h5>
-    {% for key, value in item.allergens.items() %}
-        {% if item.allergens[key] %}
-            <button> {{key}} </button>
-        {% endif %}
-    {% endfor %}
-<h5>Comments : </h5> {{item.comments}}
+{% extends 'layouts/layout.html' %}
+
+{% block title %}{{item.name}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/multiSelectTag.css">
+<script src="static/js/multiSelectTag.js"></script>
+{% endblock %}
+
+{% block content %}
+
+{% if item.user_id == user_id %}
+    <a href="{{item._id}}/edit"> Edit Listing </a>
+{% endif %}
+
+<div class="foodItem">
+    
+    <div class="food-item">
+        <h2 class="food-name">{{item.name}}</h2>
+        <img src="/images/{{ item.photo }}" alt="{{ item.name }}">
+        <p class="food-price"> Price : $ {{item.price}}</p>
+        <p class="food-comments">{{item.comments}}</p>
+        <p class="expiry"> Expires on : {{item.expiry}}</p>
+        <p class="posted-at"> Posted at {{item['created_at'].strftime('%Y-%m-%d')}}</p>
+        <p class="allergens">Allergens: 
+            {% for key, value in item.allergens.items() %}
+                {% if item.allergens[key] %}
+                    <button> {{key}} </button>
+                {% endif %}
+            {% endfor %}
+        </p>
+        <p class="tags"> Tags:
+            {% for tag in item.tags %}
+                <button> {{tag}} </button>
+            {% endfor %}
+        </p>
+        <p class="comments">Comments : {{item.comments}}</p>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
