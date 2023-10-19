@@ -62,13 +62,6 @@ def check_password(hash, password):
     if not Bcrypt().check_password_hash(hash, password):
         raise Exception('Incorrect password!')
 
-
-def get_current_location():
-
-    g = geocoder.ip('me')
-    longitude, latitude = g.latlng
-    return longitude, latitude
-
 def get_longitude_latitude(street, city, state, zipcode):
     try:
         geolocator = Nominatim(user_agent="foodshare")
@@ -81,6 +74,11 @@ def get_longitude_latitude(street, city, state, zipcode):
         "type": "Point",
         "coordinates": coordinates
     }
+
+def add_distance(listings):
+    user_data = get_current_user_data()
+    if (user_data.get('location', None) != None):
+        return (get_nearest(user_data.get('location').get('coordinates')[0], user_data.get('location').get('coordinates')[1]))
 
 @validate_unique('email')
 @check_confirm_password
@@ -221,10 +219,8 @@ def get_tags(user_preference=False, tag_list=None):
 
     return result
 
-
 def get_allergens():
     return {allergen: False for allergen in ALLERGENS}
-
 
 def show_listings(query):
     return find_all('listings', query)
@@ -337,9 +333,4 @@ def handle_edit(form, listing_id):
             error=e
         )
 
-def get_nearest_locations(longitude, latitude): 
-    return list(get_nearest(longitude, latitude))
-
-def get_current_location():
-    return geocoder.ip('me').latlng
 
