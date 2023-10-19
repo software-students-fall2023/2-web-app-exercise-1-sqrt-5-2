@@ -12,14 +12,16 @@ from utils import (
     get_tags,
     get_allergens,
     handle_post,
-    show_sorted_listings
+    get_nearest_locations,
+    get_current_location
 )
+
+from bson.objectid import ObjectId
 from datetime import datetime
 from db import get_current_user_data
 from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS
 
 app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
-
 
 @app.route('/')
 def home():
@@ -90,6 +92,9 @@ def listings():
         add_listing(request.form)
         return redirect(url_for('listings'))
 
+@app.route('/listings/<listing_id>')
+def display_details(listing_id):
+    return render_template('details.html', item = list(show_listings({'_id' : ObjectId(listing_id)}))[0])
 
 @app.route('/add', methods=['GET', 'POST'])
 @requires_login
@@ -107,7 +112,6 @@ def add():
         )
     elif request.method == 'POST':
         return handle_post(request.form)
-
 
 @app.route('/images/<img_name>')
 def serve_images(img_name):
