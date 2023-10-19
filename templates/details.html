@@ -10,13 +10,24 @@
 {% block content %}
 
 <div class="page-content">
-    {% if item.user_id == user_id %}
-    <a href="{{item._id}}/edit"> Edit Listing </a>
-    {% endif %}
-
 
     <div class="food-item">
         <h2 class="food-name">{{item.name}}</h2>
+        
+        <div class="btn-container">
+            {% if item.user_id == user_id %}
+                <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
+            {% elif reservation %}
+                {% if reservation.reserved_by == user_id %}
+                    <a href="{{ url_for('cancel', listing_id=item._id) }}" class="btn">Cancel</a>
+                {% else %}
+                    <a href="#" class="btn disabled">Not Available</a>
+                {% endif %}
+            {% else %}
+                <a href="{{ url_for('reserve', listing_id=item._id) }}" class="btn">Reserve</a>
+            {% endif %}
+        </div>
+        
         <img src="/images/{{ item.photo }}" alt="{{ item.name }}" class="food-photo">
         <p class="food-price"> Price: $ {{item.price}}</p>
         <p class="food-comments">{{item.comments}}</p>
@@ -24,9 +35,9 @@
         <p class="food-posted-at"> Posted: {{item['created_at'].strftime('%Y-%m-%d')}}</p>
         <p class="food-allergens">Allergens:
             {% for key, value in item.allergens.items() %}
-            {% if item.allergens[key] %}
-            <button> {{key}} </button>
-            {% endif %}
+                {% if item.allergens[key] %}
+                <button> {{key}} </button>
+                {% endif %}
             {% endfor %}
         </p>
         <p class="food-tags"> Tags:
@@ -35,6 +46,5 @@
             {% endfor %}
         </p>
     </div>
-
 </div>
 {% endblock %}

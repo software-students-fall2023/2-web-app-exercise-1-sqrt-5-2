@@ -3,7 +3,6 @@
     "$oid": "652f6652ab3d72a7f7c46ddf"
   },
   "name": "Margherita Pizza",
-  "quantity": 1,
   "price": 10,
   "expiry": "2023-10-18",
   "tags": [
@@ -49,7 +48,6 @@
     "$oid": "652f6aa3881aca2ee610ae6d"
   },
   "name": "Sushi Platter",
-  "quantity": 2,
   "price": 19.99,
   "expiry": "2023-10-18",
   "tags": [
@@ -98,7 +96,6 @@
     "$oid": "652f6b01881aca2ee610ae6e"
   },
   "name": "Chicken Tikka Masala",
-  "quantity": 4,
   "price": 12,
   "expiry": "2023-10-18",
   "tags": [
@@ -146,7 +143,6 @@
     "$oid": "652f6b5a881aca2ee610ae6f"
   },
   "name": "Caesar Salad",
-  "quantity": 5,
   "price": 8.5,
   "expiry": "2023-10-18",
   "tags": [
@@ -194,7 +190,6 @@
     "$oid": "652f6bba881aca2ee610ae70"
   },
   "name": "Fish and Chips",
-  "quantity": 1,
   "price": 12.50,
   "expiry": "2023-10-18",
   "tags": [
@@ -242,7 +237,6 @@
     "$oid": "652f6edc881aca2ee610ae71"
   },
   "name": "Organic Soy Milk",
-  "quantity": 7,
   "price": 5,
   "expiry": "2023-10-18",
   "tags": [
@@ -289,7 +283,6 @@
     "$oid": "652f6f5a881aca2ee610ae72"
   },
   "name": "Traditional French Baguettes",
-  "quantity": 4,
   "price": 10,
   "expiry": "2023-10-18",
   "tags": [
@@ -335,7 +328,6 @@
     "$oid": "652f700b881aca2ee610ae73"
   },
   "name": "Homemade Seafood Paella",
-  "quantity": 3,
   "price": 15,
   "expiry": "2023-10-18",
   "tags": [
@@ -381,7 +373,6 @@
     "$oid": "652f707e881aca2ee610ae74"
   },
   "name": "Betty's Extra Chilli Sauce",
-  "quantity": 2,
   "price": 5,
   "expiry": "2023-10-18",
   "tags": [

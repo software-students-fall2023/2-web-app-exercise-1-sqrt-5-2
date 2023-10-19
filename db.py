@@ -10,7 +10,8 @@ from defaults import (
     DATABASE_NAME,
     USER_COLLECTION_NAME,
     LOGIN_COOKIE_NAME,
-    LISTING_COLLECTION_NAME
+    LISTING_COLLECTION_NAME,
+    TRANSACTION_COLLECTION_NAME
 )
 
 # make a connection to the database server
@@ -45,7 +46,6 @@ def insert_all(collection, item_array):
 
 def find(collection, query):
     return db[collection].find_one(query)
-
 
 def find_all(collection, query):
     return db[collection].find(query)
@@ -86,3 +86,11 @@ def get_nearest(user_longitude, user_latitude):
     ])
 
     return nearest_locations
+
+def show_reservations():
+    user_id = get_current_user_data()['_id']
+    listing_ids = [x.get('listing_id') for x in find_all(TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})]
+    return find_all(LISTING_COLLECTION_NAME, {'_id': {'$in': listing_ids}})
+
+def delete(collection, query):
+    return db[collection].delete_one(query)

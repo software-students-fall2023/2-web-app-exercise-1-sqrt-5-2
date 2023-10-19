@@ -231,6 +231,7 @@ textarea {
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
    transition: 0.3s;
    border-radius: 5px;
+   cursor: pointer;
 }
 
 .card-grid .card:hover {
@@ -320,12 +321,13 @@ h2.food-name {
    display: inline-block;
    padding: 10px 20px;
    text-decoration: none;
-   background-color: #f44336; /* change as needed */
-   color: #fff; /* white color */
+   background-color: #f44336; 
+   color: #fff;
    border-radius: 4px;
    transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-   background-color: #ff5722; /* Darker shade for hover */
+.disabled {
+   cursor: not-allowed !important;
+   opacity: 0.6;
 }

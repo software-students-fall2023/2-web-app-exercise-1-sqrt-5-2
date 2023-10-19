@@ -20,7 +20,6 @@
     {% if user %}
 
     {% if listings %}
-
     <h1> Your Listings </h1>
     <div class="card-grid">
         {% for food in listings %}
@@ -31,6 +30,19 @@
         </div>
         {% endfor %}
     </div>
+    {% endif %}
+
+    {% if reservations %}
+        <h1> Your Reservations </h1>
+        <div class="card-grid">
+            {% for food in reservations %}
+            <div class="card" onclick="location.href='/listings/{{ food._id }}';">
+                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                <h2>{{ food.name }}</h2>
+                <p>$ {{ food.price }}</p>
+            </div>
+            {% endfor %}
+        </div>
     {% endif %}
 
     <h1>Recommended for You</h1>

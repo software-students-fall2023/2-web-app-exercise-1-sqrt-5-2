@@ -19,13 +19,15 @@ from utils import (
 
 from bson.objectid import ObjectId
 from datetime import datetime
-from db import get_current_user_data, find, create_index, db
-from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS, LISTING_COLLECTION_NAME
+from db import get_current_user_data, find_all, create_index, db, insert, show_reservations, find, delete
+from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS, LISTING_COLLECTION_NAME, TRANSACTION_COLLECTION_NAME
 from bson.objectid import ObjectId
 from scripts.fill import fill
 
+
 def init_app():
-    app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
+    app = Flask(__name__, template_folder=TEMPLATES_DIR,
+                static_folder=STATIC_DIR)
 
     if not db[LISTING_COLLECTION_NAME].find_one():
         fill()
@@ -33,7 +35,9 @@ def init_app():
 
     return app
 
+
 app = init_app()
+
 
 @app.route('/')
 def home():
@@ -43,7 +47,9 @@ def home():
         return render_template('index.html')
     else:
         return render_template(
-            'index.html', user=user_data, listings=list(show_listings({'user_id': user_data['_id']}))
+            'index.html', user=user_data,
+            listings=list(show_listings({'user_id': user_data['_id']})),
+            reservations=list(show_reservations())
         )
 
 
@@ -104,20 +110,58 @@ def listings():
         add_listing(request.form)
         return redirect(url_for('listings'))
 
+
 @app.route('/listings/<listing_id>')
 def display_details(listing_id):
     user_data = get_current_user_data()
-    return render_template('details.html', item = list(show_listings({'_id' : ObjectId(listing_id)}))[0], user_id = user_data['_id'])
+    return render_template(
+        'details.html',
+        item=list(show_listings({'_id': ObjectId(listing_id)}))[0],
+        user_id=user_data['_id'],
+        reservation=find(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)})
+    )
 
-@app.route('/listings/<listing_id>/edit', methods = ['GET', 'POST'])
+
+@app.route('/listings/<listing_id>/edit', methods=['GET', 'POST'])
 @requires_login
 def edit_details(listing_id):
+    item = list(show_listings({'_id': ObjectId(listing_id)}))[0]
+
+    if get_current_user_data()['_id'] != item['user_id']:
+        return redirect(url_for('listings', listing_id=listing_id))
+
     if (request.method == 'GET'):
-        item = list(show_listings({'_id' : ObjectId(listing_id)}))[0]
         item['tags'] = get_tags(item['tags'])
         return render_template('edit.html', item=item)
     if (request.method == 'POST'):
         return handle_edit(request.form, ObjectId(listing_id))
+
+
+@app.route('/listings/<listing_id>/reserve', methods=['GET'])
+@requires_login
+def reserve(listing_id):
+    item = list(show_listings({'_id': ObjectId(listing_id)}))[0]
+    if get_current_user_data()['_id'] == item['user_id'] or len(list(find_all(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)}))):
+        return redirect(url_for('listings', listing_id=listing_id))
+
+    insert(
+        TRANSACTION_COLLECTION_NAME,
+        {
+            'reserved_by': get_current_user_data()['_id'],
+            'listing_id': ObjectId(listing_id),
+        }
+    )
+
+    return redirect(url_for('display_details', listing_id=listing_id))
+
+
+@app.route('/listings/<listing_id>/cancel', methods=['GET'])
+@requires_login
+def cancel(listing_id):
+    delete(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(
+        listing_id), 'reserved_by': get_current_user_data()['_id']})
+    return redirect(url_for('display_details', listing_id=listing_id))
+
 
 @app.route('/add', methods=['GET', 'POST'])
 @requires_login
@@ -126,7 +170,6 @@ def add():
         return render_template(
             'add.html',
             item={
-                'quantity': 1,
                 'expiry': datetime.now().strftime('%Y-%m-%d'),
                 'tags': get_tags(),
                 'allergens': get_allergens(),

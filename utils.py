@@ -232,7 +232,6 @@ def show_listings(query):
 def add_listing(form, allergens, image_name):
     data = {
         'name': form.get('name'),
-        'quantity': int(form.get('quantity')),
         'price': int(form.get('price')),
         'expiry': form.get('expiry'),
         'tags': form.getlist('tags'),
@@ -266,7 +265,6 @@ def handle_post(form):
             item={
                 'name': form.get('name'),
                 'price': form.get('price'),
-                'quantity': form.get('quantity'),
                 'expiry': form.get('expiry'),
                 'tags': tags,
                 'allergens': allergens,
@@ -285,7 +283,6 @@ def edit_listing(form, allergens, image_name, listing_id):
     
     data = {
         'name': form.get('name'),
-        'quantity': int(form.get('quantity')),
         'price': int(form.get('price')),
         'expiry': form.get('expiry'),
         'tags': form.getlist('tags'),
@@ -326,7 +323,6 @@ def handle_edit(form, listing_id):
             item={
                 'name': form.get('name'),
                 'price': form.get('price'),
-                'quantity': form.get('quantity'),
                 'expiry': form.get('expiry'),
                 'tags': tags,
                 'allergens': allergens,
