@@ -3,8 +3,8 @@
 {% block title %}{{item.name}}{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="static/css/multiSelectTag.css">
-<script src="static/js/multiSelectTag.js"></script>
+<link rel="stylesheet" href="/static/css/multiSelectTag.css">
+<script src="/static/js/multiSelectTag.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -34,6 +34,20 @@
             <button> {{tag}} </button>
             {% endfor %}
         </p>
+    </div>
+
+    <div class="similar-food">
+        <h1>You may also like:</h1>
+            <div class="card-grid">
+                {% for food in similar_food %}
+                <div class="card">
+                    <a href="{{ '/listings/%s'%food._id }}"><img src="/images/{{ food.photo }}" alt="{{ food.name }}"></a>
+                    <h2>{{ food.name }}</h2>
+                    <p>$ {{ food.price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
     </div>
 
 </div>

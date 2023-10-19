@@ -285,7 +285,6 @@ h2.food-name {
 
 .food-photo {
    width: 100%;
-   height: auto;
 }
 
 .food-price, .food-comments, .food-expiry, .food-posted-at {
