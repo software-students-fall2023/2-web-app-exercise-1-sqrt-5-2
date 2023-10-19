@@ -1,93 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
+
 body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+   font-family: 'Roboto', sans-serif;
+   font-size: 14px;
+   line-height: 1.5;
+   color: #333;
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
 }
+
 
 nav,
 footer {
-    border: 1px solid #e7e7e7;
-    background-color: #f3f3f3;
+   border: 1px solid #e7e7e7;
+   background-color: #FDFDFD;
 }
+
 
 nav {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+   position: -webkit-sticky;
+   position: sticky;
+   top: 0;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 1rem;
+   font-family: "Josefin Sans", sans-serif;
 }
 
+
 nav ul {
-    list-style-type: none;
-    display: flex;
+   list-style-type: none;
+   display: flex;
 }
+
 
 nav li,
 .logo {
-    padding: 10px;
+   padding: 10px;
+   color: #F6CA83;
 }
+
 
 .logo {
-    font-size: 18px;
-    font-weight: bold;
+   font-style: italic;
+   letter-spacing: 1.2px;
+   font-size: 24px;
+   font-weight: lighter;
 }
+
 
 nav a {
-    text-decoration: none;
-    color: #444444;
+   text-decoration: none;
+   color: #444444;
 }
+
 
 nav a:hover {
-    color: #000;
+   color: #000;
 }
+
 
 nav .active {
-    text-decoration: underline;
+   text-decoration: underline;
+   color: #F6CA83;
+   text-decoration-thickness: 4px;
 }
+
 
 .page-content {
-    margin: 0 auto;
-    padding: 0 20px;
+   margin: 0 auto;
+   padding: 0 20px;
 }
+
 
 .page-content h1 {
-    margin: 1rem 0;
-    display: inline-block;
-    padding-right: 40px;
+   margin: 1rem 0;
+   display: inline-block;
+   padding-right: 40px;
 }
+
 
 .error {
-    background-color: #b20202;
-    color: white;
-    padding: 1rem;
+   background-color: #b20202;
+   color: white;
+   padding: 1rem;
 }
+
 
 .success {
-    background-color: #04AA6D;
-    color: white;
-    padding: 1rem;
+   background-color: #04AA6D;
+   color: white;
+   padding: 1rem;
 }
 
+
 form {
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 4px;
+   margin: 0 auto;
+   padding: 20px;
+   background-color: white;
+   border-radius: 4px;
 }
+
 
 input[type=text],
 input[type=password],
@@ -95,102 +120,119 @@ input[type=email],
 input[type=file],
 input[type=number],
 input[type=date] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
+   width: 100%;
+   padding: 15px;
+   margin: 5px 0 22px 0;
+   border: none;
+   background: #f1f1f1;
 }
+
 
 input[type=submit] {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-    padding: 15px;
+   background-color: #007BFF;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   width: 100%;
+   opacity: 0.9;
+   padding: 15px;
 }
+
 
 input[type=submit]:hover {
-    opacity: 1;
+   opacity: 1;
 }
+
 
 label[required]:after {
-    content: " *";
-    color: red;
+   content: " *";
+   color: red;
 }
+
 
 footer {
-    text-align: center;
-    padding: 10px;
-    width: 100%;
-    margin-top: auto;
+   text-align: center;
+   padding: 10px;
+   width: 100%;
+   margin-top: auto;
 }
 
+
 hr {
-    border: 1px solid #e7e7e7;
-    margin: 1rem 0;
+   border: 1px solid #e7e7e7;
+   margin: 1rem 0;
 }
+
+
 
 
 table {
-    border-collapse: collapse;
-    width: 100%;
+   border-collapse: collapse;
+   width: 100%;
 }
+
 
 th,
 td {
-    text-align: left;
-    padding: 8px;
+   text-align: left;
+   padding: 8px;
 }
+
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+   background-color: #f2f2f2;
 }
+
 
 tr:hover {
-    background-color: #ddd;
+   background-color: #ddd;
 }
+
 
 textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
 }
+
 
 .price-input {
-    position: relative;
+   position: relative;
 }
+
 
 .dollar-sign {
-    font-size: medium;
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-45%);
+   font-size: medium;
+   position: absolute;
+   left: 10px;
+   top: 50%;
+   transform: translateY(-45%);
 }
+
 
 .price-input #price {
-    padding-left: 25px;
+   padding-left: 25px;
 }
+
 
 .card-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
 }
+
 
 .card-grid .card {
-    flex: 0 0 calc(50% - 10px);
-    margin-bottom: 20px;
+   flex: 0 0 calc(50% - 10px);
+   margin-bottom: 20px;
 }
 
+
 .card-grid .card img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+   max-width: 100%;
+   height: auto;
+   display: block;
 }
