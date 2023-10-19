@@ -1,0 +1,15 @@
+<h1>{{item.name}}</h1>
+<img src="/images/{{ item.photo }}" alt="{{ item.name }}">
+<h3> ${{item.price}}</h3>
+<h5>Expires on {{item.expiry}}</h5>
+<h5>Tags : </h5>
+    {% for tag in item.tags %}
+        <button> {{tag}} </button>
+    {% endfor %}
+<h5>Allergens : </h5>
+    {% for key, value in item.allergens.items() %}
+        {% if item.allergens[key] %}
+            <button> {{key}} </button>
+        {% endif %}
+    {% endfor %}
+<h5>Comments : </h5> {{item.comments}}
