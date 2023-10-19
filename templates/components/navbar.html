@@ -5,11 +5,11 @@
 
   <ul>
     {% if request.cookies.get('session') %}
-      {% for ni in ['home', 'listings', 'profile', 'logout'] %}
+      {% for ni in ['listings', 'profile', 'logout'] %}
         <li {%- if request.path == url_for(ni) %} class="active"{% endif %}><a href="{{ url_for(ni) }}">{{ ni | capitalize }}</a></li>
       {% endfor %}
     {% else %}
-      {% for ni in ['home', 'login', 'register'] %}
+      {% for ni in ['login', 'register'] %}
         <li {%- if request.path == url_for(ni) %} class="active"{% endif %}><a href="{{ url_for(ni) }}">{{ ni | capitalize }}</a></li>
       {% endfor %}
     {% endif %}

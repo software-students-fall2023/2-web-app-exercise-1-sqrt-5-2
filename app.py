@@ -18,11 +18,21 @@ from utils import (
 
 from bson.objectid import ObjectId
 from datetime import datetime
-from db import get_current_user_data, find
-from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS
+from db import get_current_user_data, find, create_index, db
+from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS, LISTING_COLLECTION_NAME
 from bson.objectid import ObjectId
+from scripts.fill import fill
 
-app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
+def init_app():
+    app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
+
+    if not db[LISTING_COLLECTION_NAME].find_one():
+        fill()
+    create_index()
+
+    return app
+
+app = init_app()
 
 @app.route('/')
 def home():
@@ -93,6 +103,7 @@ def listings():
         add_listing(request.form)
         return redirect(url_for('listings'))
 
+
 @app.route('/listings/<listing_id>', methods=['GET'])
 @requires_login
 def foodDisplay(listing_id):
@@ -104,10 +115,10 @@ def foodDisplay(listing_id):
     # TODO: remove the original from the other tag that
     # Work on the CSS and HTML to make it look better
     other = show_listings({
-        'tags': { '$in': tags }
-        })
-    
-    return render_template('eachFood.html', food = food, other = other )
+        'tags': {'$in': tags}
+    })
+
+    return render_template('eachFood.html', food=food, other=other)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -126,6 +137,7 @@ def add():
         )
     elif request.method == 'POST':
         return handle_post(request.form)
+
 
 @app.route('/images/<img_name>')
 def serve_images(img_name):
@@ -158,3 +170,7 @@ def search():
         listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
 
     return render_template('search.html', listings=listings)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

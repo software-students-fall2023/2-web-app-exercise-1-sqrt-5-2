@@ -27,6 +27,11 @@ connection = pymongo.MongoClient(
 db = connection[DATABASE_NAME]
 
 
+def create_index():
+    db[LISTING_COLLECTION_NAME].create_index([("location", "2dsphere")])
+    db[LISTING_COLLECTION_NAME].create_index([("name", "text")])
+
+
 def drop_collection(collection):
     db[collection].drop()
 
@@ -39,27 +44,32 @@ def insert_all(collection, item_array):
     for item in item_array:
         insert(collection, item)
 
+
 def find(collection, query):
     return db[collection].find_one(query)
+
 
 def find_all(collection, query):
     return db[collection].find(query)
 
-def sort(collection, field, query, order = 1):
+
+def sort(collection, field, query, order=1):
     return db[collection].find(query).sort(field, order)
+
 
 def update(collection, query, update):
     return db[collection].update_one(query, update)
 
+
 def get_user_data(user_id):
     return find(USER_COLLECTION_NAME, {'_id': user_id})
+
 
 def get_current_user_data():
     return get_user_data(ObjectId(request.cookies.get(LOGIN_COOKIE_NAME)))
 
-def get_nearest(user_longitude, user_latitude):
 
-    db[LISTING_COLLECTION_NAME].create_index([("location", "2dsphere")])
+def get_nearest(user_longitude, user_latitude):
     nearest_locations = db[LISTING_COLLECTION_NAME].aggregate([
         {
             "$geoNear": {
@@ -72,8 +82,9 @@ def get_nearest(user_longitude, user_latitude):
             }
         },
         {
-            "$sort": {"distance": 1}  # Sort by distance in ascending order (nearest first)
+            # Sort by distance in ascending order (nearest first)
+            "$sort": {"distance": 1}
         }
     ])
-    
+
     return nearest_locations
