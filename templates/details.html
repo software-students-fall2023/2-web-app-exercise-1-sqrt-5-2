@@ -45,6 +45,7 @@
             <button> {{tag}} </button>
             {% endfor %}
         </p>
+        <p> Meet them at : <a href="https://www.google.com/maps/search/{{item.address.street}}, {{item.address.city}}, {{item.address.state}} {{item.address.zip}}">{{item.address.street}}, {{item.address.city}}, {{item.address.state}} {{item.address.zip}}</a></p>
     </div>
 
     {% if similar_food %}

@@ -67,8 +67,9 @@ def get_current_user_data():
     return get_user_data(ObjectId(request.cookies.get(LOGIN_COOKIE_NAME)))
 
 
-def get_nearest(user_latitude, user_longitude):
+def get_nearest(user_latitude, user_longitude, match_query = {}):
     nearest_locations = db[LISTING_COLLECTION_NAME].aggregate([
+
         {
             "$geoNear": {
                 "near": {
@@ -78,7 +79,13 @@ def get_nearest(user_latitude, user_longitude):
                 "distanceField": "distance",
                 "spherical": True
             }
-        }
+        },
+        {
+            "$sort": {"distance": 1}
+        },
+        {
+            "$match" : match_query
+        },
     ])
 
     return nearest_locations

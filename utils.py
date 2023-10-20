@@ -75,10 +75,10 @@ def get_longitude_latitude(street, city, state, zipcode):
         "coordinates": coordinates
     }
 
-def add_distance(listings):
+def add_distance(match_query):
     user_data = get_current_user_data()
     if (user_data.get('location', None) != None):
-        return (get_nearest(user_data.get('location').get('coordinates')[0], user_data.get('location').get('coordinates')[1]))
+        return get_nearest(user_data.get('location').get('coordinates')[0], user_data.get('location').get('coordinates')[1], match_query)
 
 @validate_unique('email')
 @check_confirm_password
