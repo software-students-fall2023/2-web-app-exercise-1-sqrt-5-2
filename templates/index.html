@@ -37,20 +37,49 @@
             <h1> Your Reservations </h1>
             <div class="card-grid">
                 {% for food in reservations %}
-                <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-                    <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-                    <h2>{{ food.name }}</h2>
-                    <p>$ {{ food.price }}</p>
-                </div>
+                    <div class="card" onclick="location.href='/listings/{{ food._id }}';">
+                        <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                        <h2>{{ food.name }}</h2>
+                        <p>$ {{ food.price }}</p>
+                        {% if user.location.coordinates[0] != 0 or user.location.coordinates[1] != 0 %}
+                            {% if food.distance > 1000 %}
+                                <p>{{ food.distance/1000|round}} km away</p>
+                            {% else %}
+                                <p>{{ food.distance|round}} m away</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 {% endfor %}
             </div>
         {% endif %}
 
+        
+        {% if user.location.coordinates[0] != 0 or user.location.coordinates[1] != 0 %}
+            {% if near %}
+                <h1> Near You </h1>
+                <div class="card-grid">
+                    {% for food in near %}
+                        <div class="card" onclick="location.href='/listings/{{ food._id }}';">
+                            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                            <h2>{{ food.name }}</h2>
+                            <p>$ {{ food.price }}</p>
+                            {% if food.distance > 1000 %}
+                                <p>{{ food.distance/1000|round}} km away</p>
+                            {% else %}
+                                <p>{{ food.distance|round}} m away</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% else %}
+        <h2> Complete your profile to see listings near you!
+        {% endif %}
+
     <h1>Recommended for You</h1>
 
-    <h1>Near You</h1>
+        
 
-    <h1>Your Recent Pickups</h1>
 
     {% else %}
 

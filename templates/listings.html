@@ -18,10 +18,10 @@
                 <h2>{{ food.name }}</h2>
                 <p>$ {{ food.price }}</p>
                 {% if food.user_id != user_id %}
-                    {% if food.distance > 1000 %}
-                        <p>{{ food.distance/1000|round}} km away</p>
+                    {% if food.get('distance') > 1000 %}
+                        <p>{{ food.get('distance')/1000|round}} km away</p>
                     {% else %}
-                        <p>{{ food.distance|round}} m away</p>
+                        <p>{{ food.get('distance')|round}} m away</p>
                     {% endif %}
                 {% endif %}  
             </div>

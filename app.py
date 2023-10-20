@@ -45,12 +45,15 @@ def home():
     if not user_data:
         return render_template('index.html')
     else:
+        for item in show_listings({'user_id': {'$ne' : user_data['_id']}}):
+            print(item)
+
         return render_template(
             'index.html', user=user_data,
-            listings=list(show_listings({'user_id': user_data['_id']})),
-            reservations=list(show_reservations())
+            listings=list(add_distance({'user_id': user_data['_id']})),
+            reservations=list(show_reservations()),
+            near = list(add_distance({'user_id': {'$ne' : user_data['_id']}}))[:4]
         )
-
 
 @app.route('/register', methods=['GET', 'POST'])
 @redirect_if_logged_in
@@ -105,7 +108,7 @@ def profile():
 def listings():
     if request.method == 'GET':
         return render_template('listings.html', 
-                listings= add_distance(list(show_listings({}))),
+                listings= add_distance({}),
                 user_id = get_current_user_data()['_id'])
     
     elif request.method == 'POST':
@@ -218,7 +221,7 @@ def search():
     if sort:
         listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
 
-    return render_template('search.html', listings=add_distance(listings))
+    return render_template('search.html', listings=add_distance({}))
 
 
 if __name__ == '__main__':
