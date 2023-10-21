@@ -89,30 +89,6 @@ def get_user_data(user_id):
 def get_current_user_data():
     return get_user_data(ObjectId(request.cookies.get(LOGIN_COOKIE_NAME)))
 
-
-def get_nearest(user_latitude, user_longitude, match_query={}):
-    nearest_locations = db[LISTING_COLLECTION_NAME].aggregate([
-        {
-            "$geoNear": {
-                "near": {
-                    "type": "Point",
-                    "coordinates": [user_longitude, user_latitude]
-                },
-                "distanceField": "distance",
-                "spherical": True
-            }
-        },
-        {
-            "$sort": {"distance": 1}
-        },
-        {
-            "$match": match_query
-        },
-    ])
-
-    return nearest_locations
-
-
 def show_reservations():
     user_id = get_current_user_data()['_id']
     listing_ids = [x.get('listing_id') for x in find_all(
@@ -122,3 +98,41 @@ def show_reservations():
 
 def delete(collection, query):
     return db[collection].delete_one(query)
+
+def find_listings(match_query, sort_query=None):
+    user_data = get_current_user_data()
+    user_latitude, user_longitude = user_data.get('location').get('coordinates')
+    
+    if user_latitude == 0 and user_longitude == 0:
+        cursor = find_all(LISTING_COLLECTION_NAME, match_query)
+        if sort_query:
+            cursor = cursor.sort(sort_query.keys()[0], sort_query.values()[0])
+        
+        return list(cursor)
+    else:
+        q = [{
+                "$geoNear": {
+                    "near": {
+                        "type": "Point",
+                        "coordinates": [user_latitude, user_longitude]
+                    },
+                    "distanceField": "distance",
+                    "spherical": True
+                }
+            },
+            {
+                "$match": match_query
+            },
+        ]
+
+        if sort_query:
+            q.append({"$sort": sort_query})
+
+        results = list(db[LISTING_COLLECTION_NAME].aggregate(q))
+
+        for item in results:
+            if item['location']['coordinates'] == [0, 0]:
+                item['distance'] = None
+
+        print(results)
+        return results

@@ -54,6 +54,6 @@ FILTER_FUNCTION_FIELDS = {
         '$lt': 20
     },
     '20_': {
-        '$gte': 5
+        '$gte': 20
     },
 }

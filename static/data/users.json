@@ -27,7 +27,7 @@
     "Soybeans": false,
     "Sesame": false
   },
-  "setup_complete": false,
+  "setup_complete": true,
   "created_at": {
     "$date": "2023-10-18T00:54:42.699Z"
   },

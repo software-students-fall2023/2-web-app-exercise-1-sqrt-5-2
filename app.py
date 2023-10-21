@@ -4,7 +4,7 @@ from utils import (
     redirect_if_logged_in,
     register_user,
     login_user,
-    show_listings,
+    get_listings,
     add_listing,
     edit_profile,
     update_user_data,
@@ -13,15 +13,14 @@ from utils import (
     get_allergens,
     handle_post,
     handle_edit,
-    add_distance,
-    show_listing
+    get_listing
 )
 from bson.objectid import ObjectId
 from datetime import datetime
 from db import (
     get_user_data,
     get_current_user_data,
-    find_all,
+    find_listings,
     create_index,
     db,
     insert,
@@ -72,10 +71,11 @@ def home():
         return render_template('index.html')
     else:
         return render_template(
-            'index.html', user=user_data,
-            listings=list(add_distance({'user_id': user_data['_id']})),
+            'index.html',
+            user=user_data,
+            listings=find_listings({'user_id': user_data['_id']}),
             reservations=list(show_reservations()),
-            near=list(add_distance({'user_id': {'$ne': user_data['_id']}}))[:4]
+            near=find_listings({'user_id': {'$ne': user_data['_id']}})[:4]
         )
 
 
@@ -138,7 +138,7 @@ def profile():
 def listings():
     if request.method == 'GET':
         return render_template('food/listings.html',
-                               listings=add_distance({}),
+                               listings=find_listings({}),
                                user_id=get_current_user_data()['_id'])
 
     elif request.method == 'POST':
@@ -149,7 +149,7 @@ def listings():
 @app.route('/listings/<listing_id>')
 @requires_login
 def display_details(listing_id):
-    item = show_listing({'_id': ObjectId(listing_id)})
+    item = get_listing({'_id': ObjectId(listing_id)})
     if not item:
         return redirect(url_for('listings'))
 
@@ -157,7 +157,7 @@ def display_details(listing_id):
     poster_data = get_user_data(user_id=item['user_id'])
 
     # get food that have the same tags as the current food.
-    similar_food = [food for food in show_listings({'tags': {'$in': item['tags']}})
+    similar_food = [food for food in get_listings({'tags': {'$in': item['tags']}})
                     if food['_id'] != ObjectId(listing_id)]
 
     return render_template(
@@ -174,7 +174,9 @@ def display_details(listing_id):
 @app.route('/listings/<listing_id>/edit', methods=['GET', 'POST'])
 @requires_login
 def edit_details(listing_id):
-    item = list(show_listings({'_id': ObjectId(listing_id)}))[0]
+    item = get_listing({'_id': ObjectId(listing_id)})
+    if not item:
+        return redirect(url_for('listings'))
 
     if get_current_user_data()['_id'] != item['user_id']:
         return redirect(url_for('listings', listing_id=listing_id))
@@ -182,15 +184,18 @@ def edit_details(listing_id):
     if (request.method == 'GET'):
         item['tags'] = get_tags(tag_list=item['tags'])
         return render_template('food/edit.html', item=item)
-    if (request.method == 'POST'):
+
+    elif (request.method == 'POST'):
         return handle_edit(listing_id=ObjectId(listing_id))
 
 
 @app.route('/listings/<listing_id>/reserve', methods=['GET'])
 @requires_login
 def reserve(listing_id):
-    item = list(show_listings({'_id': ObjectId(listing_id)}))[0]
-    if get_current_user_data()['_id'] == item['user_id'] or len(list(find_all(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)}))):
+    item = get_listing({'_id': ObjectId(listing_id)})
+
+    # user cannot reserve their own food or reserve food that is already reserved
+    if get_current_user_data()['_id'] == item['user_id'] or find(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)}):
         return redirect(url_for('listings', listing_id=listing_id))
 
     insert(
@@ -207,8 +212,10 @@ def reserve(listing_id):
 @app.route('/listings/<listing_id>/cancel', methods=['GET'])
 @requires_login
 def cancel(listing_id):
-    delete(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(
-        listing_id), 'reserved_by': get_current_user_data()['_id']})
+    delete(TRANSACTION_COLLECTION_NAME, {
+        'listing_id': ObjectId(listing_id),
+        'reserved_by': get_current_user_data()['_id']
+    })
     return redirect(url_for('display_details', listing_id=listing_id))
 
 
@@ -254,12 +261,15 @@ def search():
             {'tags': {'$regex': query, '$options': 'i'}}
         ]})
 
-    listings = show_listings(q)
-
     if sort:
-        listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
+        listings = find_listings(
+            match_query=q, 
+            sort_query={SORT_FUNCTION_FIELDS[sort]: SORT_FUNCTION_ORDER[sort]}
+            )
+    else:
+        listings = find_listings(q)
 
-    return render_template('food/search.html', listings=add_distance({}))
+    return render_template('food/search.html', listings=listings)
 
 
 @app.template_filter('filter_date')
