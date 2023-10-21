@@ -1,7 +1,7 @@
 {% extends 'layouts/layout.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/index.css">
 {% endblock %}
 
 {% block title %}Home{% endblock %}
@@ -19,83 +19,103 @@
 
     {% if user %}
 
-        {% if listings %}
-
-        <h1> Your Listings </h1>
-        <div class="card-grid">
-            {% for food in listings %}
-            <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-                <h2>{{ food.name }}</h2>
-                <p>$ {{ food.price }}</p>
+    {% if listings %}
+    <h1> Your Listings </h1>
+    <div class="card-grid">
+        {% for food in listings %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
             </div>
-            {% endfor %}
         </div>
-        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
 
-        {% if reservations %}
-            <h1> Your Reservations </h1>
-            <div class="card-grid">
-                {% for food in reservations %}
-                    <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-                        <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-                        <h2>{{ food.name }}</h2>
-                        <p>$ {{ food.price }}</p>
-                        {% if user.location.coordinates[0] != 0 or user.location.coordinates[1] != 0 %}
-                            {% if food.distance > 1000 %}
-                                <p>{{ food.distance/1000|round}} km away</p>
-                            {% else %}
-                                <p>{{ food.distance|round}} m away</p>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
+    {% if reservations %}
+    <h1> Your Reservations </h1>
+    <div class="card-grid">
+        {% for food in reservations %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
+                {% if food.distance %}
+                <p class="distance">
+                    {% if food.distance > 1000 %}
+                    {{ (food.distance/1000)|round(1) }} km away
+                    {% else %}
+                    {{ food.distance|round(1) }} m away
+                    {% endif %}
+                </p>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-        
-        {% if user.location.coordinates[0] != 0 or user.location.coordinates[1] != 0 %}
-            {% if near %}
-                <h1> Near You </h1>
-                <div class="card-grid">
-                    {% for food in near %}
-                        <div class="card" onclick="location.href='/listings/{{ food._id }}';">
-                            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-                            <h2>{{ food.name }}</h2>
-                            <p>$ {{ food.price }}</p>
+
+    {% if user.location.coordinates[0] != 0 or user.location.coordinates[1] != 0 %}
+    {% if near %}
+    <h1> Near You </h1>
+    <div class="card-grid">
+        {% for food in near %}
+            {% if food.user_id != user_id %}
+                <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+                    <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                    <h2>{{ food.name }}</h2>
+                    <div class="card-info">
+                        <p class="price">$ {{ food.price }}</p>
+                        <p class="distance">
                             {% if food.distance > 1000 %}
-                                <p>{{ food.distance/1000|round}} km away</p>
+                            {{ (food.distance/1000)|round(1) }} km away
                             {% else %}
-                                <p>{{ food.distance|round}} m away</p>
+                            {{ food.distance|round(1) }} m away
                             {% endif %}
-                        </div>
-                    {% endfor %}
+                        </p>
+                    </div>
                 </div>
             {% endif %}
-        {% else %}
-        <h2> Complete your profile to see listings near you!
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% else %}
+    <h2> Complete your profile to see listings near you!
         {% endif %}
 
-    <h1>Recommended for You</h1>
+        <h1>Recommended for You</h1>
 
-        
+        {% else %}
 
+        <h1>Why Choose Us?</h1>
+        <p>
+            FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe
+            every
+            meal matters, and even the smallest actions can have a
+            significant impact when we all do our part. Join us on our journey towards zero food waste today!
+        </p>
 
-    {% else %}
+        <h1>Get Started</h1>
 
-    <h1>Why Choose Us?</h1>
-    <p>FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe every
-        meal matters, and even the smallest actions can have a
-        significant impact when we all do our part. Join us on our journey towards zero food waste today!</p>
+        <div>
+            <p style="margin-bottom:5px;">If you already have an account, click the button below to log in.</p>
+            <div class="button-container">
+                <a href="{{ url_for('login') }}" class='btn'>Log In</a>
+            </div>
+        </div>
 
-    <h1>Get Started</h1>
-    <p>Join the FoodForward community by signing up or logging in, then start listing or purchasing available food
-        items.
-        It's that simple!</p>
-    <a href="{{ url_for('register') }}" class='button'>Register</a>
-    <a href="{{ url_for('login') }}" class='button'>Login</a>
+        <div>
+            <p style="margin-bottom:5px;">If you're new to FoodForward, click the button below to get started.</p>
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class='btn'>Register</a>
+            </div>
+        </div>
 
-    {% endif %}
+        {% endif %}
 
 </div>
 

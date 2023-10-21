@@ -71,12 +71,31 @@ nav a:hover {
 }
 
 
-nav .active {
-   text-decoration: underline;
-   color: #F6CA83;
-   text-decoration-thickness: 4px;
+nav .active a {
+   border-bottom: 4px solid #F6CA83;
 }
 
+.button {
+   display: inline-block;
+   font-weight: 400;
+   color: #fff;
+   text-align: center;
+   vertical-align: middle;
+   cursor: pointer;
+   background-color: #007bff;
+   border: 1px solid transparent;
+   padding: .375rem .75rem;
+   font-size: 1rem;
+   line-height: 1.5;
+   border-radius: .25rem;
+   text-decoration: none;
+}
+
+.button:hover {
+   color: #fff;
+   background-color: #0069d9;
+   border-color: #0062cc;
+}
 
 .page-content {
    margin: 0 auto;
@@ -91,19 +110,25 @@ nav .active {
 }
 
 
-.error {
-   background-color: #b20202;
+.error,
+.success,
+.warning {
    color: white;
    padding: 1rem;
 }
 
+.error {
+   background-color: #b20202;
+}
 
 .success {
    background-color: #04AA6D;
-   color: white;
-   padding: 1rem;
+
 }
 
+.warning {
+   background-color: #FFC107;
+}
 
 form {
    margin: 0 auto;
@@ -163,14 +188,10 @@ hr {
    margin: 1rem 0;
 }
 
-
-
-
 table {
    border-collapse: collapse;
    width: 100%;
 }
-
 
 th,
 td {
@@ -178,16 +199,13 @@ td {
    padding: 8px;
 }
 
-
 tr:nth-child(even) {
    background-color: #f2f2f2;
 }
 
-
 tr:hover {
    background-color: #ddd;
 }
-
 
 textarea {
    width: 100%;
@@ -197,11 +215,9 @@ textarea {
    border-radius: 4px;
 }
 
-
 .price-input {
    position: relative;
 }
-
 
 .dollar-sign {
    font-size: medium;
@@ -210,7 +226,6 @@ textarea {
    top: 50%;
    transform: translateY(-45%);
 }
-
 
 .price-input #price {
    padding-left: 25px;
@@ -228,18 +243,17 @@ textarea {
    display: flex;
    flex-direction: column;
    justify-content: space-between;
-   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
    transition: 0.3s;
    border-radius: 5px;
    cursor: pointer;
 }
 
 .card-grid .card:hover {
-   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card-grid .card h2, 
-.card-grid .card p{
+.card-grid .card h2{
    padding: 10px;
    text-align: center;
 }
@@ -253,14 +267,31 @@ textarea {
    border-top-right-radius: 5px;
 }
 
-.card-grid .card p {
-   font-weight: bold; 
-   color: green; 
-   font-size: 18px;
-   margin: 10px 0;
+/* display price and distance in different lines in pretty way */
+.card-grid .card .card-info {
+   padding: 0 10px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: column;
+   font-size:small;
 }
 
-.food-item{
+.card-grid .card .card-info p {
+   margin: 0;
+   font-weight: bold;
+   font-size: 18px;
+}
+
+.card-grid .card .card-info .price {
+   color: green;
+}
+
+.card-grid .card .card-info .distance {
+   color: #666666;
+}
+
+.food-item {
    border: 1px solid #dddddd;
    border-radius: 10px;
    padding: 20px;
@@ -288,19 +319,24 @@ h2.food-name {
    width: 100%;
 }
 
-.food-price, .food-comments, .food-expiry, .food-posted-at {
+.food-price,
+.food-comments,
+.food-expiry,
+.food-posted-at {
    font-size: 16px;
    color: #666666;
    margin-bottom: 10px;
 }
 
-.food-allergens, .food-tags {
+.food-allergens,
+.food-tags {
    font-size: 16px;
    color: #666666;
    margin-bottom: 10px;
 }
 
-.food-allergens button, .food-tags button {
+.food-allergens button,
+.food-tags button {
    margin-right: 5px;
    padding: 5px 10px;
    background: #eeeeee;
@@ -310,7 +346,7 @@ h2.food-name {
    color: #666666;
 }
 
-.btn-container {
+.button-container {
    display: flex;
    justify-content: space-between;
    margin-bottom: 20px;
@@ -320,7 +356,7 @@ h2.food-name {
    display: inline-block;
    padding: 10px 20px;
    text-decoration: none;
-   background-color: #f44336; 
+   background-color: #333;
    color: #fff;
    border-radius: 4px;
    transition: background-color 0.3s ease;
@@ -329,4 +365,31 @@ h2.food-name {
 .disabled {
    cursor: not-allowed !important;
    opacity: 0.6;
+}
+
+.search {
+   width: 100%;
+   margin-bottom: 20px;
+}
+
+.search form {
+   display: flex;
+   flex-direction: column;
+}
+
+.search form input[type="text"],
+.search form select {
+   margin-bottom: 10px;
+   padding: 10px;
+   border-radius: 5px;
+   border: solid 1px #ddd;
+}
+
+.search form input[type="submit"] {
+   cursor: pointer;
+   padding: 10px;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   background-color: #333;
 }

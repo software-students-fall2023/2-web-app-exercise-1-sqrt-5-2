@@ -13,13 +13,12 @@
 
 </div>
 
-
 <form method="post" action="{{ url_for('register') }}">
-  <input type="text" placeholder="First Name" name="first_name" /><br/>
-  <input type="text" placeholder="Last Name" name="last_name" /><br/>
-  <input type="email" placeholder="Email" name="email" /><br/>
-  <input type="password" placeholder="Password" name="password" minlength="8"/><br/>
-  <input type="password" placeholder="Confirm Password" name="password2" minlength="8"/><br/>
+  <input type="text" placeholder="First Name" name="first_name" value="{{ first_name }}" required/><br/>
+  <input type="text" placeholder="Last Name" name="last_name" value="{{ last_name }}" required/><br/>
+  <input type="email" placeholder="Email" name="email" value="{{ email }}" required/><br/>
+  <input type="password" placeholder="Password" name="password" minlength="8" required/><br/>
+  <input type="password" placeholder="Confirm Password" name="password2" minlength="8" required/><br/>
   <input type="submit" value="Register" />
 </form>
 

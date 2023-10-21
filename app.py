@@ -15,14 +15,32 @@ from utils import (
     handle_edit,
     add_distance
 )
-
-
 from bson.objectid import ObjectId
 from datetime import datetime
-from db import get_current_user_data, find_all, create_index, db, insert, show_reservations, find, delete
-from defaults import TEMPLATES_DIR, STATIC_DIR, LOGIN_COOKIE_NAME, IMAGE_DIR, SORT_FUNCTION_FIELDS, SORT_FUNCTION_ORDER, FILTER_FUNCTION_FIELDS, LISTING_COLLECTION_NAME, TRANSACTION_COLLECTION_NAME
+from db import (
+    get_current_user_data,
+    find_all,
+    create_index,
+    db,
+    insert,
+    show_reservations,
+    find,
+    delete
+)
+from defaults import (
+    TEMPLATES_DIR,
+    STATIC_DIR,
+    LOGIN_COOKIE_NAME,
+    IMAGE_DIR,
+    SORT_FUNCTION_FIELDS,
+    SORT_FUNCTION_ORDER,
+    FILTER_FUNCTION_FIELDS,
+    LISTING_COLLECTION_NAME,
+    TRANSACTION_COLLECTION_NAME
+)
 from bson.objectid import ObjectId
 from scripts.fill import fill
+
 
 def init_app():
     app = Flask(__name__, template_folder=TEMPLATES_DIR,
@@ -45,15 +63,13 @@ def home():
     if not user_data:
         return render_template('index.html')
     else:
-        for item in show_listings({'user_id': {'$ne' : user_data['_id']}}):
-            print(item)
-
         return render_template(
             'index.html', user=user_data,
             listings=list(add_distance({'user_id': user_data['_id']})),
             reservations=list(show_reservations()),
-            near = list(add_distance({'user_id': {'$ne' : user_data['_id']}}))[:4]
+            near=list(add_distance({'user_id': {'$ne': user_data['_id']}}))[:4]
         )
+
 
 @app.route('/register', methods=['GET', 'POST'])
 @redirect_if_logged_in
@@ -65,7 +81,13 @@ def register():
             register_user(request.form)
             return redirect(url_for('login'))
         except Exception as e:
-            return render_template('auth/register.html', error=e)
+            return render_template(
+                'auth/register.html',
+                error=e,
+                first_name=request.form.get('first_name'),
+                last_name=request.form.get('last_name'),
+                email=request.form.get('email')
+            )
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -81,7 +103,7 @@ def login():
             response.set_cookie(LOGIN_COOKIE_NAME, str(user_id))
             return response
         except Exception as e:
-            return render_template('auth/login.html', error=e)
+            return render_template('auth/login.html', error=e, email=request.form.get('email'))
 
 
 @app.route('/logout')
@@ -107,29 +129,32 @@ def profile():
 @requires_login
 def listings():
     if request.method == 'GET':
-        return render_template('listings.html', 
-                listings= add_distance({}),
-                user_id = get_current_user_data()['_id'])
-    
+        return render_template('food/listings.html',
+                               listings=add_distance({}),
+                               user_id=get_current_user_data()['_id'])
+
     elif request.method == 'POST':
         add_listing(request.form)
         return redirect(url_for('listings'))
 
 
 @app.route('/listings/<listing_id>')
+@requires_login
 def display_details(listing_id):
     user_data = get_current_user_data()
 
     # get food that have the same tags as the current food.
-    tags = list(show_listings({'_id' : ObjectId(listing_id)}))[0]['tags']
-    similar_food = [food for food in show_listings({'tags' : {'$in' : tags}}) if food['_id'] != ObjectId(listing_id)]
+    tags = list(show_listings({'_id': ObjectId(listing_id)}))[0]['tags']
+    similar_food = [food for food in show_listings(
+        {'tags': {'$in': tags}}) if food['_id'] != ObjectId(listing_id)]
 
     return render_template(
-        'details.html',
+        'food/details.html',
         item=list(show_listings({'_id': ObjectId(listing_id)}))[0],
         user_id=user_data['_id'],
-        reservation=find(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)}),
-        similar_food = similar_food
+        reservation=find(TRANSACTION_COLLECTION_NAME, {
+                         'listing_id': ObjectId(listing_id)}),
+        similar_food=similar_food
     )
 
 
@@ -143,7 +168,7 @@ def edit_details(listing_id):
 
     if (request.method == 'GET'):
         item['tags'] = get_tags(item['tags'])
-        return render_template('edit.html', item=item)
+        return render_template('food/edit.html', item=item)
     if (request.method == 'POST'):
         return handle_edit(request.form, ObjectId(listing_id))
 
@@ -179,7 +204,7 @@ def cancel(listing_id):
 def add():
     if request.method == 'GET':
         return render_template(
-            'add.html',
+            'food/add.html',
             item={
                 'expiry': datetime.now().strftime('%Y-%m-%d'),
                 'tags': get_tags(),
@@ -221,7 +246,7 @@ def search():
     if sort:
         listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
 
-    return render_template('search.html', listings=add_distance({}))
+    return render_template('food/search.html', listings=add_distance({}))
 
 
 if __name__ == '__main__':

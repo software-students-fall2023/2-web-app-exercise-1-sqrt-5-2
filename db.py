@@ -69,7 +69,6 @@ def get_current_user_data():
 
 def get_nearest(user_latitude, user_longitude, match_query = {}):
     nearest_locations = db[LISTING_COLLECTION_NAME].aggregate([
-
         {
             "$geoNear": {
                 "near": {

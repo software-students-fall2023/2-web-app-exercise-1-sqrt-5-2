@@ -3,14 +3,18 @@
 {% block title %}Profile{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="static/css/multiSelectTag.css">
-<script src="static/js/multiSelectTag.js"></script>
+<link rel="stylesheet" href="/static/css/multiSelectTag.css">
+<script src="/static/js/multiSelectTag.js"></script>
 {% endblock %}
 
 {% block content %}
 
 <div class="page-content">
     <h1>Edit Profile</h1>
+
+    {% if not user.setup_complete %}
+    <p class="warning">Your profile is not complete. Please fill out your address, preferences, and allergens for personalized recommendations.</p>
+    {% endif %}
 
     {% if message %}
     <p class="success">{{ message }}</p>
@@ -33,14 +37,14 @@
         <label for="phone_number" required="">Phone Number</label>
         <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}" required>
         
-        <label for="preferences">Preferences</label>
+        <label for="preferences"><h3>Preferences</h3></label>
         <select id="preferences" name="preferences" multiple>
             {% for tag, selected in tags.items() %}
                 <option value="{{ tag }}" {% if selected %}selected{% endif %}>{{ tag }}</option>
             {% endfor %}
         </select>
 
-        <label for="allergens">Allergens</label>
+        <label for="allergens"><h3>Allergens</h3></label>
         <select id="allergens" name="allergens" multiple>
             {% for allergen, selected in user.allergens.items() %}
                 <option value="{{ allergen }}" {% if selected %}selected{% endif %}>{{ allergen }}</option>

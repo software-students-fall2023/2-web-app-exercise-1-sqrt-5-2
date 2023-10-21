@@ -18,6 +18,7 @@ See instructions. Delete this line and place a link to the user stories here.
 ## Task boards
 
 * [Sprint 1](https://github.com/orgs/software-students-fall2023/projects/15/views/1?layout=board)
+* [Sprint 2](https://github.com/orgs/software-students-fall2023/projects/35/views/1?layout=board)
 
 ## Setup
 
@@ -56,7 +57,9 @@ flask run --reload
 
 ### Filler Data
 
-Run the following in the root directory to add filler data to the database:
+Filler data will be added automatically to the database if there is no data in the collections initially.
+
+Run the following in the root directory if you need to manually add filler data to the database:
 
 ```sh
 python -m scripts.fill

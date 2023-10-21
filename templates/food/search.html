@@ -4,11 +4,14 @@
 
 {% block content %}
 
+<div class="page-content">
+    <h1>Search Food</h1>
 
-<div class="searchBar">
-    <form action="/search" method="get">
-        <input type="text" name="query" placeholder="Search...">
-        <label for="price">Price:</label>
+    <div class="search">
+        <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+
+            <label for="price">Price:</label>
             <select name="price" id="price">
                 <option value="">-- Select --</option>
                 <option value="_5">Under $5</option>
@@ -18,33 +21,35 @@
                 <option value="20_">$20 and above</option>
             </select>
 
-        <label for="sortby">Sort by:</label>
+            <label for="sortby">Sort by:</label>
             <select name="sortby" id="sortby">
                 <option value="">-- Select --</option>
-                <option value = "newest">Newest Additions</option>
+                <option value="newest">Newest Additions</option>
                 <option value="priceLH">Price: Lowest to Highest </option>
                 <option value="priceHL">Price: Highest to Lowest </option>
             </select>
 
-        <input type="submit" value="Search">
-    </form>
-</div>
+            <input type="submit" value="Search">
+        </form>
+    </div>
 
-<div class="card-grid">
-    {% for food in listings %}
+    <div class="card-grid">
+        {% for food in listings %}
         <div class="card">
             <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
             <h2>{{ food.name }}</h2>
             <p>$ {{ food.price }}</p>
 
             {% if food.user_id != user_id %}
-                {% if food.distance > 1000 %}
-                    <p>{{ (food.distance/1000)|round}} km away</p>
-                {% else %}
-                    <p>{{ food.distance|round}} m away</p>
-                {% endif %}
-            {% endif %}  
+            {% if food.distance > 1000 %}
+            <p>{{ (food.distance/1000)|round}} km away</p>
+            {% else %}
+            <p>{{ food.distance|round}} m away</p>
+            {% endif %}
+            {% endif %}
         </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+
 </div>
 {% endblock %}

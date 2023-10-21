@@ -1,11 +1,11 @@
 {% extends 'layouts/layout.html' %}
 
-{% block title %}Edit {{item.name}}{% endblock %}
-
 {% block head %}
-<link rel="stylesheet" href="static/css/multiSelectTag.css">
-<script src="static/js/multiSelectTag.js"></script>
+<link rel="stylesheet" href="/static/css/multiSelectTag.css">
+<script src="/static/js/multiSelectTag.js"></script>
 {% endblock %}
+
+{% block title %}Edit {{item.name}}{% endblock %}
 
 {% block content %}
 
@@ -17,7 +17,6 @@
     {% endif %}
 
     <form action="{{ url_for('edit_details', listing_id = item._id)}}" method="post" enctype="multipart/form-data">
-
         <label for="name" required="">Name</label>
         <input type="text" id="name" name="name" required value="{{ item.name }}">
 
@@ -46,14 +45,13 @@
         
         <label for="photo">Photo</label>
         <input type="file" id="photo" name="photo" value="{{ item.photo }}">
-        <img src = "/images/{{item.photo}}">
+        <img src="/images/{{ item.photo }}" style="max-width: 100%; height: auto;"/>
 
         <label for="comments">Additional Comments</label>
         <textarea id="comments" name="comments" rows="4" cols="50">{{ item.comments }}</textarea>
 
-        <input type="submit" value="Edit!">
+        <input type="submit" value="Edit">
     </form>
-
 </div>
 <script>
     new MultiSelectTag('tags');

@@ -6,7 +6,6 @@ from defaults import LOGIN_COOKIE_NAME, USER_COLLECTION_NAME, LISTING_COLLECTION
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from geopy.geocoders import Nominatim
-import geocoder
 
 
 def requires_login(func):
@@ -83,6 +82,9 @@ def add_distance(match_query):
 @validate_unique('email')
 @check_confirm_password
 def register_user(form):
+    if not all(form.values()):
+        raise Exception('Please fill out all fields!')
+    
     # hash the password
     password = Bcrypt().generate_password_hash(
         form.get('password')).decode('utf-8')
@@ -134,16 +136,19 @@ def update_user_data(form):
         'last_name': form.get('last_name'),
         'email': form.get('email'),
         'phone_number': form.get('phone_number'),
-        'address': {
+        'preferences': form.getlist('preferences'),
+    }   
+
+    address = {
             'street': form.get('street'),
             'city': form.get('city'),
             'state': form.get('state'),
             'zipcode': form.get('zipcode'),
-        },
-        'preferences': form.getlist('preferences'),
-        'allergens': allergens,
-        'setup_complete': all(form.values())
     }
+
+    data['setup_complete'] = all(data.values()) and all(address.values()) and any(allergens.values())
+    data['allergens'] = allergens
+    data['address'] = address
     data['location'] = get_longitude_latitude(**data['address'])
 
     update(
@@ -257,7 +262,7 @@ def handle_post(form):
         return redirect(url_for('listings'))
     except Exception as e:
         return render_template(
-            'add.html',
+            'food/add.html',
             item={
                 'name': form.get('name'),
                 'price': form.get('price'),
@@ -315,7 +320,7 @@ def handle_edit(form, listing_id):
     
     except Exception as e:
         return render_template(
-            'edit.html',
+            'food/edit.html',
             item={
                 'name': form.get('name'),
                 'price': form.get('price'),

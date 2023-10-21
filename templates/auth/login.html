@@ -14,8 +14,8 @@
 </div>
 
 <form method="post" action="{{ url_for('login') }}">
-  <input type="email" placeholder="Email" name="email" /><br>
-  <input type="password" placeholder="Password" name="password" /><br>
+  <input type="email" placeholder="Email" name="email" value="{{ email }}" required/><br>
+  <input type="password" placeholder="Password" name="password" required/><br>
   <input type="submit" value="Login" />
 </form>
 

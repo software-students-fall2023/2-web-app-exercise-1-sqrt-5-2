@@ -14,7 +14,7 @@
     <div class="food-item">
         <h2 class="food-name">{{item.name}}</h2>
         
-        <div class="btn-container">
+        <div class="button-container">
             {% if item.user_id == user_id %}
                 <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
             {% elif reservation %}
@@ -51,15 +51,17 @@
     {% if similar_food %}
     <div class="similar-food">
         <h1>You may also like</h1>
-            <div class="card-grid">
-                {% for food in similar_food %}
-                <div class="card">
-                    <a href="{{ '/listings/%s'%food._id }}"><img src="/images/{{ food.photo }}" alt="{{ food.name }}"></a>
+        <div class="card-grid">
+            {% for food in similar_food %}
+                <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+                    <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
                     <h2>{{ food.name }}</h2>
-                    <p>$ {{ food.price }}</p>
+                    <div class="card-info">
+                        <p class="price">$ {{ food.price }}</p>
+                    </div>
                 </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
+        </div>
     </div>
     {% endif %}
 

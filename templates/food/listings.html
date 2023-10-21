@@ -6,7 +6,7 @@
 
 <div class="page-content">
     <h1>Listings</h1>
-    <div class="btn-container">
+    <div class="button-container">
         <a href="{{url_for('add')}}" class="btn">Add Listing</a>
         <a href="{{url_for('search')}}" class="btn">Search Food</a>
     </div>
@@ -16,14 +16,18 @@
             <div class="card" onclick="location.href='/listings/{{ food._id }}'">
                 <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
                 <h2>{{ food.name }}</h2>
-                <p>$ {{ food.price }}</p>
-                {% if food.user_id != user_id %}
-                    {% if food.get('distance') > 1000 %}
-                        <p>{{ food.get('distance')/1000|round}} km away</p>
-                    {% else %}
-                        <p>{{ food.get('distance')|round}} m away</p>
+                <div class="card-info">
+                    <p class="price">$ {{ food.price }}</p>
+                    {% if food.user_id != user_id %}
+                        <p class="distance">
+                            {% if food.distance > 1000 %}
+                                {{ (food.distance/1000)|round(1) }} km away
+                            {% else %}
+                                {{ food.distance|round(1) }} m away
+                            {% endif %}
+                        </p>
                     {% endif %}
-                {% endif %}  
+                </div>
             </div>
         {% endfor %}
     </div>
