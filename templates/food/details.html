@@ -13,39 +13,54 @@
 
     <div class="food-item">
         <h2 class="food-name">{{item.name}}</h2>
-        
-        <div class="button-container">
-            {% if item.user_id == user_id %}
-                <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
-            {% elif reservation %}
-                {% if reservation.reserved_by == user_id %}
-                    <a href="{{ url_for('cancel', listing_id=item._id) }}" class="btn">Cancel</a>
-                {% else %}
-                    <a href="#" class="btn disabled">Not Available</a>
-                {% endif %}
-            {% else %}
-                <a href="{{ url_for('reserve', listing_id=item._id) }}" class="btn">Reserve</a>
-            {% endif %}
-        </div>
-        
+
+        <p class="food-post-info"> Posted by {{ poster.first_name }} {{ poster.last_name }} on
+            {{item.created_at|filter_date}}</p>
+
+        {% if item.user_id == user_id %}
+        <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
+        {% elif reservation %}
+        {% if reservation.reserved_by == user_id %}
+        <p class="success">Contact {{ poster.first_name }} at <strong>{{ poster.email }}</strong> or <strong>{{
+                poster.phone_number }}</strong> to fix a time to meet up at specified location.</p>
+
+        <a href="{{ url_for('cancel', listing_id=item._id) }}" class="btn cancel">Cancel Reservation</a>
+        {% else %}
+        <a href="#" class="btn disabled">Not Available</a>
+        {% endif %}
+        {% else %}
+        <a href="{{ url_for('reserve', listing_id=item._id) }}" class="btn reserve">Reserve Food</a>
+        {% endif %}
+
         <img src="/images/{{ item.photo }}" alt="{{ item.name }}" class="food-photo">
-        <p class="food-price"> Price: $ {{item.price}}</p>
-        <p class="food-comments">{{item.comments}}</p>
-        <p class="food-expiry"> Expires on: {{item.expiry}}</p>
-        <p class="food-posted-at"> Posted: {{item['created_at'].strftime('%Y-%m-%d')}}</p>
-        <p class="food-allergens">Allergens:
-            {% for key, value in item.allergens.items() %}
-                {% if item.allergens[key] %}
-                <button> {{key}} </button>
-                {% endif %}
-            {% endfor %}
-        </p>
-        <p class="food-tags"> Tags:
+        <p class="food-comments">{{ item.comments }}</p>
+        <p class="food-price"><strong>Price:</strong> $ {{ item.price }}</p>
+
+        <p class="food-tags"><strong>Tags:</strong>
+            {% if item.tags %}
             {% for tag in item.tags %}
             <button> {{tag}} </button>
             {% endfor %}
+            {% endif %}
         </p>
-        <p> Meet them at : <a href="https://www.google.com/maps/search/{{item.address.street}}, {{item.address.city}}, {{item.address.state}} {{item.address.zip}}">{{item.address.street}}, {{item.address.city}}, {{item.address.state}} {{item.address.zip}}</a></p>
+
+        <p class="food-allergens"><strong>Allergens:</strong>
+            {% if item.allergens.values()|any %}
+            {% for key, value in item.allergens.items() %}
+            {% if item.allergens[key] %}
+            <button> {{key}} </button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            N/A
+            {% endif %}
+        </p>
+
+        <p class="food-expiry"> <strong>Expires on:</strong> {{ item.expiry|filter_date }}</p>
+
+        <p class="food-location"><strong>Meetup: </strong><a
+                href="https://www.google.com/maps/search/{{item.address.street}}, {{item.address.city}}, {{item.address.state}} {{item.address.zip}}">{{item.address.street}},
+                {{item.address.city}}, {{item.address.state}} {{item.address.zip}}</a></p>
     </div>
 
     {% if similar_food %}
@@ -53,13 +68,13 @@
         <h1>You may also like</h1>
         <div class="card-grid">
             {% for food in similar_food %}
-                <div class="card" onclick="location.href='/listings/{{ food._id }}'">
-                    <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
-                    <h2>{{ food.name }}</h2>
-                    <div class="card-info">
-                        <p class="price">$ {{ food.price }}</p>
-                    </div>
+            <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                <h2>{{ food.name }}</h2>
+                <div class="card-info">
+                    <p class="price">$ {{ food.price }}</p>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>

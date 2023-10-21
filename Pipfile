@@ -8,7 +8,6 @@ flask = "*"
 pymongo = "*"
 flask-bcrypt = "*"
 geopy = "*"
-geocoder = "*"
 
 [dev-packages]
 

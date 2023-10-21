@@ -30,8 +30,15 @@ db = connection[DATABASE_NAME]
 
 def create_index():
     db[LISTING_COLLECTION_NAME].create_index([("location", "2dsphere")])
+    db[LISTING_COLLECTION_NAME].create_index([("tags", 1)])
+    db[LISTING_COLLECTION_NAME].create_index([("allergens", 1)])
     db[LISTING_COLLECTION_NAME].create_index([("name", "text")])
-
+    db[USER_COLLECTION_NAME].create_index([("preferences", 1)])
+    db[USER_COLLECTION_NAME].create_index([("allergens", 1)])
+    db[USER_COLLECTION_NAME].create_index([("email", 1)])
+    db[USER_COLLECTION_NAME].create_index([("phone_number", 1)])
+    db[TRANSACTION_COLLECTION_NAME].create_index([("reserved_by", 1)])
+    db[TRANSACTION_COLLECTION_NAME].create_index([("listing_id", 1)])
 
 def drop_collection(collection):
     db[collection].drop()
@@ -50,10 +57,8 @@ def find(collection, query):
 def find_all(collection, query):
     return db[collection].find(query)
 
-
 def sort(collection, field, query, order=1):
     return db[collection].find(query).sort(field, order)
-
 
 def update(collection, query, update):
     return db[collection].update_one(query, update)

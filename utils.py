@@ -228,13 +228,16 @@ def get_allergens():
     return {allergen: False for allergen in ALLERGENS}
 
 def show_listings(query):
-    return find_all('listings', query)
+    return find_all(LISTING_COLLECTION_NAME, query)
+
+def show_listing(query):
+    return find(LISTING_COLLECTION_NAME, query)
 
 def add_listing(form, allergens, image_name):
     data = {
         'name': form.get('name'),
         'price': int(form.get('price')),
-        'expiry': form.get('expiry'),
+        'expiry': datetime.strptime(form.get('expiry'), '%Y-%m-%d'),
         'tags': form.getlist('tags'),
         'allergens': allergens,
         'photo': str(image_name),

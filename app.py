@@ -13,11 +13,13 @@ from utils import (
     get_allergens,
     handle_post,
     handle_edit,
-    add_distance
+    add_distance,
+    show_listing
 )
 from bson.objectid import ObjectId
 from datetime import datetime
 from db import (
+    get_user_data,
     get_current_user_data,
     find_all,
     create_index,
@@ -39,15 +41,21 @@ from defaults import (
     TRANSACTION_COLLECTION_NAME
 )
 from bson.objectid import ObjectId
-from scripts.fill import fill
+from scripts.fill import fill as fill_dummy_data
 
 
 def init_app():
-    app = Flask(__name__, template_folder=TEMPLATES_DIR,
-                static_folder=STATIC_DIR)
+    app = Flask(
+        __name__,
+        template_folder=TEMPLATES_DIR,
+        static_folder=STATIC_DIR
+    )
 
+    # if database is empty, fill it with dummy data
     if not db[LISTING_COLLECTION_NAME].find_one():
-        fill()
+        fill_dummy_data()
+
+    # create index for different fields in the collections
     create_index()
 
     return app
@@ -141,20 +149,25 @@ def listings():
 @app.route('/listings/<listing_id>')
 @requires_login
 def display_details(listing_id):
+    item = show_listing({'_id': ObjectId(listing_id)})
+    if not item:
+        return redirect(url_for('listings'))
+
     user_data = get_current_user_data()
+    poster_data = get_user_data(user_id=item['user_id'])
 
     # get food that have the same tags as the current food.
-    tags = list(show_listings({'_id': ObjectId(listing_id)}))[0]['tags']
-    similar_food = [food for food in show_listings(
-        {'tags': {'$in': tags}}) if food['_id'] != ObjectId(listing_id)]
+    similar_food = [food for food in show_listings({'tags': {'$in': item['tags']}})
+                    if food['_id'] != ObjectId(listing_id)]
 
     return render_template(
         'food/details.html',
-        item=list(show_listings({'_id': ObjectId(listing_id)}))[0],
+        item=item,
         user_id=user_data['_id'],
         reservation=find(TRANSACTION_COLLECTION_NAME, {
                          'listing_id': ObjectId(listing_id)}),
-        similar_food=similar_food
+        similar_food=similar_food,
+        poster=poster_data
     )
 
 
@@ -247,6 +260,16 @@ def search():
         listings.sort(SORT_FUNCTION_FIELDS[sort], SORT_FUNCTION_ORDER[sort])
 
     return render_template('food/search.html', listings=add_distance({}))
+
+
+@app.template_filter('filter_date')
+def filter_date(date):
+    return date.strftime('%B %d, %Y')
+
+
+@app.template_filter('any')
+def if_any(values):
+    return any(values)
 
 
 if __name__ == '__main__':

@@ -115,6 +115,7 @@ nav .active a {
 .warning {
    color: white;
    padding: 1rem;
+   margin-bottom: 0.5rem;
 }
 
 .error {
@@ -168,6 +169,12 @@ input[type=submit]:hover {
    opacity: 1;
 }
 
+
+label{
+   font-weight: bold;
+   display: block;
+   margin-bottom: 2px;
+}
 
 label[required]:after {
    content: " *";
@@ -253,7 +260,7 @@ textarea {
    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card-grid .card h2{
+.card-grid .card h2 {
    padding: 10px;
    text-align: center;
 }
@@ -267,18 +274,17 @@ textarea {
    border-top-right-radius: 5px;
 }
 
-/* display price and distance in different lines in pretty way */
 .card-grid .card .card-info {
    padding: 0 10px;
    display: flex;
    justify-content: space-between;
    align-items: center;
    flex-direction: column;
-   font-size:small;
+   font-size: small;
 }
 
 .card-grid .card .card-info p {
-   margin: 0;
+   margin: 0 0 5px 0;
    font-weight: bold;
    font-size: 18px;
 }
@@ -289,6 +295,7 @@ textarea {
 
 .card-grid .card .card-info .distance {
    color: #666666;
+   font-size: 14px;
 }
 
 .food-item {
@@ -313,6 +320,7 @@ h2.food-name {
    padding: 10px;
    border-radius: 5px;
    text-decoration: none;
+   font-size: 14px !important;
 }
 
 .food-photo {
@@ -322,10 +330,17 @@ h2.food-name {
 .food-price,
 .food-comments,
 .food-expiry,
-.food-posted-at {
+.food-post-info,
+.food-location{
    font-size: 16px;
    color: #666666;
    margin-bottom: 10px;
+}
+
+.food-price{
+   font-weight: bold;
+   color: green;
+   font-size: 18px;
 }
 
 .food-allergens,
@@ -360,6 +375,14 @@ h2.food-name {
    color: #fff;
    border-radius: 4px;
    transition: background-color 0.3s ease;
+}
+
+.reserve{
+   background-color: #367c36 !important;
+}
+
+.cancel{
+   background-color: #a41313 !important;
 }
 
 .disabled {

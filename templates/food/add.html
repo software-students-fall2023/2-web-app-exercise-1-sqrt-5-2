@@ -46,8 +46,14 @@
         <label for="photo" required="">Photo</label>
         <input type="file" id="photo" name="photo" value="{{ item.photo }}" required>
 
-        <label for="comments">Additional Comments</label>
+        <label for="comments">Description</label>
         <textarea id="comments" name="comments" rows="4" cols="50">{{ item.comments }}</textarea>
+
+        <h3>Meetup Location</h3>
+
+        {% if item.address.values()|any %}
+            <p class="success" style="margin:5px 0;">The location details have been prefilled from your profile.</p>
+        {% endif %}
 
         <label for="street" required="">Street</label>
         <input type="text" id="street" name="street" value="{{ item.address.street }}" required>

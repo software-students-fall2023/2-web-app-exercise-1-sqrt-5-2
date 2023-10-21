@@ -35,18 +35,21 @@
 
     <div class="card-grid">
         {% for food in listings %}
-        <div class="card">
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
             <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
             <h2>{{ food.name }}</h2>
-            <p>$ {{ food.price }}</p>
-
-            {% if food.user_id != user_id %}
-            {% if food.distance > 1000 %}
-            <p>{{ (food.distance/1000)|round}} km away</p>
-            {% else %}
-            <p>{{ food.distance|round}} m away</p>
-            {% endif %}
-            {% endif %}
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
+                {% if food.user_id != user_id %}
+                <p class="distance">
+                    {% if food.distance > 1000 %}
+                    {{ (food.distance/1000)|round(1) }} km away
+                    {% else %}
+                    {{ food.distance|round(1) }} m away
+                    {% endif %}
+                </p>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </div>
