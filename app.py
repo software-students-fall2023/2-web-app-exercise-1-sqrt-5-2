@@ -180,10 +180,10 @@ def edit_details(listing_id):
         return redirect(url_for('listings', listing_id=listing_id))
 
     if (request.method == 'GET'):
-        item['tags'] = get_tags(item['tags'])
+        item['tags'] = get_tags(tag_list=item['tags'])
         return render_template('food/edit.html', item=item)
     if (request.method == 'POST'):
-        return handle_edit(request.form, ObjectId(listing_id))
+        return handle_edit(listing_id=ObjectId(listing_id))
 
 
 @app.route('/listings/<listing_id>/reserve', methods=['GET'])
@@ -219,14 +219,14 @@ def add():
         return render_template(
             'food/add.html',
             item={
-                'expiry': datetime.now().strftime('%Y-%m-%d'),
+                'expiry': datetime.now(),
                 'tags': get_tags(),
                 'allergens': get_allergens(),
                 'address': get_current_user_data()['address']
             }
         )
     elif request.method == 'POST':
-        return handle_post(request.form)
+        return handle_post()
 
 
 @app.route('/images/<img_name>')

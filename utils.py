@@ -1,4 +1,4 @@
-from db import insert, find, find_all, get_current_user_data, update, get_nearest
+from db import insert, update, find, find_all, get_current_user_data, get_nearest, add_listing, edit_listing
 from flask_bcrypt import Bcrypt
 from flask import request, redirect, url_for, render_template
 from functools import wraps
@@ -61,10 +61,12 @@ def check_password(hash, password):
     if not Bcrypt().check_password_hash(hash, password):
         raise Exception('Incorrect password!')
 
+
 def get_longitude_latitude(street, city, state, zipcode):
     try:
         geolocator = Nominatim(user_agent="foodshare")
-        location = geolocator.geocode(f'{street}, {city}, {state} {zipcode}', timeout=200)
+        location = geolocator.geocode(
+            f'{street}, {city}, {state} {zipcode}', timeout=200)
         coordinates = [location.longitude, location.latitude]
     except Exception as e:
         coordinates = [0, 0]
@@ -74,17 +76,19 @@ def get_longitude_latitude(street, city, state, zipcode):
         "coordinates": coordinates
     }
 
+
 def add_distance(match_query):
     user_data = get_current_user_data()
     if (user_data.get('location', None) != None):
         return get_nearest(user_data.get('location').get('coordinates')[0], user_data.get('location').get('coordinates')[1], match_query)
+
 
 @validate_unique('email')
 @check_confirm_password
 def register_user(form):
     if not all(form.values()):
         raise Exception('Please fill out all fields!')
-    
+
     # hash the password
     password = Bcrypt().generate_password_hash(
         form.get('password')).decode('utf-8')
@@ -137,16 +141,17 @@ def update_user_data(form):
         'email': form.get('email'),
         'phone_number': form.get('phone_number'),
         'preferences': form.getlist('preferences'),
-    }   
-
-    address = {
-            'street': form.get('street'),
-            'city': form.get('city'),
-            'state': form.get('state'),
-            'zipcode': form.get('zipcode'),
     }
 
-    data['setup_complete'] = all(data.values()) and all(address.values()) and any(allergens.values())
+    address = {
+        'street': form.get('street'),
+        'city': form.get('city'),
+        'state': form.get('state'),
+        'zipcode': form.get('zipcode'),
+    }
+
+    data['setup_complete'] = all(data.values()) and all(
+        address.values()) and any(allergens.values())
     data['allergens'] = allergens
     data['address'] = address
     data['location'] = get_longitude_latitude(**data['address'])
@@ -224,25 +229,30 @@ def get_tags(user_preference=False, tag_list=None):
 
     return result
 
+
 def get_allergens():
     return {allergen: False for allergen in ALLERGENS}
+
 
 def show_listings(query):
     return find_all(LISTING_COLLECTION_NAME, query)
 
+
 def show_listing(query):
     return find(LISTING_COLLECTION_NAME, query)
 
-def add_listing(form, allergens, image_name):
+
+def get_listing_form_data(for_db=True, image_name=None):
+    form = request.form
+    tags, allergens = current_tags_and_allergens()
+
     data = {
         'name': form.get('name'),
-        'price': int(form.get('price')),
+        'price': float(form.get('price')),
         'expiry': datetime.strptime(form.get('expiry'), '%Y-%m-%d'),
-        'tags': form.getlist('tags'),
+        'tags': tags,
         'allergens': allergens,
-        'photo': str(image_name),
         'comments': form.get('comments').strip(),
-        'user_id': get_current_user_data().get('_id'),
         'address': {
             'street': form.get('street'),
             'city': form.get('city'),
@@ -250,95 +260,62 @@ def add_listing(form, allergens, image_name):
             'zipcode': form.get('zipcode')
         },
     }
-    data['location'] = get_longitude_latitude(**data['address'])
 
-    insert(LISTING_COLLECTION_NAME, data)
+    if for_db:
+        tags = set(form.getlist('tags'))
+        tags.update(
+            {tag.strip().lower() for tag in form.get('custom_tags').split(',')}
+        )
+        tags = list(filter(lambda tag: tag, tags))
 
-def handle_post(form):
-    tags, allergens = current_tags_and_allergens()
+        data['tags'] = tags
+        data['user_id'] = get_current_user_data().get('_id')
+        data['location'] = get_longitude_latitude(**data['address'])
+        if image_name:
+            data['photo'] = image_name
+    else:
+        data['custom_tags'] = form.get('custom_tags')
+
+    return data
+
+
+def handle_post():
     try:
         image = request.files['photo']
         timestamp = datetime.now().strftime('%Y_%m_%d_%H-%M-%S.%f')
         image_name = f'{timestamp}_{secure_filename(image.filename)}'
-        add_listing(form, allergens=allergens, image_name=image_name)
+
+        # add item to db
+        instance = add_listing(get_listing_form_data(image_name=image_name))
         image.save(IMAGE_DIR / image_name)
-        return redirect(url_for('listings'))
+        return redirect(url_for('display_details', listing_id=instance.inserted_id))
     except Exception as e:
         return render_template(
             'food/add.html',
-            item={
-                'name': form.get('name'),
-                'price': form.get('price'),
-                'expiry': form.get('expiry'),
-                'tags': tags,
-                'allergens': allergens,
-                'comments': form.get('comments').strip(),
-                'address': {
-                    'street': form.get('street'),
-                    'city': form.get('city'),
-                    'state': form.get('state'),
-                    'zipcode': form.get('zipcode')
-                }
-            },
+            item=get_listing_form_data(for_db=False),
             error=e
         )
-    
-def edit_listing(form, allergens, image_name, listing_id):
-    
-    data = {
-        'name': form.get('name'),
-        'price': int(form.get('price')),
-        'expiry': form.get('expiry'),
-        'tags': form.getlist('tags'),
-        'allergens': allergens,
-        'photo': str(image_name),
-        'comments': form.get('comments').strip(),
-        'user_id': get_current_user_data().get('_id'),
-        'address': {
-            'street': form.get('street'),
-            'city': form.get('city'),
-            'state': form.get('state'),
-            'zipcode': form.get('zipcode')
-        },
-    }
-    data['location'] = get_longitude_latitude(**data['address'])
-
-    update(LISTING_COLLECTION_NAME, {'_id' : listing_id}, {'$set': data})
 
 
-def handle_edit(form, listing_id):
-    tags, allergens = current_tags_and_allergens()
+def handle_edit(listing_id):
     try:
-
         if request.files['photo']:
             image = request.files['photo']
             timestamp = datetime.now().strftime('%Y_%m_%d_%H-%M-%S.%f')
             image_name = f'{timestamp}_{secure_filename(image.filename)}'
-            image.save(IMAGE_DIR / image_name)
         else:
-            image_name = list(show_listings({'_id' : listing_id}))[0]['photo']
+            image_name = None
 
-        edit_listing(form, allergens, image_name, listing_id)
-        return redirect(url_for('listings'))
-    
+        edit_listing(get_listing_form_data(image_name=image_name), listing_id)
+
+        if image_name:
+            image.save(IMAGE_DIR / image_name)
+
+        return redirect(url_for('display_details', listing_id=listing_id))
+
     except Exception as e:
         return render_template(
             'food/edit.html',
-            item={
-                'name': form.get('name'),
-                'price': form.get('price'),
-                'expiry': form.get('expiry'),
-                'tags': tags,
-                'allergens': allergens,
-                'comments': form.get('comments').strip(),
-                'address': {
-                    'street': form.get('street'),
-                    'city': form.get('city'),
-                    'state': form.get('state'),
-                    'zipcode': form.get('zipcode')
-                }
-            },
+            item=get_listing_form_data(for_db=False),
             error=e
         )
-
-
