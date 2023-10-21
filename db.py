@@ -40,6 +40,7 @@ def create_index():
     db[TRANSACTION_COLLECTION_NAME].create_index([("reserved_by", 1)])
     db[TRANSACTION_COLLECTION_NAME].create_index([("listing_id", 1)])
 
+
 def drop_collection(collection):
     db[collection].drop()
 
@@ -47,21 +48,38 @@ def drop_collection(collection):
 def insert(collection, item):
     return db[collection].insert_one({**item, 'created_at': datetime.datetime.now()})
 
+
 def insert_all(collection, item_array):
     for item in item_array:
         insert(collection, item)
 
+
 def find(collection, query):
     return db[collection].find_one(query)
+
 
 def find_all(collection, query):
     return db[collection].find(query)
 
+
 def sort(collection, field, query, order=1):
     return db[collection].find(query).sort(field, order)
 
+
 def update(collection, query, update):
     return db[collection].update_one(query, update)
+
+
+def add_listing(data):
+    return insert(LISTING_COLLECTION_NAME, data)
+
+
+def edit_listing(data, listing_id):
+    return update(
+        LISTING_COLLECTION_NAME,
+        {'_id': listing_id},
+        {'$set': data}
+    )
 
 
 def get_user_data(user_id):
@@ -72,7 +90,7 @@ def get_current_user_data():
     return get_user_data(ObjectId(request.cookies.get(LOGIN_COOKIE_NAME)))
 
 
-def get_nearest(user_latitude, user_longitude, match_query = {}):
+def get_nearest(user_latitude, user_longitude, match_query={}):
     nearest_locations = db[LISTING_COLLECTION_NAME].aggregate([
         {
             "$geoNear": {
@@ -88,16 +106,19 @@ def get_nearest(user_latitude, user_longitude, match_query = {}):
             "$sort": {"distance": 1}
         },
         {
-            "$match" : match_query
+            "$match": match_query
         },
     ])
 
     return nearest_locations
 
+
 def show_reservations():
     user_id = get_current_user_data()['_id']
-    listing_ids = [x.get('listing_id') for x in find_all(TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})]
+    listing_ids = [x.get('listing_id') for x in find_all(
+        TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})]
     return find_all(LISTING_COLLECTION_NAME, {'_id': {'$in': listing_ids}})
+
 
 def delete(collection, query):
     return db[collection].delete_one(query)

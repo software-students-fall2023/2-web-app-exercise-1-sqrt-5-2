@@ -1,79 +1,18 @@
-{% extends 'layouts/layout.html' %}
+{% extends 'layouts/food-form.html' %}
 
-{% block head %}
-<link rel="stylesheet" href="/static/css/multiSelectTag.css">
-<script src="/static/js/multiSelectTag.js"></script>
-{% endblock %}
+{% block title %}Add Food Post{% endblock %}
 
-{% block title %}Add Items{% endblock %}
+{% block header %}Add Food Post{% endblock %}
 
-{% block content %}
+{% block action %}{{ url_for('add') }}{% endblock %}
 
-<div class="page-content">
-    <h1>Add Items</h1>
+{% block button_value %}Submit{% endblock %}
 
-    {% if error %}
-        <p class="error">{{ error }}</p>
+{% block address_notif %}
+    {% if item.address.values()|any %}
+        <p class="success" style="margin:5px 0;">The location details have been prefilled from your profile.</p>
     {% endif %}
-
-    <form action="{{ url_for('add') }}" method="post" enctype="multipart/form-data">
-        <label for="name" required="">Name</label>
-        <input type="text" id="name" name="name" required value="{{ item.name }}">
-
-        <div class="price-input">
-            <label for="price" required="">Price</label>
-            <span class="dollar-sign">$</span>
-            <input type="number" id="price" name="price" value="{{ item.price }}" required min="0" step=".01">
-        </div>
-
-        <label for="expiry" required="">Expiration Date</label>
-        <input type="date" id="expiry" name="expiry" value="{{ item.expiry }}" required>
-
-        <label for="tags" required="">Tags</label>
-        <select id="tags" name="tags" multiple required>
-            {% for tag, selected in item.tags.items() %}
-                <option value="{{ tag }}" {% if selected %}selected{% endif %}>{{ tag }}</option>
-            {% endfor %}
-        </select>
-        
-        <label for="allergens">Allergens</label>
-        <select id="allergens" name="allergens" multiple>
-            {% for allergen, selected in item.allergens.items() %}
-                <option value="{{ allergen }}" {% if selected %}selected{% endif %}>{{ allergen }}</option>
-            {% endfor %}
-        </select>
-        
-        <label for="photo" required="">Photo</label>
-        <input type="file" id="photo" name="photo" value="{{ item.photo }}" required>
-
-        <label for="comments">Description</label>
-        <textarea id="comments" name="comments" rows="4" cols="50">{{ item.comments }}</textarea>
-
-        <h3>Meetup Location</h3>
-
-        {% if item.address.values()|any %}
-            <p class="success" style="margin:5px 0;">The location details have been prefilled from your profile.</p>
-        {% endif %}
-
-        <label for="street" required="">Street</label>
-        <input type="text" id="street" name="street" value="{{ item.address.street }}" required>
-
-        <label for="city" required="">City</label>
-        <input type="text" id="city" name="city" value="{{ item.address.city }}" required>
-
-        <label for="state" required="">State</label>
-        <input type="text" id="state" name="state" value="{{ item.address.state }}" required>
-
-        <label for="zipcode" required="">Zipcode</label>
-        <input type="text" id="zipcode" name="zipcode" value="{{ item.address.zipcode }}" required>
-        
-        <input type="submit" value="Submit">
-    </form>
-
-</div>
-<script>
-    new MultiSelectTag('tags');
-    new MultiSelectTag('allergens');
-</script>
-
 {% endblock %}
+
+{% block photo_required1 %}required=""{% endblock %}
+{% block photo_required2 %}required{% endblock %}

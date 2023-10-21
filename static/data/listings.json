@@ -4,7 +4,9 @@
   },
   "name": "Margherita Pizza",
   "price": 10,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "pizza",
     "Italian",
@@ -27,7 +29,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:00:02.565Z"
+    "$date": "2023-10-22T01:00:02.565Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -49,7 +51,9 @@
   },
   "name": "Sushi Platter",
   "price": 19.99,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "sushi",
     "Japanese",
@@ -75,7 +79,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:18:27.778Z"
+    "$date": "2023-10-22T01:18:27.778Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -97,7 +101,9 @@
   },
   "name": "Chicken Tikka Masala",
   "price": 12,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "Indian",
     "chicken",
@@ -122,7 +128,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:20:01.823Z"
+    "$date": "2023-10-22T01:20:01.823Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -144,7 +150,9 @@
   },
   "name": "Caesar Salad",
   "price": 8.5,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "vegetarian",
     "salad",
@@ -169,7 +177,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:21:30.239Z"
+    "$date": "2023-10-22T01:21:30.239Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -191,7 +199,9 @@
   },
   "name": "Fish and Chips",
   "price": 12.50,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "fish",
     "chips",
@@ -216,7 +226,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:23:06.329Z"
+    "$date": "2023-10-22T01:23:06.329Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -238,7 +248,9 @@
   },
   "name": "Organic Soy Milk",
   "price": 5,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "Beverage",
     "organic",
@@ -262,7 +274,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:36:28.032Z"
+    "$date": "2023-10-22T01:36:28.032Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -284,7 +296,9 @@
   },
   "name": "Traditional French Baguettes",
   "price": 10,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "bread",
     "French",
@@ -307,7 +321,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:38:34.633Z"
+    "$date": "2023-10-22T01:38:34.633Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -329,7 +343,9 @@
   },
   "name": "Homemade Seafood Paella",
   "price": 15,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "seafood",
     "Spanish",
@@ -352,7 +368,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:41:31.118Z"
+    "$date": "2023-10-22T01:41:31.118Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -374,7 +390,9 @@
   },
   "name": "Betty's Extra Chilli Sauce",
   "price": 5,
-  "expiry": "2023-10-18",
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
   "tags": [
     "Vegan",
     "spicy"
@@ -396,7 +414,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-18T01:43:26.393Z"
+    "$date": "2023-10-22T01:43:26.393Z"
   },
   "address": {
     "street": "140 E 14th St",
