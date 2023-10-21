@@ -1,4 +1,4 @@
-from db import insert, update, find, find_all, get_current_user_data, get_nearest, add_listing, edit_listing
+from db import insert, update, find, find_all, get_current_user_data, add_listing, edit_listing
 from flask_bcrypt import Bcrypt
 from flask import request, redirect, url_for, render_template
 from functools import wraps
@@ -62,12 +62,12 @@ def check_password(hash, password):
         raise Exception('Incorrect password!')
 
 
-def get_longitude_latitude(street, city, state, zipcode):
+def get_latitude_longitude(street, city, state, zipcode):
     try:
         geolocator = Nominatim(user_agent="foodshare")
         location = geolocator.geocode(
             f'{street}, {city}, {state} {zipcode}', timeout=200)
-        coordinates = [location.longitude, location.latitude]
+        coordinates = [location.latitude, location.longitude]
     except Exception as e:
         coordinates = [0, 0]
 
@@ -75,12 +75,6 @@ def get_longitude_latitude(street, city, state, zipcode):
         "type": "Point",
         "coordinates": coordinates
     }
-
-
-def add_distance(match_query):
-    user_data = get_current_user_data()
-    if (user_data.get('location', None) != None):
-        return get_nearest(user_data.get('location').get('coordinates')[0], user_data.get('location').get('coordinates')[1], match_query)
 
 
 @validate_unique('email')
@@ -154,7 +148,7 @@ def update_user_data(form):
         address.values()) and any(allergens.values())
     data['allergens'] = allergens
     data['address'] = address
-    data['location'] = get_longitude_latitude(**data['address'])
+    data['location'] = get_latitude_longitude(**data['address'])
 
     update(
         USER_COLLECTION_NAME,
@@ -234,11 +228,11 @@ def get_allergens():
     return {allergen: False for allergen in ALLERGENS}
 
 
-def show_listings(query):
+def get_listings(query):
     return find_all(LISTING_COLLECTION_NAME, query)
 
 
-def show_listing(query):
+def get_listing(query):
     return find(LISTING_COLLECTION_NAME, query)
 
 
@@ -270,7 +264,7 @@ def get_listing_form_data(for_db=True, image_name=None):
 
         data['tags'] = tags
         data['user_id'] = get_current_user_data().get('_id')
-        data['location'] = get_longitude_latitude(**data['address'])
+        data['location'] = get_latitude_longitude(**data['address'])
         if image_name:
             data['photo'] = image_name
     else:
