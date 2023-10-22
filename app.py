@@ -243,13 +243,10 @@ def serve_images(img_name):
 
 @app.route('/search', methods=['GET'])
 @requires_login
-
 def search():
-    
     query = request.args.get('query')
     price = request.args.get('price')
     sort = request.args.get('sortby')
-
     q = {}
 
     price_search_query = FILTER_FUNCTION_FIELDS.get(price, None)
@@ -271,7 +268,7 @@ def search():
     else:
         listings = find_listings(q)
 
-    return render_template('food/search.html', listings=listings)
+    return render_template('food/search.html', listings=listings, price=price, sort=sort, query=query)
 
 
 @app.template_filter('filter_date')

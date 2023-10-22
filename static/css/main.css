@@ -59,15 +59,15 @@ nav ul {
 
 nav li,
 .logo {
-   padding: 10px;
+   padding: 10px 7px;
    color: #F6CA83;
 }
 
 
 .logo {
    font-family: "Mohave", sans-serif;
-   letter-spacing: 2px;
-   font-size: 32px;
+   letter-spacing: 1.5px;
+   font-size: 24px;
    font-weight: 700;
    text-decoration-style: dotted;
    text-decoration-color: #F6CA83;
@@ -209,7 +209,7 @@ footer {
    padding: 10px;
    width: 100%;
    margin-top: auto;
-   margin-left: 10px;
+   padding-left: 20px;
 }
 
 
@@ -286,6 +286,8 @@ textarea {
 .card-grid .card h2 {
    padding: 10px;
    text-align: center;
+   font-size: 20px;
+   font-weight: bold;
 }
 
 .card-grid .card img {
@@ -371,11 +373,13 @@ h2.food-name {
    font-size: 16px;
    color: #666666;
    margin-bottom: 10px;
+   line-height: 1.5;
 }
 
 .food-allergens button,
 .food-tags button {
    margin-right: 5px;
+   margin-top: 4px;
    padding: 5px 10px;
    background: #eeeeee;
    border: 1px solid #dddddd;
@@ -428,7 +432,7 @@ h2.food-name {
    margin-bottom: 10px;
    padding: 10px;
    border-radius: 5px;
-   border: solid 1px #ddd;
+   background-color: #EBEBEB;
 }
 
 .search form input[type="submit"] {
