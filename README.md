@@ -9,7 +9,7 @@
 
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+*FoodForward* aims to reduce food waste and bolster sharing within communities. 
 
 ## User stories
 
