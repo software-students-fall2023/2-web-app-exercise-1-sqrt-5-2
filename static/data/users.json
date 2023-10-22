@@ -5,7 +5,7 @@
   "first_name": "Furry",
   "last_name": "Pig",
   "email": "furrypig@nyu.edu",
-  "password": "$2b$12$TWsqeyO2AXyPKDOVDR6LpOpkIF.ROPGJFiAGZNSbBq3xzBBKL8PGG",
+  "password": "$2b$12$VFiYmKQ/u.IyWQrPHMa2LusTWUxIbK1MCn5IqQOzFHSUkVZe2sLma",
   "phone_number": "+1 (929) 407-8972",
   "address": {
     "street": "140 E 14th St",
@@ -34,8 +34,385 @@
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.7334796,
+      -73.9880302
     ]
+  }
+},
+{
+  "_id": {
+    "$oid": "653561cf6c32027046b4366e"
+  },
+  "first_name": "Alice",
+  "last_name": "Johnson",
+  "email": "alice@gmail.com",
+  "password": "$2b$12$bdfpM.uH71m1Z700Pgd8Aujw4zzFPRkx6YKnIInANIdZYjUO83/4.",
+  "phone_number": "+1 (929) 411-7654",
+  "address": {
+    "street": "186 Dahill Rd",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "11218"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.6427211,
+      -73.98077023474967
+    ]
+  },
+  "preferences": [
+    "Indian",
+    "Spanish"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": true,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T13:54:23.746Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653563556c32027046b43671"
+  },
+  "first_name": "Bob",
+  "last_name": "Bradford",
+  "email": "bob@nyu.edu",
+  "password": "$2b$12$GnaP7ZVuHVsHcCAjJxTy8eebPOsLu/AoTT3/JOQnLoDNCy.LiAso6",
+  "phone_number": "+1 (716) 456-1212",
+  "address": {
+    "street": "1 E 2nd St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7254565,
+      -73.9918633
+    ]
+  },
+  "preferences": [
+    "Italian",
+    "Japanese"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:00:53.195Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653564666c32027046b43674"
+  },
+  "first_name": "Kimberly",
+  "last_name": "Porter",
+  "email": "kimberly@gmail.com",
+  "password": "$2b$12$/4/VPbsl/ERQyc5wY6USh.3EGBKGeYs5WimFUsSXz.FjpQWfGEhOG",
+  "phone_number": "+1 (999) 456-1234",
+  "address": {
+    "street": "436 W 126th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10027"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.812974499999996,
+      -73.95502402741968
+    ]
+  },
+  "preferences": [
+    "healthy"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": true,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:05:26.934Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653565936c32027046b43677"
+  },
+  "first_name": "Valencia",
+  "last_name": "Maravilla",
+  "email": "valencia@gmail.com",
+  "password": "$2b$12$4EEJeoY01vY9/GubPZOHUuGIkPcezIE5.iXEFQ15KBHz3wcIbAvu2",
+  "phone_number": "+1 (932) 453-1331",
+  "address": {
+    "street": "435 E 57th St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10022"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.75800535,
+      -73.96158870819707
+    ]
+  },
+  "preferences": [
+    "Avocado",
+    "spicy",
+    "grill"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:10:27.590Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653569116c32027046b4367c"
+  },
+  "first_name": "Irène",
+  "last_name": "Maçon",
+  "email": "irene@nyu.edu",
+  "password": "$2b$12$MSAnNozQPbAdjhWY833DxeeaLu2dZmKYAttOGRpPvYEtchiPSkWL6",
+  "phone_number": "+1 (745) 865-2136",
+  "address": {
+    "street": "66 John St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10038"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7087571,
+      -74.00769373727519
+    ]
+  },
+  "preferences": [
+    "sushi",
+    "Spanish"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": true,
+    "Peanuts": true,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:25:21.491Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65356c0155338774c407db65"
+  },
+  "first_name": "Harry",
+  "last_name": "Smith",
+  "email": "harry@nyu.edu",
+  "password": "$2b$12$XYE1V262Efu/ryHD/Ky8cu9Vg71E9g7WfAinNN.0zp84lq70I2ZIe",
+  "phone_number": "+1 (756) 128-9853",
+  "address": {
+    "street": "400 Broome St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10013"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7208798,
+      -73.9974599
+    ]
+  },
+  "preferences": [
+    "spicy"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": true,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:37:53.404Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65356f3055338774c407db69"
+  },
+  "first_name": "Luka",
+  "last_name": "Alfonsi",
+  "email": "luka@nyu.edu",
+  "password": "$2b$12$nqwZUnNpNpMlOVZnqSuIIulYGJPfJ72uaYOx7DG2IFrzlg6U12dwS",
+  "phone_number": "+1 (544) 422-1235",
+  "address": {
+    "street": "80 Lafayette St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10013"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7170952,
+      -74.0019536
+    ]
+  },
+  "preferences": [
+    "baked"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:51:28.794Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653570c455338774c407db6e"
+  },
+  "first_name": "Lara",
+  "last_name": "White",
+  "email": "lara@nyu.edu",
+  "password": "$2b$12$v2BWwGN/Xf1CYUT5NwY/c.Bt4Ux0gicJzYZVuvbQM8xeS7SKXEIMi",
+  "phone_number": "+1 (241) 234-1235",
+  "address": {
+    "street": "75 3rd Ave",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.73143985,
+      -73.98814415153856
+    ]
+  },
+  "preferences": [
+    "Indian",
+    "French",
+    "Spanish"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T14:58:12.228Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6535720555338774c407db72"
+  },
+  "first_name": "Michael",
+  "last_name": "Suel",
+  "email": "michael@nyu.edu",
+  "password": "$2b$12$4cbt0wLtLVAzR2tQOlBggOtJS3gj4ReumxDVRyXe.QeqgDlWXkIl6",
+  "phone_number": "+1 (234) 345-1238",
+  "address": {
+    "street": "25 Union Square W",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7362796,
+      -73.99120964730558
+    ]
+  },
+  "preferences": [
+    "Rice",
+    "cheese"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "setup_complete": true,
+  "created_at": {
+    "$date": "2023-10-22T15:03:33.716Z"
   }
 }]

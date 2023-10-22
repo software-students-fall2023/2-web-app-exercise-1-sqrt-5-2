@@ -3,7 +3,7 @@
     "$oid": "652f6652ab3d72a7f7c46ddf"
   },
   "name": "Margherita Pizza",
-  "price": 10,
+  "price": 9.99,
   "expiry": {
     "$date": "2023-10-30T00:00:00.000Z"
   },
@@ -29,7 +29,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-22T01:00:02.565Z"
+    "$date": "2023-10-23T01:00:02.565Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -40,8 +40,8 @@
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.7334796,
+      -73.9880302
     ]
   }
 },
@@ -59,7 +59,7 @@
     "Japanese",
     "seafood",
     "Rice",
-    "Avocado", 
+    "Avocado",
     "Wasabi"
   ],
   "allergens": {
@@ -79,7 +79,7 @@
     "$oid": "652f65129263681f604a211c"
   },
   "created_at": {
-    "$date": "2023-10-22T01:18:27.778Z"
+    "$date": "2023-10-23T01:18:27.778Z"
   },
   "address": {
     "street": "140 E 14th St",
@@ -90,8 +90,8 @@
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.7334796,
+      -73.9880302
     ]
   }
 },
@@ -100,9 +100,9 @@
     "$oid": "652f6b01881aca2ee610ae6e"
   },
   "name": "Chicken Tikka Masala",
-  "price": 12,
+  "price": 11.99,
   "expiry": {
-    "$date": "2023-10-30T00:00:00.000Z"
+    "$date": "2023-10-27T00:00:00.000Z"
   },
   "tags": [
     "Indian",
@@ -125,22 +125,22 @@
   "photo": "2023_10_18_01-20-01.822965_chicken_tikka_masala.jpg",
   "comments": "Accompanied with basmati rice and courtesy garlic naan.",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653561cf6c32027046b4366e"
   },
   "created_at": {
-    "$date": "2023-10-22T01:20:01.823Z"
+    "$date": "2023-10-23T01:20:01.823Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "186 Dahill Rd",
     "city": "New York",
     "state": "NY",
-    "zipcode": "10003"
+    "zipcode": "11218"
   },
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.6427211,
+      -73.98077023474967
     ]
   }
 },
@@ -151,7 +151,7 @@
   "name": "Caesar Salad",
   "price": 8.5,
   "expiry": {
-    "$date": "2023-10-30T00:00:00.000Z"
+    "$date": "2023-10-28T00:00:00.000Z"
   },
   "tags": [
     "vegetarian",
@@ -174,22 +174,22 @@
   "photo": "2023_10_18_01-21-30.238355_caesar_salad.jpg",
   "comments": "Dressing is packed separately.",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653561cf6c32027046b4366e"
   },
   "created_at": {
-    "$date": "2023-10-22T01:21:30.239Z"
+    "$date": "2023-10-23T01:21:30.239Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "186 Dahill Rd",
     "city": "New York",
     "state": "NY",
-    "zipcode": "10003"
+    "zipcode": "11218"
   },
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.6427211,
+      -73.98077023474967
     ]
   }
 },
@@ -198,16 +198,16 @@
     "$oid": "652f6bba881aca2ee610ae70"
   },
   "name": "Fish and Chips",
-  "price": 12.50,
+  "price": 12.5,
   "expiry": {
     "$date": "2023-10-30T00:00:00.000Z"
   },
   "tags": [
     "fish",
-    "chips",
-    "British",
     "Cod",
-    "Fried"
+    "British",
+    "Fried",
+    "chips"
   ],
   "allergens": {
     "Milk": false,
@@ -221,15 +221,15 @@
     "Sesame": false
   },
   "photo": "2023_10_18_01-23-06.328393_fish_and_chips.jpg",
-  "comments": " Includes tartare sauce and mushy peas.",
+  "comments": "Includes tartare sauce and mushy peas.",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653563556c32027046b43671"
   },
   "created_at": {
-    "$date": "2023-10-22T01:23:06.329Z"
+    "$date": "2023-10-23T01:23:06.329Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "1 E 2nd St",
     "city": "New York",
     "state": "NY",
     "zipcode": "10003"
@@ -237,8 +237,8 @@
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.7254565,
+      -73.9918633
     ]
   }
 },
@@ -247,7 +247,7 @@
     "$oid": "652f6edc881aca2ee610ae71"
   },
   "name": "Organic Soy Milk",
-  "price": 5,
+  "price": 4.99,
   "expiry": {
     "$date": "2023-10-30T00:00:00.000Z"
   },
@@ -271,31 +271,31 @@
   "photo": "2023_10_18_01-36-28.031153_soy_milk.webp",
   "comments": "Long shelf life.",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653564666c32027046b43674"
   },
   "created_at": {
-    "$date": "2023-10-22T01:36:28.032Z"
+    "$date": "2023-10-23T01:36:28.032Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "436 W 126th St",
     "city": "New York",
     "state": "NY",
-    "zipcode": "10003"
+    "zipcode": "10027"
   },
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.812974499999996,
+      -73.95502402741968
     ]
   }
 },
 {
   "_id": {
-    "$oid": "652f6f5a881aca2ee610ae72"
+    "$oid": "653569116c32027046b4367c"
   },
   "name": "Traditional French Baguettes",
-  "price": 10,
+  "price": 9.99,
   "expiry": {
     "$date": "2023-10-30T00:00:00.000Z"
   },
@@ -318,22 +318,22 @@
   "photo": "2023_10_18_01-38-34.632787_Classic-Crusty-French-Baguettes-3.jpg",
   "comments": "Crispy crust with a soft inside. Baked today.",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653569116c32027046b4367c"
   },
   "created_at": {
-    "$date": "2023-10-22T01:38:34.633Z"
+    "$date": "2023-10-23T01:38:34.633Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "66 John St",
     "city": "New York",
     "state": "NY",
-    "zipcode": "10003"
+    "zipcode": "10038"
   },
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.7087571,
+      -74.00769373727519
     ]
   }
 },
@@ -342,7 +342,7 @@
     "$oid": "652f700b881aca2ee610ae73"
   },
   "name": "Homemade Seafood Paella",
-  "price": 15,
+  "price": 14.99,
   "expiry": {
     "$date": "2023-10-30T00:00:00.000Z"
   },
@@ -365,22 +365,22 @@
   "photo": "2023_10_18_01-41-31.117572_seafood_paella.jpg",
   "comments": "Freshly cooked, contains shellfish.",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653565936c32027046b43677"
   },
   "created_at": {
-    "$date": "2023-10-22T01:41:31.118Z"
+    "$date": "2023-10-23T01:41:31.118Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "435 E 57th St",
     "city": "New York",
     "state": "NY",
-    "zipcode": "10003"
+    "zipcode": "10022"
   },
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.75800535,
+      -73.96158870819707
     ]
   }
 },
@@ -388,8 +388,8 @@
   "_id": {
     "$oid": "652f707e881aca2ee610ae74"
   },
-  "name": "Betty's Extra Chilli Sauce",
-  "price": 5,
+  "name": "Extra Chilli Sauce",
+  "price": 4.99,
   "expiry": {
     "$date": "2023-10-30T00:00:00.000Z"
   },
@@ -411,22 +411,256 @@
   "photo": "2023_10_18_01-43-26.392757_Sweet-Chilli-Sauce.jpg",
   "comments": "Vegan-friendly",
   "user_id": {
-    "$oid": "652f65129263681f604a211c"
+    "$oid": "653565936c32027046b43677"
   },
   "created_at": {
-    "$date": "2023-10-22T01:43:26.393Z"
+    "$date": "2023-10-23T01:43:26.393Z"
   },
   "address": {
-    "street": "140 E 14th St",
+    "street": "435 E 57th St",
     "city": "New York",
     "state": "NY",
-    "zipcode": "10003"
+    "zipcode": "10022"
   },
   "location": {
     "type": "Point",
     "coordinates": [
-        40.7334796,
-        -73.9880302
+      40.75800535,
+      -73.96158870819707
     ]
+  }
+},
+{
+  "_id": {
+    "$oid": "65356e4c55338774c407db66"
+  },
+  "name": "Grilled Salmon",
+  "price": 9.99,
+  "expiry": {
+    "$date": "2023-10-29T00:00:00.000Z"
+  },
+  "tags": [
+    "healthy",
+    "dinner",
+    "fish"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": true,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "comments": "Fresh salmon cooked to perfection with a tangy citrus glaze. Served with a side of steamed veggies.",
+  "address": {
+    "street": "400 Broome St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10013"
+  },
+  "user_id": {
+    "$oid": "65356c0155338774c407db65"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7208798,
+      -73.9974599
+    ]
+  },
+  "photo": "2023_10_22_14-47-38.237754_Grilled-Salmon.jpg",
+  "created_at": {
+    "$date": "2023-10-22T14:47:40.292Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6535701a55338774c407db6a"
+  },
+  "name": "Shrimp Pasta",
+  "price": 11.99,
+  "expiry": {
+    "$date": "2023-10-28T00:00:00.000Z"
+  },
+  "tags": [
+    "seafood",
+    "Italian"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": true,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "comments": "Italian pasta tossed with succulent shrimp and a spicy tomato-based sauce.",
+  "address": {
+    "street": "80 Lafayette St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10013"
+  },
+  "user_id": {
+    "$oid": "65356f3055338774c407db69"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7170952,
+      -74.0019536
+    ]
+  },
+  "photo": "2023_10_22_14-55-20.865620_Shrimp-Pasta-f.jpg",
+  "created_at": {
+    "$date": "2023-10-22T14:55:22.403Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653571a455338774c407db6f"
+  },
+  "name": "Peanut Butter Cupcakes",
+  "price": 13.99,
+  "expiry": {
+    "$date": "2023-10-30T00:00:00.000Z"
+  },
+  "tags": [
+    "sweet",
+    "baked",
+    "dessert"
+  ],
+  "allergens": {
+    "Milk": true,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": true,
+    "Wheat": true,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "comments": "Six Moist and fluffy cupcakes with peanut butter frosting.",
+  "address": {
+    "street": "75 3rd Ave",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "user_id": {
+    "$oid": "653570c455338774c407db6e"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.73143985,
+      -73.98814415153856
+    ]
+  },
+  "photo": "2023_10_22_15-01-53.793052_Banana-Peanut-Butter-Cupcakes.jpg",
+  "created_at": {
+    "$date": "2023-10-22T15:01:56.560Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6535730055338774c407db73"
+  },
+  "name": "Veggie Stir fry with Tofu",
+  "price": 8.99,
+  "expiry": {
+    "$date": "2023-10-28T00:00:00.000Z"
+  },
+  "tags": [
+    "healthy",
+    "dinner",
+    "Vegan"
+  ],
+  "allergens": {
+    "Milk": false,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": false,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": true,
+    "Sesame": true
+  },
+  "comments": "A mix of colorful vegetables and tofu tossed in a light soy sauce. A vegan-friendly dish with oriental flavors.",
+  "address": {
+    "street": "25 Union Square W",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "user_id": {
+    "$oid": "6535720555338774c407db72"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7362796,
+      -73.99120964730558
+    ]
+  },
+  "photo": "2023_10_22_15-07-43.820585_Tofu-Stir-Fry.jpg",
+  "created_at": {
+    "$date": "2023-10-22T15:07:44.807Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "653573be55338774c407db74"
+  },
+  "name": "Lobster Thermidor",
+  "price": 45,
+  "expiry": {
+    "$date": "2023-10-25T00:00:00.000Z"
+  },
+  "tags": [
+    "gourmet",
+    "seafood",
+    "French"
+  ],
+  "allergens": {
+    "Milk": true,
+    "Eggs": false,
+    "Fish": false,
+    "Crustacean shellfish": true,
+    "Tree nuts": false,
+    "Peanuts": false,
+    "Wheat": false,
+    "Soybeans": false,
+    "Sesame": false
+  },
+  "comments": "Fresh lobster meat cooked in a creamy white wine sauce, then stuffed back into the shell for an exquisite dining experience.",
+  "address": {
+    "street": "25 Union Square W",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10003"
+  },
+  "user_id": {
+    "$oid": "6535720555338774c407db72"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      40.7362796,
+      -73.99120964730558
+    ]
+  },
+  "photo": "2023_10_22_15-10-52.081800_lobster.jpg",
+  "created_at": {
+    "$date": "2023-10-22T15:10:54.099Z"
   }
 }]
