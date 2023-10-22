@@ -26,14 +26,14 @@ ALLERGENS = ["Milk", "Eggs", "Fish", "Crustacean shellfish",
              "Tree nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]
 
 SORT_FUNCTION_FIELDS = {
-    'newest': 'date',
+    'newest': 'created_at',
     'priceLH': 'price',
     'priceHL': 'price',
     'nearest': 'distance'
 }
 
 SORT_FUNCTION_ORDER = {
-    'newest': 1,
+    'newest': -1,
     'priceLH': 1,
     'priceHL': -1,
     'nearest': 1
