@@ -94,6 +94,17 @@
     {% endif %}
 
     <h1>Recommended for You</h1>
+        <div class="card-grid">
+            {% for food in recommended %}
+            <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                <h2>{{ food.name }}</h2>
+                <div class="card-info">
+                    <p class="price">$ {{ food.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 
     {% else %}
 
