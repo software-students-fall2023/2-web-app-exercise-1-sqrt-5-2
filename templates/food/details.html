@@ -16,6 +16,17 @@
 
         <p class="food-post-info"> Posted by {{ poster.first_name }} {{ poster.last_name }} on
             {{item.created_at|filter_date}}</p>
+        
+        {% if allergens_warning %}
+        <div class="warning">
+            This food contains the following from your allergens list:
+            {% for val in allergens_warning %}
+                <ul>
+                    <li>{{ val }}</li>
+                </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         {% if item.user_id == user_id %}
         <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>

@@ -76,7 +76,7 @@ def home():
             user=user_data,
             listings=find_listings({'user_id': user_data['_id']}),
             reservations=list(show_reservations()),
-            near=find_listings({'user_id': {'$ne': user_data['_id']}})[:4],
+            near=find_listings({'user_id': {'$ne': user_data['_id']}}, {'distance': 1})[:4],
             recommended = get_similar_food(user_data)
         )
 
@@ -161,6 +161,11 @@ def display_details(listing_id):
     # get food that have the same tags as the current food.
     similar_food = [food for food in get_listings({'tags': {'$in': item['tags']}})
                     if food['_id'] != ObjectId(listing_id)]
+    
+    allergens_overlap = []
+    for allergen in user_data['allergens']:
+        if user_data['allergens'][allergen] and item['allergens'][allergen]:
+            allergens_overlap.append(allergen)
 
     return render_template(
         'food/details.html',
@@ -169,7 +174,8 @@ def display_details(listing_id):
         reservation=find(TRANSACTION_COLLECTION_NAME, {
                          'listing_id': ObjectId(listing_id)}),
         similar_food=similar_food,
-        poster=poster_data
+        poster=poster_data,
+        allergens_warning = allergens_overlap,
     )
 
 
@@ -249,10 +255,11 @@ def search():
     query = request.args.get('query')
     price = request.args.get('price')
     sort = request.args.get('sortby')
+    exclude_allergens = request.args.get('exclude_allergens') == 'on'
+
     q = {}
 
     price_search_query = FILTER_FUNCTION_FIELDS.get(price, None)
-
     if price_search_query:
         q.update({'price': price_search_query})
 
@@ -262,6 +269,12 @@ def search():
             {'tags': {'$regex': query, '$options': 'i'}}
         ]})
 
+    if exclude_allergens:
+        allergens = get_current_user_data()['allergens']
+        for allergen in allergens:
+            if allergens[allergen]:
+                q.update({f'allergens.{allergen}': {'$ne': True}})
+
     if sort:
         listings = find_listings(
             match_query=q, 
@@ -270,7 +283,7 @@ def search():
     else:
         listings = find_listings(q)
 
-    return render_template('food/search.html', listings=listings, price=price, sort=sort, query=query)
+    return render_template('food/search.html', listings=listings, price=price, sort=sort, query=query or '', exclude_allergens=exclude_allergens)
 
 
 @app.template_filter('filter_date')

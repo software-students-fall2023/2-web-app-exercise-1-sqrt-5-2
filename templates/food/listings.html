@@ -8,7 +8,7 @@
     <h1>Listings</h1>
     <div class="button-container">
         <a href="{{url_for('add')}}" class="btn">Add Listing</a>
-        <a href="{{url_for('search')}}" class="btn">Search Food</a>
+        <a href="{{url_for('search', exclude_allergens='on')}}" class="btn">Search Food</a>
     </div>
     
     <div class="card-grid">

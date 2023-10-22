@@ -144,8 +144,7 @@ def update_user_data(form):
         'zipcode': form.get('zipcode'),
     }
 
-    data['setup_complete'] = all(data.values()) and all(
-        address.values()) and any(allergens.values())
+    data['setup_complete'] = all(data.values()) and all(address.values())
     data['allergens'] = allergens
     data['address'] = address
     data['location'] = get_latitude_longitude(**data['address'])
@@ -314,19 +313,20 @@ def handle_edit(listing_id):
             error=e
         )
 
+
 def get_similar_food(user_data):
-    user_allergens = [ allergen for allergen in user_data['allergens'] if user_data['allergens'][allergen] ]
+    user_allergens = [allergen for allergen in user_data['allergens']
+                      if user_data['allergens'][allergen]]
+    allergen_filter = {f'allergens.{allergen}': {'$ne': True}
+                       for allergen in user_allergens}
+
     user_preferences = user_data['preferences']
-    similar_food = [ food for food in find_listings({'tags' : {'$in' : user_preferences}}) ]
-    
-    for food in similar_food:
-        food_allergens = [allergen for allergen in food['allergens'] if food['allergens'][allergen]]
-        for allergens in food_allergens:
-            if allergens in user_allergens:
-                try:
-                    similar_food.remove(food)
-                    break
-                except:
-                    pass
+    similar_food = [
+        food for food in find_listings({
+            'user_id': {'$ne': user_data['_id']},
+            'tags': {'$in': user_preferences},
+            **allergen_filter}
+        )
+    ]
 
     return similar_food

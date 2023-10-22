@@ -11,7 +11,7 @@
         <form action="/search" method="GET">
             <input type="text" name="query" placeholder="Search..." value="{{ query }}">
 
-            <label for="price">Price:</label>
+            <label for="price">Price</label>
             <select name="price" id="price">
                 <option value="">-- Select --</option>
                 <option value="_5" {% if price == '_5' %}selected{% endif %}>Under $5</option>
@@ -21,7 +21,7 @@
                 <option value="20_" {% if price == '20_' %}selected{% endif %}>$20 and above</option>
             </select>
 
-            <label for="sortby">Sort by:</label>
+            <label for="sortby">Sort by</label>
             <select name="sortby" id="sortby">
                 <option value="">-- Select --</option>
                 <option value="nearest" {% if sort == 'nearest' %}selected{% endif %}>Distance</option>
@@ -29,6 +29,11 @@
                 <option value="priceLH" {% if sort == 'priceLH' %}selected{% endif %}>Price: Lowest to Highest </option>
                 <option value="priceHL" {% if sort == 'priceHL' %}selected{% endif %}>Price: Highest to Lowest </option>
             </select>
+            
+            <div class="exclude-allergens">
+                <label for="exclude_allergens">Exclude Allergens:</label>
+                <input type="checkbox" name="exclude_allergens" {% if exclude_allergens %}checked{% endif %}/>
+            </div>
 
             <input type="submit" value="Search">
         </form>

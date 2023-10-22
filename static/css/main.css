@@ -122,7 +122,6 @@ nav .active a {
 .page-content h1 {
    margin: 1rem 0;
    display: inline-block;
-   padding-right: 40px;
 }
 
 
@@ -145,6 +144,14 @@ nav .active a {
 
 .warning {
    background-color: #FFC107;
+}
+
+.warning ul {
+   margin-left: 20px;
+}
+
+.warning li {
+   font-weight: bold;
 }
 
 form {
@@ -170,7 +177,6 @@ input[type=date] {
    border-color: #333;
    font-size: 16px;
 }
-
 
 input[type=submit] {
    font-family: "Monserrat", sans-serif;
@@ -241,8 +247,11 @@ textarea {
    width: 100%;
    padding: 10px;
    margin-bottom: 10px;
-   border: 1px solid #ccc;
-   border-radius: 4px;
+   border-style: solid;
+   border-color: #333;
+   font-family: 'Montserrat', sans-serif;
+   background-color: #EBEBEB;
+   font-size: 16px;
 }
 
 .price-input {
@@ -259,6 +268,13 @@ textarea {
 
 .price-input #price {
    padding-left: 25px;
+}
+
+.exclude-allergens{
+   display: flex;
+}
+.exclude-allergens label{
+   margin-right: 10px;
 }
 
 .card-grid {
