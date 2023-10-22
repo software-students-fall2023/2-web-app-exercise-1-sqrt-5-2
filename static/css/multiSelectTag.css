@@ -3,6 +3,10 @@
 * Copyright: https://github.com/habibmhamadi/multi-select-tag
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
+
 .mult-select-tag {
     display: flex;
     width: 100%;
@@ -11,7 +15,7 @@
     position: relative;
     --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --tw-shadow-color: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-    --border-color: rgb(218, 221, 224);
+    --border-color: #333;
     margin-bottom: 1.5em;
 }
 
@@ -21,8 +25,8 @@
 
 .mult-select-tag .body {
     display: flex;
-    border: 1px solid var(--border-color);
-    background: #fff;
+    background: #EBEBEB;
+    border-color: #333;
     min-height: 2.15rem;
     width: 100%;
     min-width: 14rem

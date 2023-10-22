@@ -8,7 +8,12 @@
 
 {% block banner %}
 {% if not user %}
-<img src="/images/sharing-tomato.jpg" alt="Banner" />
+    <div class="img-container">
+        <img src="/images/sharing-tomato.jpg" alt="Banner">
+        <div class="overlay-text">
+            Help us heal the world,&emsp;&nbsp;one share at a time.
+        </div>
+    </div>
 {% endif %}
 {% endblock %}
 
@@ -92,27 +97,18 @@
 
     {% else %}
 
-    <h1>Why Choose Us?</h1>
-    <p>
-        FoodForward helps you save money and resources while contributing to a more sustainable planet. We believe
-        every
-        meal matters, and even the smallest actions can have a
-        significant impact when we all do our part. Join us on our journey towards zero food waste today!
-    </p>
+    <h1> Did you know? </h1>
+        <p><a id="food" href="https://www.edapp.com/statistics/food-waste-statistics"> 40% of the food produced in the United States head to the landfill. </a></p>
 
-    <h1>Get Started</h1>
+    <h1> Make a difference. </h1>
+        <p>We are devoted to a sustainable planet. We believe that every meal has an impact. Share your food and save your money with FoodForward. </p>
 
+    <h1> Get started. </h1>
     <div>
-        <p style="margin-bottom:5px;">If you already have an account, click the button below to log in.</p>
         <div class="button-container">
-            <a href="{{ url_for('login') }}" class='btn'>Log In</a>
-        </div>
-    </div>
+            <a id = "loginBtn" href="{{ url_for('login') }}" class='btn'>Log In</a>
+            <a id = "registerBtn" href="{{ url_for('register') }}" class='btn'>Register</a>
 
-    <div>
-        <p style="margin-bottom:5px;">If you're new to FoodForward, click the button below to get started.</p>
-        <div class="button-container">
-            <a href="{{ url_for('register') }}" class='btn'>Register</a>
         </div>
     </div>
 
