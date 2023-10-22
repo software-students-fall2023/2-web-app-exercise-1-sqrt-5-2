@@ -82,6 +82,14 @@
         <input type="submit" name="change_password" value="Submit">
     </form>
 
+    <hr />
+
+    <form action="{{ url_for('delete_profile') }}" method="GET">
+        <h3>Delete Account</h3>
+        All your reservations, listings, and profile data will be deleted. This action cannot be undone.
+        <input type="submit" name="delete_account" value="Delete Account">    
+    </form>
+
 </div>
 
 <script>

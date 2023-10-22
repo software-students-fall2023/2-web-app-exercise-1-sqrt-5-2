@@ -76,8 +76,9 @@ def home():
             user=user_data,
             listings=find_listings({'user_id': user_data['_id']}),
             reservations=list(show_reservations()),
-            near=find_listings({'user_id': {'$ne': user_data['_id']}}, {'distance': 1})[:4],
-            recommended = get_similar_food(user_data)
+            near=find_listings({'user_id': {'$ne': user_data['_id']}}, {
+                               'distance': 1})[:4],
+            recommended=get_similar_food(user_data)
         )
 
 
@@ -135,6 +136,16 @@ def profile():
             return edit_profile(request.form, change_password)
 
 
+@app.route('/profile/delete', methods=['GET'])
+@requires_login
+def delete_profile():
+    user_id = get_current_user_data()['_id']
+    delete(TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})
+    delete(LISTING_COLLECTION_NAME, {'user_id': user_id})
+    delete('users', {'_id': user_id})
+    return redirect(url_for('logout'))
+
+
 @app.route('/listings', methods=['GET', 'POST'])
 @requires_login
 def listings():
@@ -161,7 +172,7 @@ def display_details(listing_id):
     # get food that have the same tags as the current food.
     similar_food = [food for food in get_listings({'tags': {'$in': item['tags']}})
                     if food['_id'] != ObjectId(listing_id)]
-    
+
     allergens_overlap = []
     for allergen in user_data['allergens']:
         if user_data['allergens'][allergen] and item['allergens'][allergen]:
@@ -175,7 +186,7 @@ def display_details(listing_id):
                          'listing_id': ObjectId(listing_id)}),
         similar_food=similar_food,
         poster=poster_data,
-        allergens_warning = allergens_overlap,
+        allergens_warning=allergens_overlap,
     )
 
 
@@ -225,6 +236,22 @@ def cancel(listing_id):
         'reserved_by': get_current_user_data()['_id']
     })
     return redirect(url_for('display_details', listing_id=listing_id))
+
+
+@app.route('/listings/<listing_id>/delete', methods=['GET'])
+@requires_login
+def delete_listing(listing_id):
+    item = get_listing({'_id': ObjectId(listing_id)})
+    if not item:
+        return redirect(url_for('listings'))
+
+    if get_current_user_data()['_id'] != item['user_id']:
+        return redirect(url_for('listings', listing_id=listing_id))
+
+    delete(TRANSACTION_COLLECTION_NAME, {'listing_id': ObjectId(listing_id)})
+    delete(LISTING_COLLECTION_NAME, {'_id': ObjectId(listing_id)})
+
+    return redirect(url_for('listings'))
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -277,9 +304,9 @@ def search():
 
     if sort:
         listings = find_listings(
-            match_query=q, 
+            match_query=q,
             sort_query={SORT_FUNCTION_FIELDS[sort]: SORT_FUNCTION_ORDER[sort]}
-            )
+        )
     else:
         listings = find_listings(q)
 
