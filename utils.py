@@ -1,4 +1,4 @@
-from db import insert, update, find, find_all, get_current_user_data, add_listing, edit_listing
+from db import insert, update, find, find_all, get_current_user_data, add_listing, edit_listing, find_listings
 from flask_bcrypt import Bcrypt
 from flask import request, redirect, url_for, render_template
 from functools import wraps
@@ -313,3 +313,20 @@ def handle_edit(listing_id):
             item=get_listing_form_data(for_db=False),
             error=e
         )
+
+def get_similar_food(user_data):
+    user_allergens = [ allergen for allergen in user_data['allergens'] if user_data['allergens'][allergen] ]
+    user_preferences = user_data['preferences']
+    similar_food = [ food for food in find_listings({'tags' : {'$in' : user_preferences}}) ]
+    
+    for food in similar_food:
+        food_allergens = [allergen for allergen in food['allergens'] if food['allergens'][allergen]]
+        for allergens in food_allergens:
+            if allergens in user_allergens:
+                try:
+                    similar_food.remove(food)
+                    break
+                except:
+                    pass
+
+    return similar_food
