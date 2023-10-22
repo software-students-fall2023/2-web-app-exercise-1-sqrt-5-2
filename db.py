@@ -12,7 +12,8 @@ from defaults import (
     USER_COLLECTION_NAME,
     LOGIN_COOKIE_NAME,
     LISTING_COLLECTION_NAME,
-    TRANSACTION_COLLECTION_NAME
+    TRANSACTION_COLLECTION_NAME,
+    ALLERGENS
 )
 
 
@@ -33,12 +34,18 @@ db = connection[DATABASE_NAME]
 def create_index():
     db[LISTING_COLLECTION_NAME].create_index([("location", "2dsphere")])
     db[LISTING_COLLECTION_NAME].create_index([("tags", 1)])
-    db[LISTING_COLLECTION_NAME].create_index([("allergens", 1)])
     db[LISTING_COLLECTION_NAME].create_index([("name", "text")])
+    db[LISTING_COLLECTION_NAME].create_index([("user_id", 1)])
+
+    db[USER_COLLECTION_NAME].create_index([("location", "2dsphere")])
     db[USER_COLLECTION_NAME].create_index([("preferences", 1)])
-    db[USER_COLLECTION_NAME].create_index([("allergens", 1)])
     db[USER_COLLECTION_NAME].create_index([("email", 1)])
     db[USER_COLLECTION_NAME].create_index([("phone_number", 1)])
+
+    for allergen in ALLERGENS:
+        db[LISTING_COLLECTION_NAME].create_index([(f'allergens.{allergen}', 1)])
+        db[USER_COLLECTION_NAME].create_index([(f'allergens.{allergen}', 1)])
+
     db[TRANSACTION_COLLECTION_NAME].create_index([("reserved_by", 1)])
     db[TRANSACTION_COLLECTION_NAME].create_index([("listing_id", 1)])
 
@@ -101,6 +108,9 @@ def show_reservations():
 def delete(collection, query):
     return db[collection].delete_one(query)
 
+def delete_all(collection, query):
+    return db[collection].delete_many(query)
+
 def find_listings(match_query, sort_query=None):
     user_data = get_current_user_data()
     user_latitude, user_longitude = user_data.get('location').get('coordinates')
@@ -108,7 +118,8 @@ def find_listings(match_query, sort_query=None):
     if user_latitude == 0 and user_longitude == 0:
         cursor = find_all(LISTING_COLLECTION_NAME, match_query)
         if sort_query:
-            cursor = cursor.sort(sort_query.keys()[0], sort_query.values()[0])
+            (sortby, order), = sort_query.items()
+            cursor = cursor.sort(sortby, order)
         
         return list(cursor)
     else:

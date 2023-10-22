@@ -91,9 +91,8 @@
     <h3 class="warning">No recommendations right now. Check back later!</h3>
     {% endif %}
 
-
-    {% if near %}
     <h1> Food Near You </h1>
+    {% if near %}
     <div class="card-grid">
         {% for food in near %}
         {% if food.user_id != user_id %}

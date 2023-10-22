@@ -27,7 +27,8 @@ from db import (
     insert,
     show_reservations,
     find,
-    delete
+    delete,
+    delete_all
 )
 from defaults import (
     TEMPLATES_DIR,
@@ -71,13 +72,15 @@ def home():
     if not user_data:
         return render_template('index.html')
     else:
+        food_near_user = None
+        if user_data['location']['coordinates'] != [0, 0]:
+            food_near_user = find_listings({'user_id': {'$ne': user_data['_id']}}, {'distance': 1})[:4]
         return render_template(
             'index.html',
             user=user_data,
             listings=find_listings({'user_id': user_data['_id']}),
             reservations=list(show_reservations()),
-            near=find_listings({'user_id': {'$ne': user_data['_id']}}, {
-                               'distance': 1})[:4],
+            near=food_near_user,
             recommended=get_similar_food(user_data)
         )
 
@@ -140,8 +143,8 @@ def profile():
 @requires_login
 def delete_profile():
     user_id = get_current_user_data()['_id']
-    delete(TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})
-    delete(LISTING_COLLECTION_NAME, {'user_id': user_id})
+    delete_all(TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})
+    delete_all(LISTING_COLLECTION_NAME, {'user_id': user_id})
     delete('users', {'_id': user_id})
     return redirect(url_for('logout'))
 

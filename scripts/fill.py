@@ -1,6 +1,7 @@
-from db import drop_collection, db
+from db import db
 from bson.json_util import loads
 from defaults import DATA_DIR
+from .delete import delete
 
 
 def add_dummy_data(collection, filename):
@@ -9,8 +10,8 @@ def add_dummy_data(collection, filename):
 
 
 def fill():
+    delete()
     for file in DATA_DIR.glob('*.json'):
-        drop_collection(file.stem)
         print('Filling collection with data from:', file.name)
         add_dummy_data(file.stem, file.name)
 
