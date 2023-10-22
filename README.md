@@ -9,11 +9,11 @@
 
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+*FoodForward* aims to reduce food waste and bolster sharing within communities. 
 
 ## User stories
 
-See instructions. Delete this line and place a link to the user stories here.
+* [Issues](issues.txt)
 
 ## Task boards
 
