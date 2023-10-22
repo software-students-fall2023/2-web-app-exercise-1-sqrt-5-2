@@ -1,0 +1,12 @@
+1. As a college student, I want to be able to keep track of food prices so that I can save money. 
+2. As a person in a wheelchair, I want to know the distance to the listings so that it would help me filter them better. 
+3. As someone with a severe peanut allergy, I want allergens to be featured on each food so I know which foods to be avoid. 
+4. As an avid foodie, I want to have my preferences stored so that I know exactly what I want.
+5. As a computer scientist, I want the option to delete my profile so that I can worry less about data security. 
+6. As a sceptical person, I want to know why I should engage in food sharing before I join this app so I don't waste my time. 
+7. As an impatient person, I want to be able to reserve my food so that no one else takes it before me!
+8. As a dietitian, I want to know the expiration date for each listing so that I don't get food poisoning. 
+9. As an autistic person, I want to be able to search food to my exact liking so that I can avoid food that I'm sensitive to. 
+10. As a lazy person, I want food recommended for me on the homepage so that I don't need to scroll through food myself. 
+11. As an elderly citizen, I want food near me displayed so that my eyes don't have to suffer through too many listings. 
+12. As the owner of a restaurant, I want the ability to add listings so that I don't have to waste food needlessly. 
