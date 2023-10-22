@@ -9,11 +9,11 @@
 
 ## Product vision statement
 
-*FoodForward* aims to reduce food waste and bolster sharing within communities. 
+*FoodForward* aims to reduce food waste by making surplus food sharing simple, engaging, and accessible for everyone, one meal at a time.
 
 ## User stories
 
-* [Issues](issues.txt)
+* [Issues](https://github.com/software-students-fall2023/2-web-app-exercise-1-sqrt-5-2/issues)
 
 ## Task boards
 
@@ -22,14 +22,16 @@
 
 ## Setup
 
-### MongoDB
+Copy the `.env.example` file contents to a new `.env` file and edit the details accordingly.
 
-- Copy the `.env.example` file contents to a new `.env` file and edit the details accordingly.
-- Start the MongoDB server.
+### MongoDB
+- Install MongoDB and start the MongoDB server.
 
 ### Environment
 
-Use Pipenv to manage dependencies. See [Pipenv](https://pipenv.pypa.io/en/latest/installation/) for details.
+### Pipenv
+
+To manage dependencies using Pipenv, check [Pipenv](https://pipenv.pypa.io/en/latest/installation/) for details.
 
 Install Pipenv:
 
@@ -49,10 +51,22 @@ Activate the virtual environment:
 pipenv shell
 ```
 
-Finally, run the flask app:
+> **Note:** If you are having issues using Pipenv, create virtual environment using venv, activate it and run:
+>
+> ```
+> pip install -r requirements.txt
+> ```
+
+Finally, run the flask app using:
 
 ```sh
 flask run --reload
+```
+
+or 
+
+```sh
+python app.py
 ```
 
 ### Filler Data
