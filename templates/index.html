@@ -48,7 +48,7 @@
             <h2>{{ food.name }}</h2>
             <div class="card-info">
                 <p class="price">$ {{ food.price }}</p>
-                {% if food.distance %}
+                {% if food.distance != None %}
                 <p class="distance">
                     {% if food.distance > 1000 %}
                     {{ (food.distance/1000)|round(1) }} km away
@@ -72,7 +72,7 @@
             <h2>{{ food.name }}</h2>
             <div class="card-info">
                 <p class="price">$ {{ food.price }}</p>
-                {% if food.distance %}
+                {% if food.distance != None %}
                 <p class="distance">
                     {% if food.distance > 1000 %}
                     {{ (food.distance/1000)|round(1) }} km away
@@ -101,7 +101,7 @@
             <h2>{{ food.name }}</h2>
             <div class="card-info">
                 <p class="price">$ {{ food.price }}</p>
-                {% if food.distance %}
+                {% if food.distance != None %}
                 <p class="distance">
                     {% if food.distance > 1000 %}
                     {{ (food.distance/1000)|round(1) }} km away
