@@ -21,7 +21,7 @@ h1 {
 
 body {
    font-family: 'Montserrat', sans-serif;
-   font-size: 14px;
+   font-size: 16px;
    line-height: 1.5;
    color: #333;
    min-height: 100vh;
@@ -168,7 +168,7 @@ input[type=date] {
    background: #EBEBEB;
    border-style: solid;
    border-color: #333;
-   font-size: 18px;
+   font-size: 16px;
 }
 
 
@@ -183,7 +183,7 @@ input[type=submit] {
    width: 100%;
    opacity: 0.9;
    padding: 15px;
-   font-size: 18px;
+   font-size: 16px;
 }
 
 
@@ -309,7 +309,7 @@ textarea {
 .card-grid .card .card-info p {
    margin: 0 0 5px 0;
    font-weight: bold;
-   font-size: 18px;
+   font-size: 16px;
 }
 
 .card-grid .card .card-info .price {
@@ -318,7 +318,7 @@ textarea {
 
 .card-grid .card .card-info .distance {
    color: #666666;
-   font-size: 14px;
+   font-size: 16px;
 }
 
 .food-item {
@@ -363,7 +363,7 @@ h2.food-name {
 .food-price{
    font-weight: bold;
    color: green;
-   font-size: 18px;
+   font-size: 16px;
 }
 
 .food-allergens,

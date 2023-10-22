@@ -26,6 +26,7 @@
 .mult-select-tag .body {
     display: flex;
     background: #EBEBEB;
+    border: 1px solid var(--border-color);
     border-color: #333;
     min-height: 2.15rem;
     width: 100%;
