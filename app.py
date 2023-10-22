@@ -27,6 +27,7 @@ from db import (
     insert,
     show_reservations,
     find,
+    find_all,
     delete,
     delete_all
 )
@@ -143,7 +144,10 @@ def profile():
 @requires_login
 def delete_profile():
     user_id = get_current_user_data()['_id']
+    listings_ids = [listing['_id'] for listing in find_all(LISTING_COLLECTION_NAME, {'user_id': user_id})]
+
     delete_all(TRANSACTION_COLLECTION_NAME, {'reserved_by': user_id})
+    delete_all(TRANSACTION_COLLECTION_NAME, {'listing_id': {'$in': listings_ids}})
     delete_all(LISTING_COLLECTION_NAME, {'user_id': user_id})
     delete('users', {'_id': user_id})
     return redirect(url_for('logout'))

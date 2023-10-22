@@ -30,7 +30,7 @@
         <input type="date" id="expiry" name="expiry" value="{{ item.expiry.strftime('%Y-%m-%d') }}" required>
 
         <label for="tags" required="">Tags</label>
-        <select id="tags" name="tags" multiple required>
+        <select id="tags" name="tags" multiple>
             {% for tag, selected in item.tags.items() %}
                 <option value="{{ tag }}" {% if selected %}selected{% endif %}>{{ tag }}</option>
             {% endfor %}
