@@ -2,6 +2,7 @@ import pymongo
 import datetime
 from flask import request
 from bson.objectid import ObjectId
+import sys
 from defaults import (
     MONGO_DB_HOST,
     MONGO_DB_PORT,
@@ -13,6 +14,7 @@ from defaults import (
     LISTING_COLLECTION_NAME,
     TRANSACTION_COLLECTION_NAME
 )
+
 
 # make a connection to the database server
 connection = pymongo.MongoClient(
@@ -133,6 +135,8 @@ def find_listings(match_query, sort_query=None):
         for item in results:
             if item['location']['coordinates'] == [0, 0]:
                 item['distance'] = None
+        
+        if sort_query and 'distance' in sort_query:
+            results.sort(key = lambda x : sys.maxsize if x.get('distance') == None else x.get('distance')) 
 
-        print(results)
         return results
