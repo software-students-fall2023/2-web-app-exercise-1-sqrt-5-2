@@ -94,7 +94,6 @@
 
     {% if near %}
     <h1> Food Near You </h1>
-    {% if user.location.coordinates[0] != 0 or user.location.coordinates[1] != 0 %}
     <div class="card-grid">
         {% for food in near %}
         {% if food.user_id != user_id %}
@@ -119,7 +118,6 @@
     </div>
     {% else %}
     <h3 class="warning">Fill in detailed location info in your profile to see listings near you!</h3>
-    {% endif %}
     {% endif %}
 
     {% else %}
