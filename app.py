@@ -13,7 +13,8 @@ from utils import (
     get_allergens,
     handle_post,
     handle_edit,
-    get_listing
+    get_listing,
+    get_similar_food
 )
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -75,7 +76,8 @@ def home():
             user=user_data,
             listings=find_listings({'user_id': user_data['_id']}),
             reservations=list(show_reservations()),
-            near=find_listings({'user_id': {'$ne': user_data['_id']}})[:4]
+            near=find_listings({'user_id': {'$ne': user_data['_id']}})[:4],
+            recommended = get_similar_food(user_data)
         )
 
 
