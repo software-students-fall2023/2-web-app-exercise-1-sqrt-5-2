@@ -243,7 +243,9 @@ def serve_images(img_name):
 
 @app.route('/search', methods=['GET'])
 @requires_login
+
 def search():
+    
     query = request.args.get('query')
     price = request.args.get('price')
     sort = request.args.get('sortby')

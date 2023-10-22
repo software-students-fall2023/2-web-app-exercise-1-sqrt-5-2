@@ -28,13 +28,15 @@ ALLERGENS = ["Milk", "Eggs", "Fish", "Crustacean shellfish",
 SORT_FUNCTION_FIELDS = {
     'newest': 'date',
     'priceLH': 'price',
-    'priceHL': 'price'
+    'priceHL': 'price',
+    'nearest': 'distance'
 }
 
 SORT_FUNCTION_ORDER = {
     'newest': 1,
     'priceLH': 1,
-    'priceHL': -1
+    'priceHL': -1,
+    'nearest': 1
 }
 
 FILTER_FUNCTION_FIELDS = {
