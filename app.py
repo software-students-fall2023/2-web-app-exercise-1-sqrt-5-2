@@ -166,8 +166,15 @@ def display_details(listing_id):
     if not item:
         return redirect(url_for('listings'))
 
+    reservation = find(
+        TRANSACTION_COLLECTION_NAME,
+        {'listing_id': ObjectId(listing_id)}
+    )
+
     user_data = get_current_user_data()
     poster_data = get_user_data(user_id=item['user_id'])
+    reserver_data = get_user_data(
+        user_id=reservation['reserved_by']) if reservation else None
 
     # get food that have the same tags as the current food.
     similar_food = [food for food in get_listings({'tags': {'$in': item['tags']}})
@@ -182,10 +189,10 @@ def display_details(listing_id):
         'food/details.html',
         item=item,
         user_id=user_data['_id'],
-        reservation=find(TRANSACTION_COLLECTION_NAME, {
-                         'listing_id': ObjectId(listing_id)}),
+        reservation=reservation,
         similar_food=similar_food,
         poster=poster_data,
+        reserver=reserver_data,
         allergens_warning=allergens_overlap,
     )
 

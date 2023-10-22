@@ -29,19 +29,33 @@
         {% endif %}
 
         {% if item.user_id == user_id %}
-        <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
-        <a href="{{ url_for('delete_listing', listing_id=item._id) }}" class="btn cancel"> Delete Listing </a>
-        {% elif reservation %}
-        {% if reservation.reserved_by == user_id %}
-        <p class="success">Contact {{ poster.first_name }} at <strong>{{ poster.email }}</strong> {% if poster.phone_number%} or <strong>{{
-                poster.phone_number }}</strong>{% endif %} to fix a time to meet up at specified location.</p>
 
-        <a href="{{ url_for('cancel', listing_id=item._id) }}" class="btn cancel">Cancel Reservation</a>
+            {% if reserver %}
+                <p class="success">
+                    Your listing has been reserved by {{ reserver.first_name }} {{ reserver.last_name }}.
+                    
+                    <br />
+                    
+                    Contact them at <strong>{{ reserver.email }}</strong> {% if reserver.phone_number%} or <strong>{{
+                    reserver.phone_number }}</strong>{% endif %} to fix a time to meet up at specified location.
+                </p>
+            {% endif %}
+
+            <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
+            <a href="{{ url_for('delete_listing', listing_id=item._id) }}" class="btn cancel"> Delete Listing </a>
+
+        {% elif reservation %}
+            {% if reservation.reserved_by == user_id %}
+                <p class="success">Contact {{ poster.first_name }} at <strong>{{ poster.email }}</strong> {% if poster.phone_number%} or <strong>{{
+                        poster.phone_number }}</strong>{% endif %} to fix a time to meet up at specified location.</p>
+
+                <a href="{{ url_for('cancel', listing_id=item._id) }}" class="btn cancel">Cancel Reservation</a>
+            {% else %}
+                <a href="#" class="btn disabled">Not Available</a>
+            {% endif %}
+
         {% else %}
-        <a href="#" class="btn disabled">Not Available</a>
-        {% endif %}
-        {% else %}
-        <a href="{{ url_for('reserve', listing_id=item._id) }}" class="btn reserve">Reserve Food</a>
+            <a href="{{ url_for('reserve', listing_id=item._id) }}" class="btn reserve">Reserve Food</a>
         {% endif %}
 
         <img src="/images/{{ item.photo }}" alt="{{ item.name }}" class="food-photo">
