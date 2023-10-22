@@ -1,6 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat');
+@import url('https://fonts.googleapis.com/css2?family=Mohave');
 
+body {
+    background-color: #EBEBEB;
+}
+
+h1 {
+   font-family: "Josefin Sans", sans-serif;
+   font-style: normal;
+   text-align: left;
+   color: #748CAB;
+}
 
 * {
    margin: 0;
@@ -8,10 +19,9 @@
    box-sizing: border-box;
 }
 
-
 body {
-   font-family: 'Roboto', sans-serif;
-   font-size: 14px;
+   font-family: 'Montserrat', sans-serif;
+   font-size: 16px;
    line-height: 1.5;
    color: #333;
    min-height: 100vh;
@@ -22,12 +32,13 @@ body {
 
 nav,
 footer {
-   border: 1px solid #e7e7e7;
-   background-color: #FDFDFD;
+   font-weight: 500;
+   background-color: #EBEBEB;
 }
 
 
 nav {
+   background-color: #EBEBEB;
    position: -webkit-sticky;
    position: sticky;
    top: 0;
@@ -36,11 +47,11 @@ nav {
    justify-content: space-between;
    align-items: center;
    margin-bottom: 1rem;
-   font-family: "Josefin Sans", sans-serif;
 }
 
 
 nav ul {
+   font-family: "Josefin Sans", sans-serif;
    list-style-type: none;
    display: flex;
 }
@@ -54,9 +65,14 @@ nav li,
 
 
 .logo {
-   letter-spacing: 1.2px;
-   font-size: 22px;
-   font-weight: bold;
+   font-family: "Mohave", sans-serif;
+   letter-spacing: 2px;
+   font-size: 32px;
+   font-weight: 700;
+   text-decoration-style: dotted;
+   text-decoration-color: #F6CA83;
+   text-decoration-line: line-through;
+   text-decoration-thickness: 4px;
 }
 
 
@@ -134,7 +150,7 @@ nav .active a {
 form {
    margin: 0 auto;
    padding: 20px;
-   background-color: white;
+   background-color: #EBEBEB;
    border-radius: 4px;
 }
 
@@ -145,23 +161,29 @@ input[type=email],
 input[type=file],
 input[type=number],
 input[type=date] {
+   font-family: "Monserrat", sans-serif;
    width: 100%;
    padding: 15px;
    margin: 5px 0 22px 0;
-   border: none;
-   background: #f1f1f1;
+   background: #EBEBEB;
+   border-style: solid;
+   border-color: #333;
+   font-size: 16px;
 }
 
 
 input[type=submit] {
-   background-color: #007BFF;
-   color: white;
+   font-family: "Monserrat", sans-serif;
+   font-weight: 600;
+   background-color: #F6CA83;
+   color: #333;
    border: none;
    border-radius: 4px;
    cursor: pointer;
    width: 100%;
    opacity: 0.9;
    padding: 15px;
+   font-size: 16px;
 }
 
 
@@ -183,10 +205,11 @@ label[required]:after {
 
 
 footer {
-   text-align: center;
+   text-align: left;
    padding: 10px;
    width: 100%;
    margin-top: auto;
+   margin-left: 10px;
 }
 
 
@@ -286,7 +309,7 @@ textarea {
 .card-grid .card .card-info p {
    margin: 0 0 5px 0;
    font-weight: bold;
-   font-size: 18px;
+   font-size: 16px;
 }
 
 .card-grid .card .card-info .price {
@@ -295,7 +318,7 @@ textarea {
 
 .card-grid .card .card-info .distance {
    color: #666666;
-   font-size: 14px;
+   font-size: 16px;
 }
 
 .food-item {
@@ -340,7 +363,7 @@ h2.food-name {
 .food-price{
    font-weight: bold;
    color: green;
-   font-size: 18px;
+   font-size: 16px;
 }
 
 .food-allergens,
