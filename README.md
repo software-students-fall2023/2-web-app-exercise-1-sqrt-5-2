@@ -22,10 +22,11 @@
 
 ## Setup
 
-Copy the `.env.example` file contents to a new `.env` file and edit the details accordingly.
+Copy the contents of `.env.example` file to a new `.env` file. If you want, you can edit the details accordingly.
 
 ### MongoDB
-- Install MongoDB and start the MongoDB server.
+- Install [MongoDB](https://www.mongodb.com/docs/manual/installation/)
+- Start the MongoDB server in the same configuration as specified in `.env`.
 
 ### Environment
 
@@ -81,7 +82,7 @@ python -m scripts.fill
 
 ### Default User Accounts
 
-You can log in with one of the following default accounts to easily view the features of the app.
+You can definitely create a new account, but you can also log in with one of the following default accounts to easily view the features of the app.
 
 | Email              | Password |
 |--------------------|----------|
