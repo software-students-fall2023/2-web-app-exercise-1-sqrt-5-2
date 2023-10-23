@@ -78,3 +78,20 @@ Run the following in the root directory if you need to manually add filler data 
 ```sh
 python -m scripts.fill
 ```
+
+### Default User Accounts
+
+You can log in with one of the following default accounts to easily view the features of the app.
+
+| Email              | Password |
+|--------------------|----------|
+| furrypig@nyu.edu   | pass1234 |
+| alice@gmail.com    | pass1234 |
+| bob@nyu.edu        | pass1234 |
+| kimberly@gmail.com | pass1234 |
+| valencia@gmail.com | pass1234 |
+| irene@nyu.edu      | pass1234 |
+| harry@nyu.edu      | pass1234 |
+| luka@nyu.edu       | pass1234 |
+| lara@nyu.edu       | pass1234 |
+| michael@nyu.edu    | pass1234 |
