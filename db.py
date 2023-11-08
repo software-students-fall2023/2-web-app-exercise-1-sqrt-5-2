@@ -1,8 +1,9 @@
-import pymongo
 import datetime
-from flask import request
-from bson.objectid import ObjectId
+import pymongo
 import sys
+from bson.objectid import ObjectId
+from flask import request
+
 from defaults import (
     MONGO_DB_HOST,
     MONGO_DB_PORT,
@@ -16,16 +17,20 @@ from defaults import (
     ALLERGENS
 )
 
-
 # make a connection to the database server
-connection = pymongo.MongoClient(
-    MONGO_DB_HOST,
-    MONGO_DB_PORT,
-
-    # uncomment if you have a username and password on the database server
-    # username=MONGO_DB_USERNAME,
-    # password=MONGO_DB_PASSWORD,
-)
+if MONGO_DB_USERNAME and MONGO_DB_PASSWORD:
+    connection = pymongo.MongoClient(
+        MONGO_DB_HOST,
+        MONGO_DB_PORT,
+        username=MONGO_DB_USERNAME,
+        password=MONGO_DB_PASSWORD,
+        authSource=DATABASE_NAME,
+    )
+else:
+    connection = pymongo.MongoClient(
+        MONGO_DB_HOST,
+        MONGO_DB_PORT
+    )
 
 # select a specific database on the server
 db = connection[DATABASE_NAME]
@@ -98,6 +103,7 @@ def get_user_data(user_id):
 def get_current_user_data():
     return get_user_data(ObjectId(request.cookies.get(LOGIN_COOKIE_NAME)))
 
+
 def show_reservations():
     user_id = get_current_user_data()['_id']
     listing_ids = [x.get('listing_id') for x in find_all(
@@ -108,31 +114,33 @@ def show_reservations():
 def delete(collection, query):
     return db[collection].delete_one(query)
 
+
 def delete_all(collection, query):
     return db[collection].delete_many(query)
+
 
 def find_listings(match_query, sort_query=None):
     user_data = get_current_user_data()
     user_latitude, user_longitude = user_data.get('location').get('coordinates')
-    
+
     if user_latitude == 0 and user_longitude == 0:
         cursor = find_all(LISTING_COLLECTION_NAME, match_query)
         if sort_query:
             (sortby, order), = sort_query.items()
             cursor = cursor.sort(sortby, order)
-        
+
         return list(cursor)
     else:
         q = [{
-                "$geoNear": {
-                    "near": {
-                        "type": "Point",
-                        "coordinates": [user_latitude, user_longitude]
-                    },
-                    "distanceField": "distance",
-                    "spherical": True
-                }
-            },
+            "$geoNear": {
+                "near": {
+                    "type": "Point",
+                    "coordinates": [user_latitude, user_longitude]
+                },
+                "distanceField": "distance",
+                "spherical": True
+            }
+        },
             {
                 "$match": match_query
             },
@@ -146,8 +154,8 @@ def find_listings(match_query, sort_query=None):
         for item in results:
             if item['location']['coordinates'] == [0, 0]:
                 item['distance'] = None
-        
+
         if sort_query and 'distance' in sort_query:
-            results.sort(key = lambda x : sys.maxsize if x.get('distance') == None else x.get('distance')) 
+            results.sort(key=lambda x: sys.maxsize if x.get('distance') == None else x.get('distance'))
 
         return results
