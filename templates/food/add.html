@@ -1,0 +1,18 @@
+{% extends 'layouts/food-form.html' %}
+
+{% block title %}Add Food Post{% endblock %}
+
+{% block header %}Add Food Post{% endblock %}
+
+{% block action %}{{ url_for('add') }}{% endblock %}
+
+{% block button_value %}Submit{% endblock %}
+
+{% block address_notif %}
+    {% if item.address.values()|any %}
+        <p class="success" style="margin:5px 0;">The location details have been prefilled from your profile.</p>
+    {% endif %}
+{% endblock %}
+
+{% block photo_required1 %}required=""{% endblock %}
+{% block photo_required2 %}required{% endblock %}

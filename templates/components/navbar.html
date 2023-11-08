@@ -1,0 +1,18 @@
+<nav>
+  <div class="logo">
+    <a href="{{ url_for('home') }}">FoodForward ></a>
+  </div>
+
+  <ul>
+    {% if request.cookies.get('session') %}
+      {% for ni in ['listings', 'profile', 'logout'] %}
+        <li {% if request.path == url_for(ni) %} class="active"{% endif %}><a href="{{ url_for(ni) }}">{{ ni | capitalize }}</a></li>
+      {% endfor %}
+
+    {% elif request.path != url_for('home') %}
+      {% for ni in ['login', 'register'] %}
+        <li {% if request.path == url_for(ni) %} class="active"{% endif %}><a href="{{ url_for(ni) }}">{{ ni | capitalize }}</a></li>
+      {% endfor %}
+    {% endif %}
+  </ul>
+</nav>

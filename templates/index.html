@@ -1,0 +1,152 @@
+{% extends 'layouts/layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block banner %}
+{% if not user %}
+<div class="img-container">
+    <img src="/images/sharing-tomato.jpg" alt="Banner">
+    <div class="overlay-text">
+        Help us heal the world, one share at a time.
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-content">
+
+    {% if user %}
+
+    {% if listings %}
+    <h1> Your Listings </h1>
+    <div class="card-grid">
+        {% for food in listings %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if reservations %}
+    <h1> Your Reservations </h1>
+    <div class="card-grid">
+        {% for food in reservations %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
+                {% if food.get('distance') != None %}
+                <p class="distance">
+                    {% if food.distance > 1000 %}
+                    {{ (food.distance/1000)|round(1) }} km away
+                    {% else %}
+                    {{ food.distance|round(1) }} m away
+                    {% endif %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1>Recommended for You</h1>
+    {% if recommended %}
+    <div class="card-grid">
+        {% for food in recommended %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
+                {% if food.get('distance') != None %}
+                <p class="distance">
+                    {% if food.distance > 1000 %}
+                    {{ (food.distance/1000)|round(1) }} km away
+                    {% else %}
+                    {{ food.distance|round(1) }} m away
+                    {% endif %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif not user.preferences %}
+    <h3 class="warning">Fill in food preferences in your profile to see recommendations!</h3>
+    {% else %}
+    <h3 class="warning">No recommendations right now. Check back later!</h3>
+    {% endif %}
+
+    <h1> Food Near You </h1>
+    {% if near %}
+    <div class="card-grid">
+        {% for food in near %}
+        {% if food.user_id != user_id %}
+        <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+            <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+            <h2>{{ food.name }}</h2>
+            <div class="card-info">
+                <p class="price">$ {{ food.price }}</p>
+                {% if food.get('distance') != None %}
+                <p class="distance">
+                    {% if food.distance > 1000 %}
+                    {{ (food.distance/1000)|round(1) }} km away
+                    {% else %}
+                    {{ food.distance|round(1) }} m away
+                    {% endif %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <h3 class="warning">Fill in detailed location info in your profile to see listings near you!</h3>
+    {% endif %}
+
+    {% else %}
+
+    <h1> Did you know? </h1>
+    <p>
+        <a id="food" href="https://www.edapp.com/statistics/food-waste-statistics"> 40% of the food produced in the
+            United States head to the landfill.
+        </a>
+    </p>
+
+    <h1> Make a difference. </h1>
+    <p>
+        We are devoted to a sustainable planet. We believe that every meal has an impact.
+        <br>
+        We aim to reduce food waste by making surplus food sharing simple and accessible to everyone.
+    </p>
+
+    <h1> Get started. </h1>
+
+    <div>
+        <div class="button-container">
+            <a id="loginBtn" href="{{ url_for('login') }}" class='btn'>Log In</a>
+            <a id="registerBtn" href="{{ url_for('register') }}" class='btn'>Register</a>
+
+        </div>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

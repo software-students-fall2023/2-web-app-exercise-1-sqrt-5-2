@@ -1,0 +1,110 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}{{item.name}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/multiSelectTag.css">
+<script src="/static/js/multiSelectTag.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-content">
+
+    <div class="food-item">
+        <h2 class="food-name">{{item.name}}</h2>
+
+        <p class="food-post-info"> Posted by {{ poster.first_name }} {{ poster.last_name }} on
+            {{item.created_at|filter_date}}</p>
+        
+        {% if allergens_warning %}
+        <div class="warning">
+            This food contains the following from your allergens list:
+            {% for val in allergens_warning %}
+                <ul>
+                    <li>{{ val }}</li>
+                </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if item.user_id == user_id %}
+
+            {% if reserver %}
+                <p class="success">
+                    Your listing has been reserved by {{ reserver.first_name }} {{ reserver.last_name }}.
+                    
+                    <br />
+                    
+                    Contact them at <strong>{{ reserver.email }}</strong> {% if reserver.phone_number%} or <strong>{{
+                    reserver.phone_number }}</strong>{% endif %} to fix a time to meet up at specified location.
+                </p>
+            {% endif %}
+
+            <a href="{{ url_for('edit_details', listing_id=item._id) }}" class="btn"> Edit Listing </a>
+            <a href="{{ url_for('delete_listing', listing_id=item._id) }}" class="btn cancel"> Delete Listing </a>
+
+        {% elif reservation %}
+            {% if reservation.reserved_by == user_id %}
+                <p class="success">Contact {{ poster.first_name }} at <strong>{{ poster.email }}</strong> {% if poster.phone_number%} or <strong>{{
+                        poster.phone_number }}</strong>{% endif %} to fix a time to meet up at specified location.</p>
+
+                <a href="{{ url_for('cancel', listing_id=item._id) }}" class="btn cancel">Cancel Reservation</a>
+            {% else %}
+                <a href="#" class="btn disabled">Not Available</a>
+            {% endif %}
+
+        {% else %}
+            <a href="{{ url_for('reserve', listing_id=item._id) }}" class="btn reserve">Reserve Food</a>
+        {% endif %}
+
+        <img src="/images/{{ item.photo }}" alt="{{ item.name }}" class="food-photo">
+        <p class="food-comments">{{ item.comments }}</p>
+        <p class="food-price"><strong>Price:</strong> $ {{ item.price }}</p>
+
+        <p class="food-tags"><strong>Tags:</strong>
+            {% if item.tags %}
+            {% for tag in item.tags %}
+            <button> {{tag}} </button>
+            {% endfor %}
+            {% endif %}
+        </p>
+
+        <p class="food-allergens"><strong>Allergens:</strong>
+            {% if item.allergens.values()|any %}
+            {% for key, value in item.allergens.items() %}
+            {% if item.allergens[key] %}
+            <button> {{key}} </button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            N/A
+            {% endif %}
+        </p>
+
+        <p class="food-expiry"> <strong>Expires on:</strong> {{ item.expiry|filter_date }}</p>
+
+        <p class="food-location"><strong>Meetup: </strong><a
+                href="https://www.google.com/maps/search/{{item.address.street}}, {{item.address.city}}, {{item.address.state}} {{item.address.zip}}">{{item.address.street}},
+                {{item.address.city}}, {{item.address.state}} {{item.address.zip}}</a></p>
+    </div>
+
+    {% if similar_food %}
+    <div class="similar-food">
+        <h1>You may also like</h1>
+        <div class="card-grid">
+            {% for food in similar_food %}
+            <div class="card" onclick="location.href='/listings/{{ food._id }}'">
+                <img src="/images/{{ food.photo }}" alt="{{ food.name }}">
+                <h2>{{ food.name }}</h2>
+                <div class="card-info">
+                    <p class="price">$ {{ food.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'layouts/food-form.html' %}
+
+{% block title %}Edit {{item.name}}{% endblock %}
+
+{% block header %}Edit Food Post{% endblock %}
+
+{% block action %}{{ url_for('edit_details', listing_id=item._id) }}{% endblock %}
+
+{% block img %}
+<img src="/images/{{ item.photo }}" style="max-width: 100%; height: auto;"/>
+{% endblock %}
+
+{% block button_value %}Edit{% endblock %}
